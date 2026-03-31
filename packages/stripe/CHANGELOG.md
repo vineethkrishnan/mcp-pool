@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.4...stripe-mcp-v1.0.5) (2026-03-31)
+
+
+### Bug Fixes
+
+* **stripe,sentry:** convert zod schemas to json schema for mcp protocol ([16d1853](https://github.com/vineethkrishnan/mcp-pool/commit/16d185376c524a4e1af07c02b1483db32bbd75b4))
+
 ## [1.0.4](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.3...stripe-mcp-v1.0.4) (2026-03-31)
 
 

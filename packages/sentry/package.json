@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/sentry-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A read-only MCP server for Sentry API, enabling AI assistants to investigate errors and debug issues. Supports self-hosted instances.",
   "main": "build/index.js",
   "bin": {
