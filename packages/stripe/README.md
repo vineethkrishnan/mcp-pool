@@ -63,7 +63,7 @@ If the package is published to a registry (e.g., NPM), you can run it without cl
   "mcpServers": {
     "stripe": {
       "command": "npx",
-      "args": ["-y", "@vineethkrishnan/stripe-mcp"],
+      "args": ["-y", "@vineethnkrishnan/stripe-mcp"],
       "env": {
         "STRIPE_SECRET_KEY": "sk_test_..."
       }
@@ -73,7 +73,7 @@ If the package is published to a registry (e.g., NPM), you can run it without cl
 ```
 
 ### Option 3: Using `npx` with Local Path
-You can also use `npx` to run the local build of `@vineethkrishnan/stripe-mcp`, which handles dependencies automatically.
+You can also use `npx` to run the local build of `@vineethnkrishnan/stripe-mcp`, which handles dependencies automatically.
 
 ```json
 {

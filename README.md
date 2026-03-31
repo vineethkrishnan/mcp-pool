@@ -5,7 +5,7 @@
 [![Security](https://github.com/vineethkrishnan/mcp-pool/actions/workflows/security.yml/badge.svg)](https://github.com/vineethkrishnan/mcp-pool/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[Documentation](https://mcp-pool-docs.pages.dev) | [npm](https://www.npmjs.com/org/vineethkrishnan) | [GitHub](https://github.com/vineethkrishnan/mcp-pool)
+[Documentation](https://mcp-pool-docs.pages.dev) | [npm](https://www.npmjs.com/~vineethnkrishnan) | [GitHub](https://github.com/vineethkrishnan/mcp-pool)
 
 A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct, read-only access to popular SaaS APIs — no dashboard switching required.
 
@@ -17,7 +17,7 @@ MCP Pool bridges the gap between AI chat interfaces and the business tools teams
 
 | Package | Description | Version |
 |---------|-------------|---------|
-| **[@vineethkrishnan/stripe-mcp](packages/stripe)** | Read-only Stripe API access — customers, payments, subscriptions, invoices, products, payouts, disputes, and tax | [![npm](https://img.shields.io/npm/v/@vineethkrishnan/stripe-mcp)](https://www.npmjs.com/package/@vineethkrishnan/stripe-mcp) |
+| **[@vineethnkrishnan/stripe-mcp](packages/stripe)** | Read-only Stripe API access — customers, payments, subscriptions, invoices, products, payouts, disputes, and tax | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/stripe-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/stripe-mcp) |
 
 > More MCP servers coming soon. Contributions welcome!
 
@@ -38,7 +38,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "stripe": {
       "command": "npx",
-      "args": ["-y", "@vineethkrishnan/stripe-mcp"],
+      "args": ["-y", "@vineethnkrishnan/stripe-mcp"],
       "env": {
         "STRIPE_SECRET_KEY": "sk_test_..."
       }

@@ -28,7 +28,7 @@ If the package is published to a registry (e.g., NPM), you can run it without cl
   "mcpServers": {
     "stripe": {
       "command": "npx",
-      "args": ["-y", "@vineethkrishnan/stripe-mcp"],
+      "args": ["-y", "@vineethnkrishnan/stripe-mcp"],
       "env": {
         "STRIPE_SECRET_KEY": "sk_test_..."
       }

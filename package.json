@@ -1,5 +1,5 @@
 {
-  "name": "@vineethkrishnan/mcp-pool",
+  "name": "@vineethnkrishnan/mcp-pool",
   "private": true,
   "description": "A centralized pool of Model Context Protocol (MCP) servers.",
   "workspaces": [

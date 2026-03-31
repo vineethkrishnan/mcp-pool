@@ -1,5 +1,5 @@
 {
-  "name": "@vineethkrishnan/stripe-mcp",
+  "name": "@vineethnkrishnan/stripe-mcp",
   "version": "1.0.1",
   "description": "A read-only MCP server for Stripe API, enabling AI assistants to query financial data.",
   "main": "build/index.js",
