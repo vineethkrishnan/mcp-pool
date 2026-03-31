@@ -2,12 +2,17 @@
   "$schema": "https://unpkg.com/knip@latest/schema.json",
   "ignoreBinaries": ["knip", "jscpd"],
   "workspaces": {
-    "packages/stripe": {
-      "project": ["src/**/*.ts"]
-    },
-    "packages/sentry": {
-      "project": ["src/**/*.ts"]
-    }
+    "packages/stripe": { "project": ["src/**/*.ts"] },
+    "packages/sentry": { "project": ["src/**/*.ts"] },
+    "packages/notion": { "project": ["src/**/*.ts"] },
+    "packages/linear": { "project": ["src/**/*.ts"] },
+    "packages/datadog": { "project": ["src/**/*.ts"] },
+    "packages/vercel": { "project": ["src/**/*.ts"] },
+    "packages/pagerduty": { "project": ["src/**/*.ts"] },
+    "packages/hubspot": { "project": ["src/**/*.ts"] },
+    "packages/intercom": { "project": ["src/**/*.ts"] },
+    "packages/shopify": { "project": ["src/**/*.ts"] },
+    "packages/google-workspace": { "project": ["src/**/*.ts"] }
   },
   "ignore": ["docs/**"]
 }

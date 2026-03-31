@@ -1,0 +1,46 @@
+{
+  "name": "@vineethnkrishnan/intercom-mcp",
+  "version": "0.1.0",
+  "description": "A read-only MCP server for Intercom API, enabling AI assistants to query conversations, contacts, and support data.",
+  "main": "build/index.js",
+  "bin": {
+    "intercom-mcp": "build/index.js"
+  },
+  "files": [
+    "build/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "test": "jest --coverage"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "intercom",
+    "ai",
+    "model-context-protocol",
+    "customer-support",
+    "conversations",
+    "contacts"
+  ],
+  "author": "Vineeth Krishnan",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.7.0"
+  }
+}

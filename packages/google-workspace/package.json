@@ -1,0 +1,47 @@
+{
+  "name": "@vineethnkrishnan/google-workspace-mcp",
+  "version": "0.1.0",
+  "description": "A read-only MCP server for Google Workspace APIs (Gmail, Calendar, Drive, Sheets), enabling AI assistants to search emails, check calendars, find files, and read spreadsheets.",
+  "main": "build/index.js",
+  "bin": {
+    "google-workspace-mcp": "build/index.js"
+  },
+  "files": [
+    "build/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "test": "jest --coverage"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "google-workspace",
+    "gmail",
+    "google-calendar",
+    "google-drive",
+    "google-sheets",
+    "ai",
+    "model-context-protocol"
+  ],
+  "author": "Vineeth Krishnan",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.7.0"
+  }
+}

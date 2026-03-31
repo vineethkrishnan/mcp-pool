@@ -17,9 +17,17 @@ MCP Pool bridges the gap between AI chat interfaces and the business tools teams
 
 | Package | Description | Version |
 |---------|-------------|---------|
-| **[@vineethnkrishnan/stripe-mcp](packages/stripe)** | Read-only Stripe API access — customers, payments, subscriptions, invoices, products, payouts, disputes, and tax | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/stripe-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/stripe-mcp) |
-
-> More MCP servers coming soon. Contributions welcome!
+| **[@vineethnkrishnan/stripe-mcp](packages/stripe)** | Stripe — payments, customers, subscriptions, invoices | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/stripe-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/stripe-mcp) |
+| **[@vineethnkrishnan/sentry-mcp](packages/sentry)** | Sentry — issues, events, stack traces. Self-hosted support. | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/sentry-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/sentry-mcp) |
+| **[@vineethnkrishnan/notion-mcp](packages/notion)** | Notion — pages, databases, search, content | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/notion-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/notion-mcp) |
+| **[@vineethnkrishnan/linear-mcp](packages/linear)** | Linear — issues, projects, teams (GraphQL) | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/linear-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/linear-mcp) |
+| **[@vineethnkrishnan/datadog-mcp](packages/datadog)** | Datadog — monitors, metrics, events. Multi-site support. | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/datadog-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/datadog-mcp) |
+| **[@vineethnkrishnan/vercel-mcp](packages/vercel)** | Vercel — deployments, projects, build logs | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/vercel-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/vercel-mcp) |
+| **[@vineethnkrishnan/pagerduty-mcp](packages/pagerduty)** | PagerDuty — incidents, on-call, services. EU support. | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/pagerduty-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/pagerduty-mcp) |
+| **[@vineethnkrishnan/hubspot-mcp](packages/hubspot)** | HubSpot — contacts, deals, companies | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/hubspot-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/hubspot-mcp) |
+| **[@vineethnkrishnan/intercom-mcp](packages/intercom)** | Intercom — conversations, contacts, support | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/intercom-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/intercom-mcp) |
+| **[@vineethnkrishnan/shopify-mcp](packages/shopify)** | Shopify — orders, products, customers | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/shopify-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/shopify-mcp) |
+| **[@vineethnkrishnan/google-workspace-mcp](packages/google-workspace)** | Google Workspace — Gmail, Calendar, Drive, Sheets | [![npm](https://img.shields.io/npm/v/@vineethnkrishnan/google-workspace-mcp)](https://www.npmjs.com/package/@vineethnkrishnan/google-workspace-mcp) |
 
 ---
 

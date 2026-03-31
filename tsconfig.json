@@ -11,7 +11,16 @@
   },
   "references": [
     { "path": "packages/stripe" },
-    { "path": "packages/sentry" }
+    { "path": "packages/sentry" },
+    { "path": "packages/notion" },
+    { "path": "packages/linear" },
+    { "path": "packages/datadog" },
+    { "path": "packages/vercel" },
+    { "path": "packages/pagerduty" },
+    { "path": "packages/hubspot" },
+    { "path": "packages/intercom" },
+    { "path": "packages/shopify" },
+    { "path": "packages/google-workspace" }
   ],
   "files": []
 }
