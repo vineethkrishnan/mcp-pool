@@ -11,32 +11,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Ready to Use',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Install via <code>npx</code>, set one environment variable, and your AI
+        assistant can query live data. No complex setup required.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Read-Only by Default',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        All MCP servers are read-only by design. Safe for AI-driven workflows —
+        no accidental mutations, refunds, or deletions.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Multi-IDE Support',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Works with Claude Desktop, VS Code, Cursor, Windsurf, JetBrains, and
+        Claude Code CLI. One server, every IDE.
       </>
     ),
   },
