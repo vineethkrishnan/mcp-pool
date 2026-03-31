@@ -8,9 +8,8 @@ const config: Config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://vineethkrishnan.github.io",
-  // Set the /<baseUrl>/ for GitHub pages deployment
-  baseUrl: "/mcp-pool/",
+  url: "https://mcp-pool.vineethnk.in",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   organizationName: "vineethkrishnan",
