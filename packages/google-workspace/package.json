@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/google-workspace-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A read-only MCP server for Google Workspace APIs (Gmail, Calendar, Drive, Sheets), enabling AI assistants to search emails, check calendars, find files, and read spreadsheets.",
   "main": "build/index.js",
   "bin": {
