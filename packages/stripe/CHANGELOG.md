@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.5...stripe-mcp-v1.0.6) (2026-03-31)
+
+
+### Bug Fixes
+
+* **stripe,sentry:** add docs site url to package readmes and contributing guide ([7cd91aa](https://github.com/vineethkrishnan/mcp-pool/commit/7cd91aa07a805b80cdd34f92053109ccc26bede0))
+
 ## [1.0.5](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.4...stripe-mcp-v1.0.5) (2026-03-31)
 
 

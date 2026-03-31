@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/vineethkrishnan/mcp-pool/compare/sentry-mcp-v0.1.2...sentry-mcp-v0.1.3) (2026-03-31)
+
+
+### Bug Fixes
+
+* **stripe,sentry:** add docs site url to package readmes and contributing guide ([7cd91aa](https://github.com/vineethkrishnan/mcp-pool/commit/7cd91aa07a805b80cdd34f92053109ccc26bede0))
+
 ## [0.1.2](https://github.com/vineethkrishnan/mcp-pool/compare/sentry-mcp-v0.1.1...sentry-mcp-v0.1.2) (2026-03-31)
 
 
