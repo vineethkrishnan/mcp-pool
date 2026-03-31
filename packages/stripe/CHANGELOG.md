@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.2...stripe-mcp-v1.0.3) (2026-03-31)
+
+
+### Bug Fixes
+
+* **stripe:** read server version from package.json instead of hardcoding ([892f42e](https://github.com/vineethkrishnan/mcp-pool/commit/892f42e0f2413f33a2558fb5af9c1d653807a5c7))
+
 ## [1.0.2](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.1...stripe-mcp-v1.0.2) (2026-03-31)
 
 
