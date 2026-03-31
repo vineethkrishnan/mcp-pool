@@ -1,0 +1,24 @@
+{
+  "name": "@vineethkrishnan/mcp-pool",
+  "private": true,
+  "description": "A centralized pool of Model Context Protocol (MCP) servers.",
+  "workspaces": [
+    "packages/*",
+    "docs"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm test --workspaces",
+    "docs:start": "npm start --workspace docs",
+    "docs:build": "npm run build --workspace docs"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "llm",
+    "stripe"
+  ],
+  "author": "Vineeth Krishnan",
+  "license": "ISC"
+}
