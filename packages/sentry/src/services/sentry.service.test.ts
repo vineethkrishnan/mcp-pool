@@ -185,6 +185,22 @@ describe("SentryService", () => {
   });
 
   // =========================================================================
+  // Empty string param filtering
+  // =========================================================================
+
+  describe("empty string param filtering", () => {
+    it("excludes params with empty string values from the URL", async () => {
+      mockResponse([]);
+      await service.listIssues("my-project", undefined, "", "date", 25);
+
+      const url = new URL(getCalledUrl());
+      expect(url.searchParams.has("query")).toBe(false);
+      expect(url.searchParams.get("sort")).toBe("date");
+      expect(url.searchParams.get("per_page")).toBe("25");
+    });
+  });
+
+  // =========================================================================
   // Organizations
   // =========================================================================
 

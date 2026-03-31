@@ -7,6 +7,7 @@ import {
   ErrorCode,
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
+import { z } from "zod";
 import { StripeService } from "./services/stripe.service";
 import { CustomerTools, CustomerToolSchemas } from "./tools/customer.tools";
 import { PaymentTools, PaymentToolSchemas } from "./tools/payment.tools";
@@ -75,7 +76,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
       name,
       description: config.description,
-      inputSchema: config.schema,
+      inputSchema: z.toJSONSchema(config.schema),
     })),
   };
 });

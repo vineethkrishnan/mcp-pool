@@ -255,6 +255,78 @@ describe("truncateStackFrames", () => {
     const stacktrace = values[0].stacktrace as Record<string, unknown>;
     expect((stacktrace.frames as unknown[]).length).toBe(15);
   });
+
+  it("handles array input by mapping each element", () => {
+    const input = [
+      {
+        exception: {
+          values: [
+            {
+              stacktrace: {
+                frames: new Array(20).fill({ func: "test" }),
+              },
+            },
+          ],
+        },
+      },
+    ];
+
+    const result = truncateStackFrames(input) as Record<string, unknown>[];
+    const first = result[0];
+    const values = (first.exception as Record<string, unknown>).values as Record<string, unknown>[];
+    const stacktrace = values[0].stacktrace as Record<string, unknown>;
+    const frames = stacktrace.frames as unknown[];
+
+    expect(frames).toHaveLength(15);
+    expect(stacktrace._truncated).toEqual({ kept: 15, total: 20 });
+  });
+
+  it("handles top-level exception.values format (not entries-based)", () => {
+    const input = {
+      exception: {
+        values: [
+          {
+            stacktrace: {
+              frames: new Array(20).fill({ func: "test" }),
+            },
+          },
+        ],
+      },
+    };
+
+    const result = truncateStackFrames(input) as Record<string, unknown>;
+    const values = (result.exception as Record<string, unknown>).values as Record<
+      string,
+      unknown
+    >[];
+    const stacktrace = values[0].stacktrace as Record<string, unknown>;
+    const frames = stacktrace.frames as unknown[];
+
+    expect(frames).toHaveLength(15);
+    expect(stacktrace._truncated).toEqual({ kept: 15, total: 20 });
+  });
+
+  it("returns value unchanged when stacktrace.frames is not an array", () => {
+    const input = {
+      exception: {
+        values: [
+          {
+            stacktrace: { frames: "not-an-array" },
+          },
+        ],
+      },
+    };
+
+    const result = truncateStackFrames(input) as Record<string, unknown>;
+    const values = (result.exception as Record<string, unknown>).values as Record<
+      string,
+      unknown
+    >[];
+    const stacktrace = values[0].stacktrace as Record<string, unknown>;
+
+    expect(stacktrace.frames).toBe("not-an-array");
+    expect(stacktrace._truncated).toBeUndefined();
+  });
 });
 
 describe("truncateBreadcrumbs", () => {
@@ -372,6 +444,28 @@ describe("truncateBreadcrumbs", () => {
     expect(entries[0].type).toBe("exception");
     const data = entries[1].data as Record<string, unknown>;
     expect((data.values as unknown[]).length).toBe(20);
+  });
+
+  it("handles array input by mapping each element", () => {
+    const input = [{ breadcrumbs: new Array(25).fill({ message: "test" }) }];
+
+    const result = truncateBreadcrumbs(input) as Record<string, unknown>[];
+    const first = result[0];
+    const breadcrumbs = first.breadcrumbs as unknown[];
+
+    expect(breadcrumbs).toHaveLength(20);
+    expect(first._breadcrumbsTruncated).toEqual({ kept: 20, total: 25 });
+  });
+
+  it("returns entry unchanged when breadcrumb data is missing", () => {
+    const input = {
+      entries: [{ type: "breadcrumbs" }],
+    };
+
+    const result = truncateBreadcrumbs(input) as Record<string, unknown>;
+    const entries = result.entries as Record<string, unknown>[];
+
+    expect(entries[0]).toEqual({ type: "breadcrumbs" });
   });
 });
 

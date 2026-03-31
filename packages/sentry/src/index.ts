@@ -7,6 +7,7 @@ import {
   ErrorCode,
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
+import { z } from "zod";
 import { SentryService } from "./services/sentry.service";
 import { OrganizationTools, OrganizationToolSchemas } from "./tools/organization.tools";
 import { ProjectTools, ProjectToolSchemas } from "./tools/project.tools";
@@ -66,7 +67,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
       name,
       description: config.description,
-      inputSchema: config.schema,
+      inputSchema: z.toJSONSchema(config.schema),
     })),
   };
 });
