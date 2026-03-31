@@ -1,6 +1,6 @@
 # Stripe MCP Server Documentation
 
-Welcome to the `stripe-mcp` server documentation. This guide details the available tools, their parameters, and examples for how to use them through an AI assistant.
+Welcome to the `stripe-mcp` server documentation. For the full documentation site, visit [mcp-pool.vineethnk.in](https://mcp-pool.vineethnk.in). This guide details the available tools, their parameters, and examples for how to use them through an AI assistant.
 
 ---
 
