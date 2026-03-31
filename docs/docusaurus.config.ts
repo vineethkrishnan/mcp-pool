@@ -65,21 +65,31 @@ const config: Config = {
       style: "dark",
       links: [
         {
-          title: "Docs",
+          title: "Developer Tools",
           items: [
-            {
-              label: "Stripe MCP",
-              to: "/docs/stripe/overview",
-            },
+            { label: "Stripe", to: "/docs/stripe/overview" },
+            { label: "Sentry", to: "/docs/sentry/overview" },
+            { label: "Datadog", to: "/docs/datadog/overview" },
+            { label: "Vercel", to: "/docs/vercel/overview" },
+            { label: "PagerDuty", to: "/docs/pagerduty/overview" },
           ],
         },
         {
-          title: "More",
+          title: "Productivity & Business",
           items: [
-            {
-              label: "GitHub",
-              href: "https://github.com/vineethkrishnan",
-            },
+            { label: "Notion", to: "/docs/notion/overview" },
+            { label: "Linear", to: "/docs/linear/overview" },
+            { label: "Google Workspace", to: "/docs/google-workspace/overview" },
+            { label: "HubSpot", to: "/docs/hubspot/overview" },
+            { label: "Intercom", to: "/docs/intercom/overview" },
+            { label: "Shopify", to: "/docs/shopify/overview" },
+          ],
+        },
+        {
+          title: "Links",
+          items: [
+            { label: "GitHub", href: "https://github.com/vineethkrishnan/mcp-pool" },
+            { label: "npm", href: "https://www.npmjs.com/~vineethnkrishnan" },
           ],
         },
       ],

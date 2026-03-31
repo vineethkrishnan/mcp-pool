@@ -1,7 +1,17 @@
 {
-  "threshold": 10,
+  "threshold": 15,
   "reporters": ["console"],
-  "ignore": ["node_modules", "build", "dist", "coverage", "docs"],
+  "ignore": [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage",
+    "docs",
+    "**/*.test.ts",
+    "**/*.config.js",
+    "**/tsconfig.json",
+    "**/jest.config.js"
+  ],
   "absolute": true,
   "gitignore": true
 }

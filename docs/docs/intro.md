@@ -18,15 +18,15 @@ The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standa
 |--------|-------------|-----|
 | [Stripe MCP](/docs/stripe/overview) | Payments, customers, subscriptions, invoices | `@vineethnkrishnan/stripe-mcp` |
 | [Sentry MCP](/docs/sentry/overview) | Issues, events, stack traces. Self-hosted support. | `@vineethnkrishnan/sentry-mcp` |
-| [Notion MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/notion) | Pages, databases, search, content | `@vineethnkrishnan/notion-mcp` |
-| [Linear MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/linear) | Issues, projects, teams (GraphQL) | `@vineethnkrishnan/linear-mcp` |
-| [Datadog MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/datadog) | Monitors, metrics, events. Multi-site. | `@vineethnkrishnan/datadog-mcp` |
-| [Vercel MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/vercel) | Deployments, projects, build logs | `@vineethnkrishnan/vercel-mcp` |
-| [PagerDuty MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/pagerduty) | Incidents, on-call, services. EU support. | `@vineethnkrishnan/pagerduty-mcp` |
-| [HubSpot MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/hubspot) | Contacts, deals, companies (CRM) | `@vineethnkrishnan/hubspot-mcp` |
-| [Intercom MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/intercom) | Conversations, contacts, support | `@vineethnkrishnan/intercom-mcp` |
-| [Shopify MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/shopify) | Orders, products, customers | `@vineethnkrishnan/shopify-mcp` |
-| [Google Workspace MCP](https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/google-workspace) | Gmail, Calendar, Drive, Sheets | `@vineethnkrishnan/google-workspace-mcp` |
+| [Notion MCP](/docs/notion/overview) | Pages, databases, search, content | `@vineethnkrishnan/notion-mcp` |
+| [Linear MCP](/docs/linear/overview) | Issues, projects, teams (GraphQL) | `@vineethnkrishnan/linear-mcp` |
+| [Datadog MCP](/docs/datadog/overview) | Monitors, metrics, events. Multi-site. | `@vineethnkrishnan/datadog-mcp` |
+| [Vercel MCP](/docs/vercel/overview) | Deployments, projects, build logs | `@vineethnkrishnan/vercel-mcp` |
+| [PagerDuty MCP](/docs/pagerduty/overview) | Incidents, on-call, services. EU support. | `@vineethnkrishnan/pagerduty-mcp` |
+| [HubSpot MCP](/docs/hubspot/overview) | Contacts, deals, companies (CRM) | `@vineethnkrishnan/hubspot-mcp` |
+| [Intercom MCP](/docs/intercom/overview) | Conversations, contacts, support | `@vineethnkrishnan/intercom-mcp` |
+| [Shopify MCP](/docs/shopify/overview) | Orders, products, customers | `@vineethnkrishnan/shopify-mcp` |
+| [Google Workspace MCP](/docs/google-workspace/overview) | Gmail, Calendar, Drive, Sheets | `@vineethnkrishnan/google-workspace-mcp` |
 
 ## Why MCP Pool?
 
