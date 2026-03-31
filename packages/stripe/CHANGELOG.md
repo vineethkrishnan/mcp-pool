@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.1...stripe-mcp-v1.0.2) (2026-03-31)
+
+
+### Bug Fixes
+
+* correct npm scope to [@vineethnkrishnan](https://github.com/vineethnkrishnan) to match npm account ([31121d8](https://github.com/vineethkrishnan/mcp-pool/commit/31121d8f3119d340393ea56077296e05ccfb1c67))
+
 ## [1.0.1](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.0...stripe-mcp-v1.0.1) (2026-03-31)
 
 
