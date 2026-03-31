@@ -70,7 +70,7 @@ const config: Config = {
           items: [
             {
               label: "Stripe MCP",
-              to: "/docs/stripe",
+              to: "/docs/stripe/overview",
             },
           ],
         },

@@ -1,47 +1,34 @@
 ---
 sidebar_position: 1
+title: Introduction
+description: MCP Pool — a curated collection of MCP servers for AI assistants.
 ---
 
-# Tutorial Intro
+# MCP Pool
 
-Let's discover **Docusaurus in less than 5 minutes**.
+A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct, read-only access to popular SaaS APIs.
 
-## Getting Started
+## What is MCP?
 
-Get started by **creating a new site**.
+The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard that allows AI assistants to connect to external data sources and tools. Instead of copy-pasting data into chat, MCP lets the AI query your systems directly.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## Available Servers
 
-### What you'll need
+| Server | Description | npm |
+|--------|-------------|-----|
+| [Stripe MCP](/docs/stripe/overview) | Read-only access to Stripe — customers, payments, subscriptions, invoices, products, payouts, disputes, and tax | `@vineethnkrishnan/stripe-mcp` |
 
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+## Why MCP Pool?
 
-## Generate a new site
+- **Ready to use** — Install via `npx`, configure one environment variable, done.
+- **Read-only by default** — Safe for AI-driven workflows. No accidental mutations.
+- **LLM-optimized** — Responses are cleaned and transformed to minimize token usage.
+- **Multi-IDE support** — Works with Claude Desktop, VS Code, Cursor, Windsurf, JetBrains, and Claude Code CLI.
 
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
+## Quick Start
 
 ```bash
-cd my-website
-npm run start
+npx -y @vineethnkrishnan/stripe-mcp
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+See the [Installation Guide](/docs/stripe/installation) for detailed setup instructions for your IDE.
