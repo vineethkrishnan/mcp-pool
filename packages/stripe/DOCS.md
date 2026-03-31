@@ -89,6 +89,17 @@ Monitor session activity and tax configurations.
 
 ---
 
+## Response Transformation
+
+All Stripe API responses pass through an automatic transformation pipeline before being returned:
+
+1. **Key Stripping**: Internal Stripe fields (`object`, `livemode`, `request`, `pending_webhooks`, `api_version`, `lastResponse`) are recursively removed.
+2. **Timestamp Conversion**: Numeric Unix timestamps in fields like `created`, `current_period_end`, `trial_end`, etc. are converted to ISO 8601 strings (e.g., `1672531200` → `"2023-01-01T00:00:00.000Z"`).
+
+This optimization reduces token consumption and makes responses more readable for AI models.
+
+---
+
 ## 🏗 Architectural Details
 
 ### Modular with Clean Principles

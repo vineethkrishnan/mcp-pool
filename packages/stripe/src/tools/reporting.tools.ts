@@ -1,5 +1,6 @@
-import { z } from 'zod';
-import { StripeService } from '../services/stripe.service';
+import { z } from "zod";
+import { StripeService } from "../services/stripe.service";
+import { formatMcpResponse } from "../common/utils";
 
 export const CheckoutToolSchemas = {
   get_checkout_session: {
@@ -19,14 +20,18 @@ export const CheckoutToolSchemas = {
 export class CheckoutTools {
   constructor(private stripeService: StripeService) {}
 
-  async get_checkout_session(args: z.infer<typeof CheckoutToolSchemas.get_checkout_session.schema>) {
+  async get_checkout_session(
+    args: z.infer<typeof CheckoutToolSchemas.get_checkout_session.schema>,
+  ) {
     const data = await this.stripeService.getCheckoutSession(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
-  async list_checkout_sessions(args: z.infer<typeof CheckoutToolSchemas.list_checkout_sessions.schema>) {
+  async list_checkout_sessions(
+    args: z.infer<typeof CheckoutToolSchemas.list_checkout_sessions.schema>,
+  ) {
     const data = await this.stripeService.listCheckoutSessions(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 }
 
@@ -63,22 +68,22 @@ export class ReportingTools {
 
   async get_payout(args: z.infer<typeof ReportingToolSchemas.get_payout.schema>) {
     const data = await this.stripeService.getPayout(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_payouts(args: z.infer<typeof ReportingToolSchemas.list_payouts.schema>) {
     const data = await this.stripeService.listPayouts(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async get_dispute(args: z.infer<typeof ReportingToolSchemas.get_dispute.schema>) {
     const data = await this.stripeService.getDispute(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_disputes(args: z.infer<typeof ReportingToolSchemas.list_disputes.schema>) {
     const data = await this.stripeService.listDisputes(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 }
 
@@ -103,11 +108,11 @@ export class TaxTools {
 
   async get_tax_rate(args: z.infer<typeof TaxToolSchemas.get_tax_rate.schema>) {
     const data = await this.stripeService.getTaxRate(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_tax_rates(args: z.infer<typeof TaxToolSchemas.list_tax_rates.schema>) {
     const data = await this.stripeService.listTaxRates(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 }

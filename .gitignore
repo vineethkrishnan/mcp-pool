@@ -1,0 +1,27 @@
+# Internal docs (PRDs, architecture notes)
+_docs/
+
+# Dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+coverage/
+
+# Docusaurus
+docs/.docusaurus
+docs/build
+
+# IDE
+.cursor/
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local

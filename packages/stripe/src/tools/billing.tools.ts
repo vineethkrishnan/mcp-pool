@@ -1,9 +1,11 @@
-import { z } from 'zod';
-import { StripeService } from '../services/stripe.service';
+import { z } from "zod";
+import { StripeService } from "../services/stripe.service";
+import { formatMcpResponse } from "../common/utils";
 
 export const BillingToolSchemas = {
   get_subscription: {
-    description: "Retrieves details for a specific Stripe subscription, including current status, plan, and next billing date.",
+    description:
+      "Retrieves details for a specific Stripe subscription, including current status, plan, and next billing date.",
     schema: z.object({
       id: z.string().describe("The ID of the subscription (e.g., 'sub_123')."),
     }),
@@ -11,7 +13,11 @@ export const BillingToolSchemas = {
   list_subscriptions: {
     description: "Lists recent subscriptions. Useful for summarizing active plans.",
     schema: z.object({
-      limit: z.number().optional().default(10).describe("Number of subscriptions to return (max 100)."),
+      limit: z
+        .number()
+        .optional()
+        .default(10)
+        .describe("Number of subscriptions to return (max 100)."),
     }),
   },
   get_invoice: {
@@ -45,31 +51,31 @@ export class BillingTools {
 
   async get_subscription(args: z.infer<typeof BillingToolSchemas.get_subscription.schema>) {
     const data = await this.stripeService.getSubscription(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_subscriptions(args: z.infer<typeof BillingToolSchemas.list_subscriptions.schema>) {
     const data = await this.stripeService.listSubscriptions(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async get_invoice(args: z.infer<typeof BillingToolSchemas.get_invoice.schema>) {
     const data = await this.stripeService.getInvoice(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_invoices(args: z.infer<typeof BillingToolSchemas.list_invoices.schema>) {
     const data = await this.stripeService.listInvoices(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async get_coupon(args: z.infer<typeof BillingToolSchemas.get_coupon.schema>) {
     const data = await this.stripeService.getCoupon(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_coupons(args: z.infer<typeof BillingToolSchemas.list_coupons.schema>) {
     const data = await this.stripeService.listCoupons(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 }

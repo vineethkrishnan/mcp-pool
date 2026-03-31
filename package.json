@@ -7,10 +7,15 @@
     "docs"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "test": "npm test --workspaces",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "lint:check": "eslint packages/",
+    "lint:fix": "eslint --fix packages/",
+    "format": "prettier --write \"packages/**/*.ts\"",
+    "format:check": "prettier --check \"packages/**/*.ts\"",
     "docs:start": "npm start --workspace docs",
-    "docs:build": "npm run build --workspace docs"
+    "docs:build": "npm run build --workspace docs",
+    "prepare": "husky"
   },
   "keywords": [
     "mcp",
@@ -20,5 +25,23 @@
     "stripe"
   ],
   "author": "Vineeth Krishnan",
-  "license": "ISC"
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  }
 }

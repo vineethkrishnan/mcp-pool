@@ -1,11 +1,11 @@
-import Stripe from 'stripe';
+import Stripe from "stripe";
 
 export class StripeService {
   private stripe: Stripe;
 
   constructor(apiKey: string) {
     this.stripe = new Stripe(apiKey, {
-      apiVersion: '2025-02-24-preview' as any,
+      apiVersion: "2025-02-24-preview" as Stripe.LatestApiVersion,
       typescript: true,
     });
   }

@@ -1,7 +1,7 @@
 # Stripe MCP Server
 
 [![MCP](https://img.shields.io/badge/MCP-1.0.0-blue)](https://modelcontextprotocol.io)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive, read-only interface to the Stripe API.
 
@@ -23,9 +23,9 @@ A Model Context Protocol (MCP) server that provides AI assistants (Claude, Curso
 ## 📦 Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/vineethkrishnan/stripe-mcp.git
-cd stripe-mcp
+# Clone the monorepo
+git clone https://github.com/vineethkrishnan/mcp-pool.git
+cd mcp-pool
 
 # Install dependencies
 npm install
@@ -89,6 +89,15 @@ You can also use `npx` to run the local build of `@vineethkrishnan/stripe-mcp`, 
 }
 ```
 
+## Response Optimization
+
+All responses are automatically optimized for LLM context windows:
+
+- **Internal keys stripped**: `object`, `livemode`, `request`, `pending_webhooks`, `api_version`, and `lastResponse` are removed from Stripe responses.
+- **Timestamps converted**: Unix timestamps (e.g., `created`, `current_period_end`) are converted to human-readable ISO 8601 strings.
+
+This reduces token usage and improves readability for AI assistants.
+
 ## 📚 Documentation
 
 For a full list of available tools, detailed examples, and architectural details, please refer to our [Documentation Guide](./DOCS.md).
@@ -101,4 +110,4 @@ npm test
 
 ## 📄 License
 
-This project is licensed under the ISC License.
+This project is licensed under the MIT License.

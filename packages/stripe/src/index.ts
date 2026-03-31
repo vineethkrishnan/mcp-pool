@@ -42,7 +42,7 @@ const tools = {
 };
 
 // Combine all schemas
-const AllToolSchemas: any = {
+const AllToolSchemas = {
   ...CustomerToolSchemas,
   ...PaymentToolSchemas,
   ...BillingToolSchemas,
@@ -50,7 +50,7 @@ const AllToolSchemas: any = {
   ...CheckoutToolSchemas,
   ...ReportingToolSchemas,
   ...TaxToolSchemas,
-};
+} as const;
 
 const server = new Server(
   {
@@ -61,7 +61,7 @@ const server = new Server(
     capabilities: {
       tools: {},
     },
-  }
+  },
 );
 
 /**
@@ -69,7 +69,7 @@ const server = new Server(
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]: [string, any]) => ({
+    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
       name,
       description: config.description,
       inputSchema: config.schema,
@@ -81,32 +81,51 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
  * Handler for calling specific tools.
  * Routes the AI's request to the correct tool implementation.
  */
+// Build a registry mapping tool names to handler functions
+type ToolHandler = (
+  args: Record<string, unknown>,
+) => Promise<{ content: Array<{ type: string; text: string }>; isError?: boolean }>;
+
+const toolRegistry: Record<string, ToolHandler> = {};
+
+for (const name of Object.keys(CustomerToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.customers[name as keyof CustomerTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(PaymentToolSchemas)) {
+  toolRegistry[name] = (args) => (tools.payments[name as keyof PaymentTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(BillingToolSchemas)) {
+  toolRegistry[name] = (args) => (tools.billing[name as keyof BillingTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(ProductToolSchemas)) {
+  toolRegistry[name] = (args) => (tools.products[name as keyof ProductTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(CheckoutToolSchemas)) {
+  toolRegistry[name] = (args) => (tools.checkout[name as keyof CheckoutTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(ReportingToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.reporting[name as keyof ReportingTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(TaxToolSchemas)) {
+  toolRegistry[name] = (args) => (tools.tax[name as keyof TaxTools] as ToolHandler)(args);
+}
+
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
     const { name, arguments: args } = request.params;
+    const handler = toolRegistry[name];
 
-    // Route to the appropriate tool instance
-    // (This could be further refactored for dynamic routing, but for now we'll keep it explicit)
-    
-    // Customers
-    if (name in CustomerToolSchemas) return await (tools.customers as any)[name](args);
-    // Payments
-    if (name in PaymentToolSchemas) return await (tools.payments as any)[name](args);
-    // Billing
-    if (name in BillingToolSchemas) return await (tools.billing as any)[name](args);
-    // Products
-    if (name in ProductToolSchemas) return await (tools.products as any)[name](args);
-    // Checkout
-    if (name in CheckoutToolSchemas) return await (tools.checkout as any)[name](args);
-    // Reporting
-    if (name in ReportingToolSchemas) return await (tools.reporting as any)[name](args);
-    // Tax
-    if (name in TaxToolSchemas) return await (tools.tax as any)[name](args);
+    if (!handler) {
+      throw new McpError(ErrorCode.MethodNotFound, `Tool not found: ${name}`);
+    }
 
-    throw new McpError(ErrorCode.MethodNotFound, `Tool not found: ${name}`);
-  } catch (error: any) {
+    return await handler(args ?? {});
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     return {
-      content: [{ type: "text", text: `Error: ${error.message}` }],
+      content: [{ type: "text", text: `Error: ${message}` }],
       isError: true,
     };
   }

@@ -1,5 +1,6 @@
-import { z } from 'zod';
-import { StripeService } from '../services/stripe.service';
+import { z } from "zod";
+import { StripeService } from "../services/stripe.service";
+import { formatMcpResponse } from "../common/utils";
 
 export const ProductToolSchemas = {
   get_product: {
@@ -33,21 +34,21 @@ export class ProductTools {
 
   async get_product(args: z.infer<typeof ProductToolSchemas.get_product.schema>) {
     const data = await this.stripeService.getProduct(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_products(args: z.infer<typeof ProductToolSchemas.list_products.schema>) {
     const data = await this.stripeService.listProducts(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async get_price(args: z.infer<typeof ProductToolSchemas.get_price.schema>) {
     const data = await this.stripeService.getPrice(args.id);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 
   async list_prices(args: z.infer<typeof ProductToolSchemas.list_prices.schema>) {
     const data = await this.stripeService.listPrices(args.limit);
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+    return formatMcpResponse(data);
   }
 }
