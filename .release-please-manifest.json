@@ -1,3 +1,4 @@
 {
-  "packages/stripe": "1.0.4"
+  "packages/stripe": "1.0.4",
+  "packages/sentry": "0.1.0"
 }

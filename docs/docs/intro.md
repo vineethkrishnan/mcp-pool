@@ -17,6 +17,7 @@ The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standa
 | Server | Description | npm |
 |--------|-------------|-----|
 | [Stripe MCP](/docs/stripe/overview) | Read-only access to Stripe — customers, payments, subscriptions, invoices, products, payouts, disputes, and tax | `@vineethnkrishnan/stripe-mcp` |
+| [Sentry MCP](/docs/sentry/overview) | Read-only access to Sentry — issues, events, stack traces, projects. Supports self-hosted. | `@vineethnkrishnan/sentry-mcp` |
 
 ## Why MCP Pool?
 

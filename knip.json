@@ -4,6 +4,9 @@
   "workspaces": {
     "packages/stripe": {
       "project": ["src/**/*.ts"]
+    },
+    "packages/sentry": {
+      "project": ["src/**/*.ts"]
     }
   },
   "ignore": ["docs/**"]
