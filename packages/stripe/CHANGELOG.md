@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.3...stripe-mcp-v1.0.4) (2026-03-31)
+
+
+### Bug Fixes
+
+* **stripe:** correct cloudflare pages project name and update docs url ([e487b3a](https://github.com/vineethkrishnan/mcp-pool/commit/e487b3a02b5bfa71f1c823aa5057cee1ebb0d063))
+
 ## [1.0.3](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.2...stripe-mcp-v1.0.3) (2026-03-31)
 
 
