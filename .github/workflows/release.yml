@@ -18,7 +18,7 @@ jobs:
     name: Release Please
     runs-on: ubuntu-latest
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
+      releases_created: ${{ steps.release.outputs.releases_created }}
       paths_released: ${{ steps.release.outputs.paths_released }}
     steps:
       - uses: actions/create-github-app-token@v1
@@ -36,7 +36,7 @@ jobs:
   publish-npm:
     name: Publish to npm
     needs: release-please
-    if: needs.release-please.outputs.release_created
+    if: needs.release-please.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
   deploy-docs:
     name: Deploy Docs (Cloudflare Pages)
     needs: release-please
-    if: needs.release-please.outputs.release_created
+    if: needs.release-please.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
