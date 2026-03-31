@@ -52,10 +52,13 @@ const AllToolSchemas = {
   ...TaxToolSchemas,
 } as const;
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { version } = require("../package.json");
+
 const server = new Server(
   {
     name: "stripe-mcp",
-    version: "1.0.0",
+    version,
   },
   {
     capabilities: {
