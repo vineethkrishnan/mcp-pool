@@ -2,9 +2,7 @@
   "$schema": "https://unpkg.com/knip@latest/schema.json",
   "workspaces": {
     "packages/stripe": {
-      "entry": ["src/index.ts"],
-      "project": ["src/**/*.ts"],
-      "ignoreDependencies": ["ts-jest", "@types/jest"]
+      "project": ["src/**/*.ts"]
     }
   },
   "ignore": ["docs/**"]

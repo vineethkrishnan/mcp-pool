@@ -9,17 +9,7 @@ on:
     - cron: '0 6 * * 1'
 
 jobs:
-  codeql:
-    name: CodeQL Analysis
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v3
-        with:
-          languages: javascript-typescript
-      - uses: github/codeql-action/analyze@v3
+  # CodeQL is handled by GitHub's default setup (Settings > Code security)
 
   dependency-review:
     name: Dependency Review
