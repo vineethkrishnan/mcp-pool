@@ -123,7 +123,7 @@ This reduces token usage and improves readability for AI assistants.
 
 ## Documentation
 
-For a full list of available tools, detailed examples, and architectural details, please refer to our [Documentation Guide](./DOCS.md).
+For a full list of available tools, detailed examples, and architectural details, visit the [documentation site](https://mcp-pool.vineethnk.in/docs/sentry/overview) or refer to the [local documentation guide](./DOCS.md).
 
 ## Testing
 

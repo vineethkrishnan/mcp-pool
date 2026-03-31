@@ -40,7 +40,7 @@ Commit messages are enforced via commitlint. PR titles must also follow this con
 2. Implement the service layer (API wrapper) and tool layer (MCP interface)
 3. Add tests with full coverage
 4. Add the package entry to `release-please-config.json` and `.release-please-manifest.json`
-5. Add documentation to `docs/`
+5. Add documentation to `docs/` — see the [documentation site](https://mcp-pool.vineethnk.in) for existing examples
 
 ## Code Style
 
