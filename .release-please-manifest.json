@@ -10,5 +10,5 @@
   "packages/intercom": "0.1.2",
   "packages/shopify": "0.1.2",
   "packages/google-workspace": "0.1.2",
-  "packages/oauth-core": "0.1.0"
+  "packages/oauth-core": "0.1.1"
 }
