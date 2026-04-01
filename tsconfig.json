@@ -10,6 +10,7 @@
     "resolveJsonModule": true
   },
   "references": [
+    { "path": "packages/oauth-core" },
     { "path": "packages/stripe" },
     { "path": "packages/sentry" },
     { "path": "packages/notion" },

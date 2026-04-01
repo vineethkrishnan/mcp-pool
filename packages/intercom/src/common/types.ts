@@ -1,5 +1,7 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
+
 export interface IntercomConfig {
-  accessToken: string;
+  tokenProvider: TokenProvider;
 }
 
 export interface McpToolResponse {

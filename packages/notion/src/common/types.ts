@@ -1,5 +1,7 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
+
 export interface NotionConfig {
-  apiKey: string;
+  tokenProvider: TokenProvider;
   notionVersion: string;
 }
 

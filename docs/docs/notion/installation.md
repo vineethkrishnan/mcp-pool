@@ -21,12 +21,39 @@ Before configuring any IDE, you need a Notion internal integration token:
 Never commit your Notion API key to version control. Always use environment variables or IDE-specific secret management.
 :::
 
+## OAuth Authentication (Alternative)
+
+Instead of a static integration token, you can use OAuth 2.0 for automatic token management:
+
+1. Create an OAuth app in your Notion Integrations page (notion.so/my-integrations)
+2. Set the environment variables:
+   ```bash
+   export NOTION_CLIENT_ID=your-client-id
+   export NOTION_CLIENT_SECRET=your-client-secret
+   ```
+3. Run the login command:
+   ```bash
+   notion-mcp auth login
+   ```
+4. A browser window opens for authorization. After approving, tokens are stored at `~/.mcp-pool/notion/tokens.json`
+5. The server auto-refreshes tokens — no manual intervention needed
+
+Other auth CLI commands:
+```bash
+notion-mcp auth logout  # Clear stored tokens
+notion-mcp auth status  # Show current auth state
+```
+
 ## Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `NOTION_API_KEY` | Yes | Internal integration token from Notion |
+| `NOTION_API_KEY` | Yes* | Internal integration token from Notion |
+| `NOTION_CLIENT_ID` | Alt | OAuth 2.0 client ID |
+| `NOTION_CLIENT_SECRET` | Alt | OAuth 2.0 client secret |
 | `NOTION_VERSION` | No | Notion API version (default: `2022-06-28`) |
+
+*Either the static token OR the OAuth client credentials are required.
 
 ---
 

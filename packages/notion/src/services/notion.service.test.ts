@@ -9,7 +9,7 @@ describe("NotionService", () => {
   beforeEach(() => {
     mockFetch.mockReset();
     service = new NotionService({
-      apiKey: "secret_test-token",
+      tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("secret_test-token") },
       notionVersion: "2022-06-28",
     });
   });
@@ -69,7 +69,7 @@ describe("NotionService", () => {
 
     it("uses custom Notion-Version from config", async () => {
       const customService = new NotionService({
-        apiKey: "secret_tok",
+        tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("secret_tok") },
         notionVersion: "2023-08-01",
       });
       mockResponse({ results: [] });

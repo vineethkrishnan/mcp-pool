@@ -41,8 +41,11 @@ Ask your AI assistant questions like:
 ## Prerequisites
 
 - **Node.js** >= 20
-- A **Google OAuth access token** with appropriate scopes. For Phase 1, you can get one from the [OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
+- A **Google account** — authenticate via OAuth browser flow, service account, or a static access token
 
-:::info Phase 2 Roadmap
-A future release will add service account authentication and an OAuth browser flow for automatic token refresh, removing the need to manually obtain tokens.
+:::info Multiple Auth Methods
+Three authentication options are available:
+1. `google-workspace-mcp auth login` — OAuth browser flow with automatic token refresh
+2. Service account key file — for server-to-server use
+3. Static access token — for quick testing via OAuth Playground
 :::

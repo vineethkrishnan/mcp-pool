@@ -1,20 +1,12 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
 import { IntercomConfig } from "../common/types";
 
 export class IntercomService {
   private baseUrl = "https://api.intercom.io";
-  private accessToken: string;
+  private tokenProvider: TokenProvider;
 
   constructor(config: IntercomConfig) {
-    this.accessToken = config.accessToken;
-  }
-
-  private getHeaders(): Record<string, string> {
-    return {
-      Authorization: `Bearer ${this.accessToken}`,
-      "Content-Type": "application/json",
-      "Intercom-Version": "2.11",
-      Accept: "application/json",
-    };
+    this.tokenProvider = config.tokenProvider;
   }
 
   // =========================================================================
@@ -22,6 +14,7 @@ export class IntercomService {
   // =========================================================================
 
   private async request<T>(path: string, params?: Record<string, string | number>): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
     const url = new URL(`${this.baseUrl}${path}`);
     if (params) {
       for (const [key, value] of Object.entries(params)) {
@@ -32,7 +25,12 @@ export class IntercomService {
     }
 
     const response = await fetch(url.toString(), {
-      headers: this.getHeaders(),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Intercom-Version": "2.11",
+        Accept: "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -47,11 +45,17 @@ export class IntercomService {
   // =========================================================================
 
   private async postRequest<T>(path: string, body: unknown): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
     const url = `${this.baseUrl}${path}`;
 
     const response = await fetch(url, {
       method: "POST",
-      headers: this.getHeaders(),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Intercom-Version": "2.11",
+        Accept: "application/json",
+      },
       body: JSON.stringify(body),
     });
 

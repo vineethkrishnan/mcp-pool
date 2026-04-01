@@ -8,7 +8,9 @@ describe("LinearService", () => {
 
   beforeEach(() => {
     mockFetch.mockReset();
-    service = new LinearService({ apiKey: "lin_api_test123" });
+    service = new LinearService({
+      tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("lin_api_test123") },
+    });
   });
 
   function mockGraphQLResponse(data: unknown, errors?: unknown[]) {

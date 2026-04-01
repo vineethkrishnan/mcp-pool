@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -8,114 +9,94 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import { createAuthProvider } from "@vineethnkrishnan/oauth-core";
+import { AUTH_CONFIG } from "./auth-config";
 import { LinearService } from "./services/linear.service";
 import { IssueTools, IssueToolSchemas } from "./tools/issue.tools";
 import { ProjectTools, ProjectToolSchemas } from "./tools/project.tools";
 import { TeamTools, TeamToolSchemas } from "./tools/team.tools";
 
-// Validate required config
-const LINEAR_API_KEY = process.env.LINEAR_API_KEY;
+// Route CLI subcommands before starting MCP server
+if (process.argv[2] === "auth") {
+  createAuthProvider(AUTH_CONFIG).handleCli(process.argv.slice(3));
+} else {
+  const auth = createAuthProvider(AUTH_CONFIG);
 
-if (!LINEAR_API_KEY) {
-  console.error("LINEAR_API_KEY environment variable is required.");
-  process.exit(1);
-}
+  const linearService = new LinearService({
+    tokenProvider: auth,
+  });
 
-const linearService = new LinearService({
-  apiKey: LINEAR_API_KEY,
-});
-
-// Initialize tool classes
-const tools = {
-  issues: new IssueTools(linearService),
-  projects: new ProjectTools(linearService),
-  teams: new TeamTools(linearService),
-};
-
-// Combine all schemas
-const AllToolSchemas = {
-  ...IssueToolSchemas,
-  ...ProjectToolSchemas,
-  ...TeamToolSchemas,
-} as const;
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { version } = require("../package.json");
-
-const server = new Server(
-  {
-    name: "linear-mcp",
-    version,
-  },
-  {
-    capabilities: {
-      tools: {},
-    },
-  },
-);
-
-/**
- * Handler for listing available tools.
- */
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+  const tools = {
+    issues: new IssueTools(linearService),
+    projects: new ProjectTools(linearService),
+    teams: new TeamTools(linearService),
   };
-});
 
-/**
- * Handler for calling specific tools.
- */
-type ToolHandler = (args: Record<string, unknown>) => Promise<{
-  content: Array<{ type: string; text: string }>;
-  isError?: boolean;
-}>;
+  const AllToolSchemas = {
+    ...IssueToolSchemas,
+    ...ProjectToolSchemas,
+    ...TeamToolSchemas,
+  } as const;
 
-const toolRegistry: Record<string, ToolHandler> = {};
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { version } = require("../package.json");
 
-for (const name of Object.keys(IssueToolSchemas)) {
-  toolRegistry[name] = (args) => (tools.issues[name as keyof IssueTools] as ToolHandler)(args);
-}
-for (const name of Object.keys(ProjectToolSchemas)) {
-  toolRegistry[name] = (args) => (tools.projects[name as keyof ProjectTools] as ToolHandler)(args);
-}
-for (const name of Object.keys(TeamToolSchemas)) {
-  toolRegistry[name] = (args) => (tools.teams[name as keyof TeamTools] as ToolHandler)(args);
-}
+  const server = new Server({ name: "linear-mcp", version }, { capabilities: { tools: {} } });
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  try {
-    const { name, arguments: args } = request.params;
-    const handler = toolRegistry[name];
-
-    if (!handler) {
-      throw new McpError(ErrorCode.MethodNotFound, `Tool not found: ${name}`);
-    }
-
-    return await handler(args ?? {});
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : String(error);
+  server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      content: [{ type: "text", text: `Error: ${message}` }],
-      isError: true,
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      })),
     };
+  });
+
+  type ToolHandler = (args: Record<string, unknown>) => Promise<{
+    content: Array<{ type: string; text: string }>;
+    isError?: boolean;
+  }>;
+
+  const toolRegistry: Record<string, ToolHandler> = {};
+  for (const name of Object.keys(IssueToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.issues[name as keyof typeof tools.issues] as ToolHandler)(args);
   }
-});
+  for (const name of Object.keys(ProjectToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.projects[name as keyof typeof tools.projects] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(TeamToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.teams[name as keyof typeof tools.teams] as ToolHandler)(args);
+  }
 
-/**
- * Start the server using Stdio transport.
- */
-async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("Linear MCP Server running on stdio");
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    try {
+      const { name, arguments: args } = request.params;
+      const handler = toolRegistry[name];
+      if (!handler) {
+        throw new McpError(ErrorCode.MethodNotFound, `Tool not found: ${name}`);
+      }
+      return await handler(args ?? {});
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      return {
+        content: [{ type: "text", text: `Error: ${message}` }],
+        isError: true,
+      };
+    }
+  });
+
+  async function main() {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error("Linear MCP Server running on stdio");
+  }
+
+  main().catch((error: unknown) => {
+    console.error("Server error:", error);
+    process.exit(1);
+  });
 }
-
-main().catch((error) => {
-  console.error("Server error:", error);
-  process.exit(1);
-});

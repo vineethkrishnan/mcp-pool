@@ -8,7 +8,9 @@ describe("IntercomService", () => {
 
   beforeEach(() => {
     mockFetch.mockReset();
-    service = new IntercomService({ accessToken: "test-token" });
+    service = new IntercomService({
+      tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("test-token") },
+    });
   });
 
   function mockResponse(data: unknown, status = 200) {

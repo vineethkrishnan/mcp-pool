@@ -1,3 +1,4 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
 import { HubSpotConfig } from "../common/types";
 
 const DEFAULT_CONTACT_PROPERTIES = [
@@ -31,10 +32,10 @@ const DEFAULT_COMPANY_PROPERTIES = [
 
 export class HubSpotService {
   private baseUrl = "https://api.hubapi.com";
-  private accessToken: string;
+  private tokenProvider: TokenProvider;
 
   constructor(config: HubSpotConfig) {
-    this.accessToken = config.accessToken;
+    this.tokenProvider = config.tokenProvider;
   }
 
   // ===========================================================================
@@ -42,6 +43,7 @@ export class HubSpotService {
   // ===========================================================================
 
   private async request<T>(path: string, params?: Record<string, string | string[]>): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
     const url = new URL(`${this.baseUrl}${path}`);
     if (params) {
       for (const [key, value] of Object.entries(params)) {
@@ -58,7 +60,7 @@ export class HubSpotService {
 
     const response = await fetch(url.toString(), {
       headers: {
-        Authorization: `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -72,12 +74,13 @@ export class HubSpotService {
   }
 
   private async postRequest<T>(path: string, body: unknown): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
     const url = `${this.baseUrl}${path}`;
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),

@@ -1,6 +1,8 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
+
 export interface ShopifyConfig {
   storeUrl: string;
-  accessToken: string;
+  tokenProvider: TokenProvider;
 }
 
 export interface McpToolResponse {

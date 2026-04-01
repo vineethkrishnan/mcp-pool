@@ -20,11 +20,38 @@ Before configuring any IDE, you need a Linear personal API key:
 Never commit your Linear API key to version control. Always use environment variables or IDE-specific secret management.
 :::
 
+## OAuth Authentication (Alternative)
+
+Instead of a static API key, you can use OAuth 2.0 for automatic token management:
+
+1. Create an OAuth app in Linear Settings > API > OAuth Applications
+2. Set the environment variables:
+   ```bash
+   export LINEAR_CLIENT_ID=your-client-id
+   export LINEAR_CLIENT_SECRET=your-client-secret
+   ```
+3. Run the login command:
+   ```bash
+   linear-mcp auth login
+   ```
+4. A browser window opens for authorization. After approving, tokens are stored at `~/.mcp-pool/linear/tokens.json`
+5. The server auto-refreshes tokens — no manual intervention needed
+
+Other auth CLI commands:
+```bash
+linear-mcp auth logout  # Clear stored tokens
+linear-mcp auth status  # Show current auth state
+```
+
 ## Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `LINEAR_API_KEY` | Yes | Personal API key from Linear |
+| `LINEAR_API_KEY` | Yes* | Personal API key from Linear |
+| `LINEAR_CLIENT_ID` | Alt | OAuth 2.0 client ID |
+| `LINEAR_CLIENT_SECRET` | Alt | OAuth 2.0 client secret |
+
+*Either the static token OR the OAuth client credentials are required.
 
 :::info
 The server sends the API key directly in the `Authorization` header **without** a `Bearer` prefix. This matches Linear's expected authentication format. Do not add `Bearer` yourself.

@@ -40,3 +40,5 @@ Ask your AI assistant questions like:
 
 - **Node.js** >= 20
 - A **Notion internal integration token**. Create one at [Notion Integrations](https://www.notion.so/my-integrations) and share relevant pages/databases with the integration via the "Connect to" menu.
+
+Alternatively, use **OAuth 2.0** for automatic token refresh — run `notion-mcp auth login` to authenticate via browser.

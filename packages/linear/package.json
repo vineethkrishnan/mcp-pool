@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "@vineethnkrishnan/oauth-core": "*",
     "zod": "^4.3.6"
   },
   "devDependencies": {

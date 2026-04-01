@@ -1,3 +1,4 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
 import { LinearConfig } from "../common/types";
 
 const GRAPHQL_ENDPOINT = "https://api.linear.app/graphql";
@@ -47,17 +48,18 @@ const TEAM_FIELDS = `
 // ===========================================================================
 
 export class LinearService {
-  private apiKey: string;
+  private tokenProvider: TokenProvider;
 
   constructor(config: LinearConfig) {
-    this.apiKey = config.apiKey;
+    this.tokenProvider = config.tokenProvider;
   }
 
   async query<T>(graphqlQuery: string, variables?: Record<string, unknown>): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: "POST",
       headers: {
-        Authorization: this.apiKey,
+        Authorization: token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query: graphqlQuery, variables }),

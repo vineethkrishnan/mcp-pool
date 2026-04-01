@@ -41,3 +41,5 @@ Ask your AI assistant questions like:
 - **Node.js** >= 20
 - A **Shopify store URL** (e.g., `my-store.myshopify.com`)
 - A **Shopify Admin API access token** with read permissions. We recommend creating a [custom app](https://help.shopify.com/en/manual/apps/app-types/custom-apps) with only `read_orders`, `read_products`, and `read_customers` scopes.
+
+Alternatively, use **OAuth 2.0** for automatic token refresh — run `shopify-mcp auth login` to authenticate via browser.

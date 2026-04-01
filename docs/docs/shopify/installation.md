@@ -22,6 +22,40 @@ Before configuring any IDE, you need two values:
 Never commit your Shopify access token to version control. Always use environment variables or IDE-specific secret management.
 :::
 
+## OAuth Authentication (Alternative)
+
+Instead of a static access token, you can use OAuth 2.0 for automatic token management:
+
+1. Create an OAuth app in Shopify Partners > Apps
+2. Set the environment variables:
+   ```bash
+   export SHOPIFY_CLIENT_ID=your-client-id
+   export SHOPIFY_CLIENT_SECRET=your-client-secret
+   ```
+3. Run the login command:
+   ```bash
+   shopify-mcp auth login
+   ```
+4. A browser window opens for authorization. After approving, tokens are stored at `~/.mcp-pool/shopify/tokens.json`
+5. The server auto-refreshes tokens — no manual intervention needed
+
+Other auth CLI commands:
+```bash
+shopify-mcp auth logout  # Clear stored tokens
+shopify-mcp auth status  # Show current auth state
+```
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SHOPIFY_STORE_URL` | Yes | Your Shopify store domain (e.g., `my-store.myshopify.com`) |
+| `SHOPIFY_ACCESS_TOKEN` | Yes* | Shopify Admin API access token with read scopes |
+| `SHOPIFY_CLIENT_ID` | Alt | OAuth 2.0 client ID |
+| `SHOPIFY_CLIENT_SECRET` | Alt | OAuth 2.0 client secret |
+
+*Either the static token OR the OAuth client credentials are required.
+
 ---
 
 ## Option A: Via npx (Recommended)

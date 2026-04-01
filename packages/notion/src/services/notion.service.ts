@@ -1,23 +1,25 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
 import { NotionConfig } from "../common/types";
 
 export class NotionService {
   private baseUrl: string;
-  private apiKey: string;
+  private tokenProvider: TokenProvider;
   private notionVersion: string;
 
   constructor(config: NotionConfig) {
     this.baseUrl = "https://api.notion.com/v1";
-    this.apiKey = config.apiKey;
+    this.tokenProvider = config.tokenProvider;
     this.notionVersion = config.notionVersion;
   }
 
   private async request<T>(method: "GET" | "POST", path: string, body?: unknown): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
     const url = `${this.baseUrl}${path}`;
 
     const options: RequestInit = {
       method,
       headers: {
-        Authorization: `Bearer ${this.apiKey}`,
+        Authorization: `Bearer ${token}`,
         "Notion-Version": this.notionVersion,
         "Content-Type": "application/json",
       },

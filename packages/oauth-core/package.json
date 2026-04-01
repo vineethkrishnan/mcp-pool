@@ -1,0 +1,37 @@
+{
+  "name": "@vineethnkrishnan/oauth-core",
+  "version": "0.1.0",
+  "description": "Shared OAuth 2.0 infrastructure for MCP server packages — token storage, browser flow, and auto-refresh.",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --coverage"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "oauth",
+    "oauth2",
+    "token-refresh",
+    "model-context-protocol"
+  ],
+  "author": "Vineeth Krishnan",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.7.0"
+  }
+}

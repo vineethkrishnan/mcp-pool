@@ -10,7 +10,7 @@ describe("ShopifyService", () => {
     mockFetch.mockReset();
     service = new ShopifyService({
       storeUrl: "my-store.myshopify.com",
-      accessToken: "shpat_test_token",
+      tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("shpat_test_token") },
     });
   });
 
@@ -62,7 +62,7 @@ describe("ShopifyService", () => {
     it("strips https:// prefix from store URL", async () => {
       const svc = new ShopifyService({
         storeUrl: "https://my-store.myshopify.com",
-        accessToken: "tok",
+        tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("tok") },
       });
       mockResponse({ shop: {} });
       await svc.getShop();
@@ -72,7 +72,7 @@ describe("ShopifyService", () => {
     it("strips http:// prefix from store URL", async () => {
       const svc = new ShopifyService({
         storeUrl: "http://my-store.myshopify.com",
-        accessToken: "tok",
+        tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("tok") },
       });
       mockResponse({ shop: {} });
       await svc.getShop();
@@ -82,7 +82,7 @@ describe("ShopifyService", () => {
     it("strips trailing slashes from store URL", async () => {
       const svc = new ShopifyService({
         storeUrl: "my-store.myshopify.com///",
-        accessToken: "tok",
+        tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("tok") },
       });
       mockResponse({ shop: {} });
       await svc.getShop();
@@ -92,7 +92,7 @@ describe("ShopifyService", () => {
     it("strips both protocol and trailing slash", async () => {
       const svc = new ShopifyService({
         storeUrl: "https://my-store.myshopify.com/",
-        accessToken: "tok",
+        tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("tok") },
       });
       mockResponse({ shop: {} });
       await svc.getShop();

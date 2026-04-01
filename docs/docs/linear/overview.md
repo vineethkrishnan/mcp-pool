@@ -39,3 +39,5 @@ Ask your AI assistant questions like:
 
 - **Node.js** >= 20
 - A **Linear personal API key**. Create one at [Linear Settings > API](https://linear.app/settings/api).
+
+Alternatively, use **OAuth 2.0** for automatic token refresh — run `linear-mcp auth login` to authenticate via browser.

@@ -9,7 +9,7 @@ describe("HubSpotService", () => {
   beforeEach(() => {
     mockFetch.mockReset();
     service = new HubSpotService({
-      accessToken: "test-token",
+      tokenProvider: { getAccessToken: jest.fn().mockResolvedValue("test-token") },
     });
   });
 

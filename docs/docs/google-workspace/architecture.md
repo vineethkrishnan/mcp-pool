@@ -51,9 +51,15 @@ Four domain-specific services, each wrapping a Google REST API:
 
 ### Auth Layer (`src/services/auth.service.ts`)
 
-A shared authentication service that provides OAuth headers to all four domain services. Currently supports a single `GOOGLE_ACCESS_TOKEN` environment variable (Phase 1). Phase 2 will add:
-- **Service account authentication** — for server-to-server use cases
-- **OAuth browser flow** — automatic token refresh without manual playground steps
+A shared authentication service that provides OAuth headers to all four domain services. Uses a strategy pattern with three interchangeable strategies:
+
+- **`StaticTokenStrategy`** — uses a `GOOGLE_ACCESS_TOKEN` environment variable directly
+- **`ServiceAccountStrategy`** — exchanges a service account JSON key for access tokens via JWT signing
+- **`OAuthStrategy`** — reads stored refresh tokens and exchanges them for access tokens automatically
+
+**Config priority:** `GOOGLE_ACCESS_TOKEN` > `GOOGLE_SERVICE_ACCOUNT_KEY` > `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` > stored tokens at `~/.mcp-pool/google-workspace/tokens.json`
+
+All strategies that support refresh do so with a 5-minute buffer before expiry. The OAuth strategy and CLI commands use the shared `@vineethnkrishnan/oauth-core` package for the token store, OAuth flow, and CLI scaffolding. Google-specific concerns (JWT signing for service accounts) remain in the google-workspace package.
 
 ### Common Layer (`src/common/`)
 
@@ -114,4 +120,4 @@ Internal Google API fields that waste tokens are recursively removed from all re
 - **Read-only scopes** — the server only needs `*.readonly` OAuth scopes
 - **No data persistence** — the server is stateless and does not store any Google data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened
-- **Phase 2 improvements** — service account support will eliminate the need for user-facing OAuth tokens
+- **Automatic token refresh** — service account and OAuth browser flow provide automatic token refresh without manual intervention

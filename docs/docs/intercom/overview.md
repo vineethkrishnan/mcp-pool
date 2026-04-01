@@ -37,3 +37,5 @@ Ask your AI assistant questions like:
 
 - **Node.js** >= 20
 - An **Intercom Access Token** with read permissions. You can generate one from [Settings > Integrations > Developer Hub](https://developers.intercom.com/) in your Intercom workspace.
+
+Alternatively, use **OAuth 2.0** for automatic token refresh — run `intercom-mcp auth login` to authenticate via browser.

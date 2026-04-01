@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -8,109 +9,87 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import { createAuthProvider } from "@vineethnkrishnan/oauth-core";
+import { AUTH_CONFIG } from "./auth-config";
 import { IntercomService } from "./services/intercom.service";
 import { ConversationTools, ConversationToolSchemas } from "./tools/conversation.tools";
 import { ContactTools, ContactToolSchemas } from "./tools/contact.tools";
 
-// Validate required config
-const INTERCOM_ACCESS_TOKEN = process.env.INTERCOM_ACCESS_TOKEN;
+// Route CLI subcommands before starting MCP server
+if (process.argv[2] === "auth") {
+  createAuthProvider(AUTH_CONFIG).handleCli(process.argv.slice(3));
+} else {
+  const auth = createAuthProvider(AUTH_CONFIG);
 
-if (!INTERCOM_ACCESS_TOKEN) {
-  console.error("INTERCOM_ACCESS_TOKEN environment variable is required.");
-  process.exit(1);
-}
+  const intercomService = new IntercomService({
+    tokenProvider: auth,
+  });
 
-const intercomService = new IntercomService({
-  accessToken: INTERCOM_ACCESS_TOKEN,
-});
-
-// Initialize tool classes
-const tools = {
-  conversations: new ConversationTools(intercomService),
-  contacts: new ContactTools(intercomService),
-};
-
-// Combine all schemas
-const AllToolSchemas = {
-  ...ConversationToolSchemas,
-  ...ContactToolSchemas,
-} as const;
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { version } = require("../package.json");
-
-const server = new Server(
-  {
-    name: "intercom-mcp",
-    version,
-  },
-  {
-    capabilities: {
-      tools: {},
-    },
-  },
-);
-
-/**
- * Handler for listing available tools.
- */
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+  const tools = {
+    conversations: new ConversationTools(intercomService),
+    contacts: new ContactTools(intercomService),
   };
-});
 
-/**
- * Handler for calling specific tools.
- */
-type ToolHandler = (args: Record<string, unknown>) => Promise<{
-  content: Array<{ type: string; text: string }>;
-  isError?: boolean;
-}>;
+  const AllToolSchemas = {
+    ...ConversationToolSchemas,
+    ...ContactToolSchemas,
+  } as const;
 
-const toolRegistry: Record<string, ToolHandler> = {};
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { version } = require("../package.json");
 
-for (const name of Object.keys(ConversationToolSchemas)) {
-  toolRegistry[name] = (args) =>
-    (tools.conversations[name as keyof ConversationTools] as ToolHandler)(args);
-}
-for (const name of Object.keys(ContactToolSchemas)) {
-  toolRegistry[name] = (args) => (tools.contacts[name as keyof ContactTools] as ToolHandler)(args);
-}
+  const server = new Server({ name: "intercom-mcp", version }, { capabilities: { tools: {} } });
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  try {
-    const { name, arguments: args } = request.params;
-    const handler = toolRegistry[name];
-
-    if (!handler) {
-      throw new McpError(ErrorCode.MethodNotFound, `Tool not found: ${name}`);
-    }
-
-    return await handler(args ?? {});
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : String(error);
+  server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      content: [{ type: "text", text: `Error: ${message}` }],
-      isError: true,
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      })),
     };
+  });
+
+  type ToolHandler = (args: Record<string, unknown>) => Promise<{
+    content: Array<{ type: string; text: string }>;
+    isError?: boolean;
+  }>;
+
+  const toolRegistry: Record<string, ToolHandler> = {};
+  for (const name of Object.keys(ConversationToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.conversations[name as keyof typeof tools.conversations] as ToolHandler)(args);
   }
-});
+  for (const name of Object.keys(ContactToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.contacts[name as keyof typeof tools.contacts] as ToolHandler)(args);
+  }
 
-/**
- * Start the server using Stdio transport.
- */
-async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("Intercom MCP Server running on stdio");
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    try {
+      const { name, arguments: args } = request.params;
+      const handler = toolRegistry[name];
+      if (!handler) {
+        throw new McpError(ErrorCode.MethodNotFound, `Tool not found: ${name}`);
+      }
+      return await handler(args ?? {});
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      return {
+        content: [{ type: "text", text: `Error: ${message}` }],
+        isError: true,
+      };
+    }
+  });
+
+  async function main() {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error("Intercom MCP Server running on stdio");
+  }
+
+  main().catch((error: unknown) => {
+    console.error("Server error:", error);
+    process.exit(1);
+  });
 }
-
-main().catch((error) => {
-  console.error("Server error:", error);
-  process.exit(1);
-});

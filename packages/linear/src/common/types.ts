@@ -1,5 +1,7 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
+
 export interface LinearConfig {
-  apiKey: string;
+  tokenProvider: TokenProvider;
 }
 
 export interface McpToolResponse {

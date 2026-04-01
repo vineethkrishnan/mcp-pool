@@ -1,5 +1,7 @@
+import { TokenProvider } from "@vineethnkrishnan/oauth-core";
+
 export interface HubSpotConfig {
-  accessToken: string;
+  tokenProvider: TokenProvider;
 }
 
 export interface McpToolResponse {

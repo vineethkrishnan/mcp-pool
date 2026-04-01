@@ -41,3 +41,5 @@ Ask your AI assistant questions like:
 
 - **Node.js** >= 20
 - A **HubSpot private app access token** — create one at [HubSpot > Settings > Integrations > Private Apps](https://developers.hubspot.com/docs/api/private-apps). Grant at minimum `crm.objects.contacts.read`, `crm.objects.deals.read`, and `crm.objects.companies.read` scopes.
+
+Alternatively, use **OAuth 2.0** for automatic token refresh — run `hubspot-mcp auth login` to authenticate via browser.
