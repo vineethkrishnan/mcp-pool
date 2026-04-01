@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { TokenProvider, CachedToken, TokenResponse } from "@vineethnkrishnan/oauth-core";
 import { createSignedJwt } from "../jwt";
 
-export interface ServiceAccountKeyFile {
+interface ServiceAccountKeyFile {
   type: string;
   project_id: string;
   private_key_id: string;
