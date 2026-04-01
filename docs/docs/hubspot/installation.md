@@ -346,6 +346,38 @@ claude mcp list
 
 *Either the static token OR the OAuth client credentials are required.
 
+## Uninstallation
+
+### Claude Code (CLI)
+
+```bash
+claude mcp remove hubspot
+```
+
+To check which servers are configured:
+
+```bash
+claude mcp list
+```
+
+### Claude Desktop / Cursor / Windsurf / JetBrains
+
+Remove the `"hubspot"` entry from the `"mcpServers"` block in the relevant config file, then restart the IDE.
+
+### VS Code (GitHub Copilot)
+
+Remove the `"hubspot"` entry from the `"servers"` block in `.vscode/mcp.json` or user-level `mcp.json`, then reload the window.
+
+### Global npm install
+
+If you installed globally, also run:
+
+```bash
+npm uninstall -g @vineethnkrishnan/hubspot-mcp
+```
+
+---
+
 ## Verify Installation
 
 After configuring your IDE, test the connection by asking your AI assistant:

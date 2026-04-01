@@ -344,6 +344,38 @@ claude mcp list
 
 ---
 
+## Uninstallation
+
+### Claude Code (CLI)
+
+```bash
+claude mcp remove notion
+```
+
+To check which servers are configured:
+
+```bash
+claude mcp list
+```
+
+### Claude Desktop / Cursor / Windsurf / JetBrains
+
+Remove the `"notion"` entry from the `"mcpServers"` block in the relevant config file, then restart the IDE.
+
+### VS Code (GitHub Copilot)
+
+Remove the `"notion"` entry from the `"servers"` block in `.vscode/mcp.json` or user-level `mcp.json`, then reload the window.
+
+### Global npm install
+
+If you installed globally, also run:
+
+```bash
+npm uninstall -g @vineethnkrishnan/notion-mcp
+```
+
+---
+
 ## Verify Installation
 
 After configuring your IDE, test the connection by asking your AI assistant:

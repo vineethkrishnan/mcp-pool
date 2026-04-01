@@ -334,6 +334,38 @@ claude mcp list
 | `PAGERDUTY_API_KEY` | Yes | — | PagerDuty REST API key |
 | `PAGERDUTY_BASE_URL` | No | `https://api.pagerduty.com` | API base URL. Set to `https://api.eu.pagerduty.com` for EU accounts. |
 
+## Uninstallation
+
+### Claude Code (CLI)
+
+```bash
+claude mcp remove pagerduty
+```
+
+To check which servers are configured:
+
+```bash
+claude mcp list
+```
+
+### Claude Desktop / Cursor / Windsurf / JetBrains
+
+Remove the `"pagerduty"` entry from the `"mcpServers"` block in the relevant config file, then restart the IDE.
+
+### VS Code (GitHub Copilot)
+
+Remove the `"pagerduty"` entry from the `"servers"` block in `.vscode/mcp.json` or user-level `mcp.json`, then reload the window.
+
+### Global npm install
+
+If you installed globally, also run:
+
+```bash
+npm uninstall -g @vineethnkrishnan/pagerduty-mcp
+```
+
+---
+
 ## Verify Installation
 
 After configuring your IDE, test the connection by asking your AI assistant:
