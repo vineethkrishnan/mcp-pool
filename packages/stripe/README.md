@@ -5,7 +5,7 @@
 
 A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive, read-only interface to the Stripe API.
 
-## 🚀 Overview
+## Overview
 
 `stripe-mcp` allows your AI assistant to directly interact with your Stripe data. It enables powerful natural language queries like:
 - "How many active subscriptions do we have?"
@@ -13,50 +13,51 @@ A Model Context Protocol (MCP) server that provides AI assistants (Claude, Curso
 - "Summarize our payouts from the last 30 days."
 - "What is our current available balance in USD?"
 
-## 🛠 Features
+## Features
 
-- **Modular Architecture:** Built with "Clean Principles" for high maintainability.
+- **Modular Architecture:** Built with clean layered design for high maintainability.
 - **Type-Safe:** Fully implemented in TypeScript with Zod schema validation.
 - **Comprehensive Coverage:** Read-only access to Customers, Payments, Subscriptions, Invoices, Products, Checkout, Reporting, and Tax.
+- **LLM-Optimized:** Responses are automatically transformed to reduce token usage.
 - **Security-First:** Focused on read-only operations to ensure safety in AI-driven workflows.
 
-## 📦 Installation
+## Installation
+
+### Using `npx` (Recommended)
+
+No installation required. Run directly:
 
 ```bash
-# Clone the monorepo
+npx -y @vineethnkrishnan/stripe-mcp
+```
+
+### Global Install
+
+```bash
+npm install -g @vineethnkrishnan/stripe-mcp
+stripe-mcp
+```
+
+### From Source
+
+```bash
 git clone https://github.com/vineethkrishnan/mcp-pool.git
 cd mcp-pool
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
 ```
 
-## ⚙️ Configuration
+## Configuration
 
-To use this server with an MCP client like **Claude Desktop**, add it to your configuration file (usually `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS).
+Add to your MCP client configuration file:
 
-### Option 1: Local Build (Recommended for Development)
-Use this if you have cloned the repository and built it locally.
+| Platform | Config file path |
+|----------|-----------------|
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Linux | `~/.config/Claude/claude_desktop_config.json` |
 
-```json
-{
-  "mcpServers": {
-    "stripe": {
-      "command": "node",
-      "args": ["/absolute/path/to/stripe-mcp/build/index.js"],
-      "env": {
-        "STRIPE_SECRET_KEY": "sk_test_..."
-      }
-    }
-  }
-}
-```
-
-### Option 2: Using `npx` (Published Package)
-If the package is published to a registry (e.g., NPM), you can run it without cloning.
+### Using `npx` (Recommended)
 
 ```json
 {
@@ -72,15 +73,14 @@ If the package is published to a registry (e.g., NPM), you can run it without cl
 }
 ```
 
-### Option 3: Using `npx` with Local Path
-You can also use `npx` to run the local build of `@vineethnkrishnan/stripe-mcp`, which handles dependencies automatically.
+### Local Build
 
 ```json
 {
   "mcpServers": {
     "stripe": {
-      "command": "npx",
-      "args": ["-y", "/absolute/path/to/stripe-mcp"],
+      "command": "node",
+      "args": ["/absolute/path/to/stripe-mcp/build/index.js"],
       "env": {
         "STRIPE_SECRET_KEY": "sk_test_..."
       }
@@ -88,6 +88,20 @@ You can also use `npx` to run the local build of `@vineethnkrishnan/stripe-mcp`,
   }
 }
 ```
+
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `STRIPE_SECRET_KEY` | Yes | - | Stripe secret API key (starts with `sk_test_` or `sk_live_`). |
+
+## Getting Your API Key
+
+1. Log in to the [Stripe Dashboard](https://dashboard.stripe.com)
+2. Go to **Developers > API keys**
+3. Copy your **Secret key** (starts with `sk_test_` for test mode or `sk_live_` for production)
+
+> Use a **test mode** key (`sk_test_...`) while getting started. Switch to live mode when ready.
 
 ## Response Optimization
 
@@ -98,16 +112,23 @@ All responses are automatically optimized for LLM context windows:
 
 This reduces token usage and improves readability for AI assistants.
 
-## 📚 Documentation
+## Documentation
 
 For a full list of available tools, detailed examples, and architectural details, visit the [documentation site](https://mcp-pool.vineethnk.in/docs/stripe/overview) or refer to the [local documentation guide](./DOCS.md).
 
-## 🧪 Testing
+## Uninstallation
+
+```bash
+# If installed globally
+npm uninstall -g @vineethnkrishnan/stripe-mcp
+```
+
+## Testing
 
 ```bash
 npm test
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.

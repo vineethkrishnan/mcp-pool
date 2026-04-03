@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "A read-only MCP server for Datadog API, enabling AI assistants to query monitors, metrics, and events. Supports all Datadog regions.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "datadog-mcp": "build/index.js"
   },
@@ -27,6 +28,15 @@
     "metrics",
     "multi-site"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/datadog"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/datadog#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",

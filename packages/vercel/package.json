@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "A read-only MCP server for Vercel API, enabling AI assistants to query deployments, projects, and build logs. Supports team-scoped access.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "vercel-mcp": "build/index.js"
   },
@@ -26,6 +27,15 @@
     "build-logs",
     "team-scoped"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/vercel"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/vercel#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",

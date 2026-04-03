@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "A read-only MCP server for Linear API, enabling AI assistants to query issues, projects, and teams via GraphQL.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "linear-mcp": "build/index.js"
   },
@@ -25,6 +26,15 @@
     "project-management",
     "graphql"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/linear"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/linear#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",
