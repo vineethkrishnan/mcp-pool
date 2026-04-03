@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.6...stripe-mcp-v1.0.7) (2026-04-03)
+
+
+### Documentation
+
+* add package readmes, license files, npm metadata, and roadmap ([#14](https://github.com/vineethkrishnan/mcp-pool/issues/14)) ([94e5629](https://github.com/vineethkrishnan/mcp-pool/commit/94e5629dd5b1bd23ad6cbdade3ac4743a6161060))
+
 ## [1.0.6](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.5...stripe-mcp-v1.0.6) (2026-03-31)
 
 
