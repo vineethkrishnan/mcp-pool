@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/vineethkrishnan/mcp-pool/compare/sentry-mcp-v0.1.3...sentry-mcp-v0.1.4) (2026-04-03)
+
+
+### Documentation
+
+* add package readmes, license files, npm metadata, and roadmap ([#14](https://github.com/vineethkrishnan/mcp-pool/issues/14)) ([94e5629](https://github.com/vineethkrishnan/mcp-pool/commit/94e5629dd5b1bd23ad6cbdade3ac4743a6161060))
+
 ## [0.1.3](https://github.com/vineethkrishnan/mcp-pool/compare/sentry-mcp-v0.1.2...sentry-mcp-v0.1.3) (2026-03-31)
 
 

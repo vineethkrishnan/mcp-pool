@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/notion-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A read-only MCP server for the Notion API, enabling AI assistants to search, read pages, query databases, and list users.",
   "main": "build/index.js",
   "types": "build/index.d.ts",

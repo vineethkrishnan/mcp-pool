@@ -1,14 +1,14 @@
 {
-  "packages/stripe": "1.0.6",
-  "packages/sentry": "0.1.3",
-  "packages/notion": "0.1.2",
-  "packages/linear": "0.1.2",
-  "packages/datadog": "0.1.1",
-  "packages/vercel": "0.1.1",
-  "packages/pagerduty": "0.1.1",
-  "packages/hubspot": "0.1.2",
-  "packages/intercom": "0.1.2",
-  "packages/shopify": "0.1.2",
-  "packages/google-workspace": "0.1.2",
-  "packages/oauth-core": "0.1.1"
+  "packages/stripe": "1.0.7",
+  "packages/sentry": "0.1.4",
+  "packages/notion": "0.1.3",
+  "packages/linear": "0.1.3",
+  "packages/datadog": "0.1.2",
+  "packages/vercel": "0.1.2",
+  "packages/pagerduty": "0.1.2",
+  "packages/hubspot": "0.1.3",
+  "packages/intercom": "0.1.3",
+  "packages/shopify": "0.1.3",
+  "packages/google-workspace": "0.1.3",
+  "packages/oauth-core": "0.1.2"
 }
