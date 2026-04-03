@@ -86,16 +86,18 @@ npm install
 ```
 mcp-pool/
 ├── packages/
-│   └── stripe/              # Stripe MCP server
-│       ├── src/
-│       │   ├── index.ts     # MCP server entry point
-│       │   ├── services/    # Stripe SDK wrapper
-│       │   ├── tools/       # MCP tool definitions
-│       │   └── common/      # Shared types & utilities
-│       └── package.json
+│   ├── oauth-core/          # Shared OAuth 2.0 infrastructure
+│   │   └── src/
+│   │       ├── strategies/  # OAuth & static token strategies
+│   │       └── cli/         # Auth login/logout CLI helpers
+│   └── <server>/            # MCP server (×11)
+│       └── src/
+│           ├── index.ts     # MCP server entry point
+│           ├── services/    # API SDK wrapper
+│           ├── tools/       # MCP tool definitions
+│           └── common/      # Shared types & utilities
 ├── docs/                    # Docusaurus documentation site
 ├── .github/workflows/       # CI, quality, security, release
-├── _docs/                   # Internal docs (gitignored)
 └── package.json             # Monorepo root (npm workspaces)
 ```
 
@@ -142,6 +144,15 @@ Enforced via commitlint + husky pre-commit hooks.
 ## Documentation
 
 Visit the [documentation site](https://mcp-pool.vineethnk.in) for detailed guides on each MCP server.
+
+---
+
+## Roadmap
+
+See the [roadmap](roadmap/) for planned features and upcoming milestones:
+
+- **[v0.2.0](roadmap/v0.2.0.md)** — Write operations, SSE transport, streaming responses
+- **[v0.3.0](roadmap/v0.3.0.md)** — Webhooks, multi-account, expanded API coverage, new servers
 
 ---
 

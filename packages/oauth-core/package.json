@@ -21,6 +21,15 @@
     "token-refresh",
     "model-context-protocol"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/oauth-core"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/oauth-core#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",

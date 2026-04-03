@@ -12,7 +12,8 @@
     "packages/hubspot": { "project": ["src/**/*.ts"] },
     "packages/intercom": { "project": ["src/**/*.ts"] },
     "packages/shopify": { "project": ["src/**/*.ts"] },
-    "packages/google-workspace": { "project": ["src/**/*.ts"] }
+    "packages/google-workspace": { "project": ["src/**/*.ts"] },
+    "packages/oauth-core": { "project": ["src/**/*.ts"] }
   },
   "ignore": ["docs/**"]
 }

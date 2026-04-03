@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "A read-only MCP server for the Notion API, enabling AI assistants to search, read pages, query databases, and list users.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "notion-mcp": "build/index.js"
   },
@@ -26,6 +27,15 @@
     "wiki",
     "databases"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/notion"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/notion#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",

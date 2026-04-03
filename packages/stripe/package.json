@@ -3,6 +3,7 @@
   "version": "1.0.6",
   "description": "A read-only MCP server for Stripe API, enabling AI assistants to query financial data.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "stripe-mcp": "build/index.js"
   },
@@ -24,6 +25,15 @@
     "model-context-protocol",
     "payments"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/stripe"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/stripe#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",

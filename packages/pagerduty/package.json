@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "A read-only MCP server for PagerDuty API, enabling AI assistants to query incidents, services, and on-call schedules.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "pagerduty-mcp": "build/index.js"
   },
@@ -25,6 +26,15 @@
     "incident-management",
     "on-call"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/pagerduty"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/pagerduty#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",

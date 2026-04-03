@@ -50,7 +50,13 @@ npm run build
 
 ## Configuration
 
-To use this server with an MCP client like **Claude Desktop**, add it to your configuration file (usually `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS).
+Add to your MCP client configuration file:
+
+| Platform | Config file path |
+|----------|-----------------|
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Linux | `~/.config/Claude/claude_desktop_config.json` |
 
 ### Sentry SaaS
 
@@ -111,6 +117,15 @@ To use this server with an MCP client like **Claude Desktop**, add it to your co
 | `SENTRY_BASE_URL` | No | `https://sentry.io` | Base URL for self-hosted Sentry instances. |
 | `SENTRY_ORG` | No | - | Default organization slug. Avoids passing `org` on every tool call. |
 
+## Getting Your Credentials
+
+1. Log in to [Sentry](https://sentry.io) (or your self-hosted instance)
+2. Go to **Settings > Auth Tokens**
+3. Click **Create New Token** with `org:read`, `project:read`, and `event:read` scopes
+4. Copy the token (starts with `sntrys_`)
+
+To find your **organization slug**, look at your Sentry URL: `https://sentry.io/organizations/YOUR-ORG-SLUG/`
+
 ## Response Optimization
 
 All responses are automatically optimized for LLM context windows:
@@ -124,6 +139,13 @@ This reduces token usage and improves readability for AI assistants.
 ## Documentation
 
 For a full list of available tools, detailed examples, and architectural details, visit the [documentation site](https://mcp-pool.vineethnk.in/docs/sentry/overview) or refer to the [local documentation guide](./DOCS.md).
+
+## Uninstallation
+
+```bash
+# If installed globally
+npm uninstall -g @vineethnkrishnan/sentry-mcp
+```
 
 ## Testing
 

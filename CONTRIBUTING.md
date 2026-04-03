@@ -39,8 +39,13 @@ Commit messages are enforced via commitlint. PR titles must also follow this con
 1. Create `packages/<name>/` following the structure in `packages/stripe/`
 2. Implement the service layer (API wrapper) and tool layer (MCP interface)
 3. Add tests with full coverage
-4. Add the package entry to `release-please-config.json` and `.release-please-manifest.json`
-5. Add documentation to `docs/` — see the [documentation site](https://mcp-pool.vineethnk.in) for existing examples
+4. Add a `README.md` and copy the root `LICENSE` into the package directory
+5. Add the package entry to:
+   - `release-please-config.json` and `.release-please-manifest.json`
+   - `knip.json` (workspaces section)
+   - `tsconfig.json` (references array)
+6. Add documentation to `docs/docs/<name>/` with `overview.md`, `architecture.md`, `installation.md`, `tools.md`, and `_category_.json`
+7. Add the package to the footer in `docs/docusaurus.config.ts` and the table in `docs/docs/intro.md`
 
 ## Code Style
 

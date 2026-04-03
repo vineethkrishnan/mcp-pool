@@ -3,6 +3,7 @@
   "version": "0.1.3",
   "description": "A read-only MCP server for Sentry API, enabling AI assistants to investigate errors and debug issues. Supports self-hosted instances.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "sentry-mcp": "build/index.js"
   },
@@ -26,6 +27,15 @@
     "debugging",
     "self-hosted"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/sentry"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/sentry#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "type": "commonjs",
