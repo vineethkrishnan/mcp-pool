@@ -3,7 +3,7 @@
 [![MCP](https://img.shields.io/badge/MCP-1.0.0-blue)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive, read-only interface to the Datadog API. **Supports all Datadog regions.**
+A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive interface to the Datadog API. **Supports all Datadog regions.**
 
 ## Overview
 
@@ -18,9 +18,8 @@ A Model Context Protocol (MCP) server that provides AI assistants (Claude, Curso
 - **Multi-Region Support:** Works with all Datadog sites — US1, US3, US5, EU, AP1, and Gov.
 - **Modular Architecture:** Built with clean layered design for high maintainability.
 - **Type-Safe:** Fully implemented in TypeScript with Zod schema validation.
-- **Comprehensive Coverage:** Read-only access to Monitors, Metrics, and Events.
+- **Comprehensive Coverage:** Full access to Monitors, Metrics, and Events.
 - **LLM-Optimized:** Responses are automatically transformed to reduce token usage.
-- **Security-First:** Focused on read-only operations to ensure safety in AI-driven workflows.
 
 ## Installation
 

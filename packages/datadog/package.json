@@ -1,7 +1,8 @@
 {
   "name": "@vineethnkrishnan/datadog-mcp",
   "version": "0.1.2",
-  "description": "A read-only MCP server for Datadog API, enabling AI assistants to query monitors, metrics, and events. Supports all Datadog regions.",
+  "description": "An MCP server for Datadog API, enabling AI assistants to query monitors, metrics, and events. Supports all Datadog regions.",
+  "mcpName": "io.github.vineethkrishnan/datadog-mcp",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {

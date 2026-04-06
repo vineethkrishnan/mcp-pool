@@ -116,8 +116,7 @@ Internal Google API fields that waste tokens are recursively removed from all re
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed across any service
-- **Read-only scopes** — the server only needs `*.readonly` OAuth scopes
+- **Scoped OAuth access** — configure OAuth scopes to match your access requirements
 - **No data persistence** — the server is stateless and does not store any Google data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened
 - **Automatic token refresh** — service account and OAuth browser flow provide automatic token refresh without manual intervention

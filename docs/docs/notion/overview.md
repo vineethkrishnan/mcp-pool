@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Notion MCP Server — give AI assistants read-only access to your Notion workspace.
+description: Notion MCP Server — give AI assistants access to your Notion workspace.
 ---
 
 # Notion MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Notion API.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the Notion API.
 
 ## What can it do?
 
@@ -21,11 +21,11 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **6 read-only tools** across 4 categories (Search, Pages, Databases, Users)
+- **6 tools** across 4 categories (Search, Pages, Databases, Users)
 - **LLM-optimized responses** — rich text is flattened to plain text, internal Notion metadata is stripped
 - **Recursive block fetching** — nested toggles, columns, and child blocks are fetched up to configurable depth
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design, uses Notion internal integration tokens
+- **Security-first** — scoped access via Notion internal integration tokens
 
 ## Supported Resources
 

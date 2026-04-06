@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Stripe MCP Server — give AI assistants read-only access to your Stripe data.
+description: Stripe MCP Server — give AI assistants access to your Stripe data.
 ---
 
 # Stripe MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Stripe API.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the Stripe API.
 
 ## What can it do?
 
@@ -21,10 +21,10 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **23 read-only tools** across 7 categories (Customers, Payments, Billing, Products, Checkout, Reporting, Tax)
+- **23 tools** across 7 categories (Customers, Payments, Billing, Products, Checkout, Reporting, Tax)
 - **LLM-optimized responses** — internal Stripe fields are stripped and timestamps converted to readable ISO format
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design, supports Stripe restricted API keys
+- **Security-first** — scoped API key support via Stripe restricted keys
 
 ## Supported Resources
 

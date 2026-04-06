@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Intercom MCP Server — give AI assistants read-only access to your Intercom conversations and contacts.
+description: Intercom MCP Server — give AI assistants access to your Intercom conversations and contacts.
 ---
 
 # Intercom MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Intercom API.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the Intercom API.
 
 ## What can it do?
 
@@ -21,10 +21,10 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **6 read-only tools** across 2 categories (Contacts, Conversations)
+- **6 tools** across 2 categories (Contacts, Conversations)
 - **LLM-optimized responses** — HTML is stripped from message bodies, conversation parts are flattened into a chronological timeline, and internal Intercom metadata is removed
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design, pinned to `Intercom-Version: 2.11`
+- **Security-first** — scoped API key support, pinned to `Intercom-Version: 2.11`
 
 ## Supported Resources
 

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Linear MCP Server — give AI assistants read-only access to your Linear workspace.
+description: Linear MCP Server — give AI assistants access to your Linear workspace.
 ---
 
 # Linear MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Linear GraphQL API.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the Linear GraphQL API.
 
 ## What can it do?
 
@@ -21,11 +21,11 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **6 read-only tools** across 3 categories (Issues, Projects, Teams)
+- **6 tools** across 3 categories (Issues, Projects, Teams)
 - **GraphQL-powered** — efficient queries that fetch only the fields needed
 - **LLM-optimized responses** — GraphQL connections flattened to plain arrays, priorities mapped to human-readable labels
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design, uses Linear personal API keys
+- **Security-first** — scoped access via Linear personal API keys
 
 ## Supported Resources
 

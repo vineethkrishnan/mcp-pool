@@ -6,7 +6,7 @@ description: Complete reference for all 12 Google Workspace MCP tools with param
 
 # Tools Reference
 
-All tools are **read-only**. They retrieve data from Google Workspace APIs but never create, update, or delete anything.
+Tools provide both read and write access to Google Workspace APIs.
 
 ## Gmail
 

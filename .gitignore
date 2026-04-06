@@ -25,3 +25,6 @@ docs/build
 .env
 .env.local
 .env.*.local
+
+# MCP Registry auth tokens
+.mcpregistry_*

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.vineethkrishnan/linear-mcp",
+  "description": "An MCP server for Linear API, enabling AI assistants to query issues, projects, and teams via GraphQL.",
+  "repository": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool",
+    "source": "github",
+    "subfolder": "packages/linear"
+  },
+  "version": "0.1.3",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@vineethnkrishnan/linear-mcp",
+      "version": "0.1.3",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": []
+    }
+  ]
+}

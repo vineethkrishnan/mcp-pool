@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: HubSpot MCP Server — give AI assistants read-only access to your HubSpot CRM contacts, companies, and deals.
+description: HubSpot MCP Server — give AI assistants access to your HubSpot CRM contacts, companies, and deals.
 ---
 
 # HubSpot MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the HubSpot CRM API.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the HubSpot CRM API.
 
 ## What can it do?
 
@@ -22,7 +22,7 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **7 read-only tools** across 3 categories (Contacts, Deals, Companies)
+- **7 tools** across 3 categories (Contacts, Deals, Companies)
 - **Flexible property selection** — request exactly the CRM properties you need, with sensible defaults
 - **Association support** — retrieve linked objects (contacts on a deal, companies for a contact) in a single call
 - **Search API** — free-text search across contacts by name, email, phone, or company

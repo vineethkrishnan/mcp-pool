@@ -83,7 +83,6 @@ Incident log entries are truncated to the most recent 25 entries, sorted by time
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
-- **API key auth** — uses PagerDuty REST API keys (read-only keys are sufficient)
+- **API key auth** — uses PagerDuty REST API keys
 - **No data persistence** — the server is stateless and does not store any PagerDuty data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened

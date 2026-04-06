@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.vineethkrishnan/vercel-mcp",
+  "description": "An MCP server for Vercel API, enabling AI assistants to query deployments, projects, and build logs. Supports team-scoped access.",
+  "repository": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool",
+    "source": "github",
+    "subfolder": "packages/vercel"
+  },
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@vineethnkrishnan/vercel-mcp",
+      "version": "0.1.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "Vercel API token",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true,
+          "name": "VERCEL_TOKEN"
+        },
+        {
+          "description": "Vercel team ID for team-scoped access",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "VERCEL_TEAM_ID"
+        }
+      ]
+    }
+  ]
+}

@@ -72,7 +72,6 @@ This makes responses immediately readable without the AI needing to convert time
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
-- **Restricted key support** — we recommend using [Stripe restricted keys](https://stripe.com/docs/keys#limit-access) with minimal read permissions
+- **Restricted key support** — we recommend using [Stripe restricted keys](https://stripe.com/docs/keys#limit-access) with minimal permissions
 - **No data persistence** — the server is stateless and does not store any Stripe data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened
