@@ -6,7 +6,7 @@ description: Complete reference for all 5 Vercel MCP tools with parameters and e
 
 # Tools Reference
 
-Tools provide both read and write access to Vercel.
+All tools are **read-only**. They retrieve data from Vercel but never create, update, or delete anything.
 
 ## Projects
 

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Vercel MCP Server — give AI assistants access to your Vercel projects and deployments.
+description: Vercel MCP Server — give AI assistants read-only access to your Vercel projects and deployments.
 ---
 
 # Vercel MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive access to the Vercel API.
+A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Vercel API.
 
 ## What can it do?
 
@@ -20,7 +20,7 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **5 tools** across 2 categories (Projects, Deployments)
+- **5 read-only tools** across 2 categories (Projects, Deployments)
 - **Team-scoped access** — set `VERCEL_TEAM_ID` to scope all queries to a specific Vercel team
 - **LLM-optimized responses** — internal Vercel fields are stripped, build logs have ANSI codes removed and are truncated to the last 150 lines
 - **Type-safe** — built with TypeScript and Zod schema validation

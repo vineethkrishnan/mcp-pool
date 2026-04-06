@@ -6,7 +6,7 @@ description: Complete reference for all 7 HubSpot MCP tools with parameters and 
 
 # Tools Reference
 
-Tools provide both read and write access to HubSpot.
+All tools are **read-only**. They retrieve data from HubSpot but never create, update, or delete anything.
 
 ## Contacts
 

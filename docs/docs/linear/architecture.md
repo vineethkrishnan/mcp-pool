@@ -113,6 +113,7 @@ Numeric priority values are expanded to `{ level, label }` objects for human rea
 
 ## Security Model
 
+- **Read-only by design** — no write operations (mutations) are exposed
 - **Personal API key scoped** — access is limited to what your Linear account can see
 - **No data persistence** — the server is stateless and does not store any Linear data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened

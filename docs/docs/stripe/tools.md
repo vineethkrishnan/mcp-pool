@@ -6,7 +6,7 @@ description: Complete reference for all 23 Stripe MCP tools with parameters and 
 
 # Tools Reference
 
-Tools provide both read and write access to Stripe.
+All tools are **read-only**. They retrieve data from Stripe but never create, update, or delete anything.
 
 ## Customers
 

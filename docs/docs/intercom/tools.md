@@ -6,7 +6,7 @@ description: Complete reference for all 6 Intercom MCP tools with parameters and
 
 # Tools Reference
 
-Tools provide both read and write access to Intercom.
+All tools are **read-only**. They retrieve data from Intercom but never create, update, or delete anything.
 
 ## Contacts
 

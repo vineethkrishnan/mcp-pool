@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.vineethkrishnan/notion-mcp",
-  "description": "An MCP server for the Notion API, enabling AI assistants to search, read pages, query databases, and list users.",
+  "description": "A read-only MCP server for the Notion API, enabling AI assistants to search, read pages, query databases, and list users.",
   "repository": {
     "url": "https://github.com/vineethkrishnan/mcp-pool",
     "source": "github",

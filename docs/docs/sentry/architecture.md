@@ -93,7 +93,8 @@ Numeric timestamps are converted to human-readable ISO 8601 strings where applic
 
 ## Security Model
 
-- **Scoped token support** — we recommend using tokens with minimal scopes (`project:read`, `org:read`, `event:read`)
+- **Read-only by design** — no write operations are exposed (no resolving issues, no deleting events, no modifying settings)
+- **Scoped token support** — we recommend using tokens with minimal read scopes (`project:read`, `org:read`, `event:read`)
 - **No data persistence** — the server is stateless and does not store any Sentry data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened
 - **Self-hosted TLS** — for self-hosted instances, the server respects the system TLS configuration

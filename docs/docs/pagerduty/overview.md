@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: PagerDuty MCP Server — give AI assistants access to your PagerDuty incidents, services, and on-call schedules.
+description: PagerDuty MCP Server — give AI assistants read-only access to your PagerDuty incidents, services, and on-call schedules.
 ---
 
 # PagerDuty MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive access to the PagerDuty API.
+A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the PagerDuty API.
 
 ## What can it do?
 
@@ -21,7 +21,7 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **6 tools** across 3 categories (Incidents, Services, On-Call)
+- **6 read-only tools** across 3 categories (Incidents, Services, On-Call)
 - **EU region support** — set `PAGERDUTY_BASE_URL` to `https://api.eu.pagerduty.com` for EU accounts
 - **LLM-optimized responses** — internal PagerDuty metadata is stripped, escalation policies are flattened to human-readable summaries
 - **Type-safe** — built with TypeScript and Zod schema validation

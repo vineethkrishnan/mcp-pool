@@ -1,7 +1,7 @@
 {
   "name": "@vineethnkrishnan/vercel-mcp",
   "version": "0.1.2",
-  "description": "An MCP server for Vercel API, enabling AI assistants to query deployments, projects, and build logs. Supports team-scoped access.",
+  "description": "A read-only MCP server for Vercel API, enabling AI assistants to query deployments, projects, and build logs. Supports team-scoped access.",
   "mcpName": "io.github.vineethkrishnan/vercel-mcp",
   "main": "build/index.js",
   "types": "build/index.d.ts",

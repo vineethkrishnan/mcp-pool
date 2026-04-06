@@ -6,7 +6,7 @@ description: Complete reference for all 6 Linear MCP tools with parameters and e
 
 # Tools Reference
 
-Tools provide both read and write access to Linear.
+All tools are **read-only**. They retrieve data from Linear but never create, update, or delete anything.
 
 ## Issues
 

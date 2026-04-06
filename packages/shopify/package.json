@@ -1,7 +1,7 @@
 {
   "name": "@vineethnkrishnan/shopify-mcp",
   "version": "0.1.3",
-  "description": "An MCP server for Shopify Admin API, enabling AI assistants to query orders, products, customers, and store info.",
+  "description": "A read-only MCP server for Shopify Admin API, enabling AI assistants to query orders, products, customers, and store info.",
   "mcpName": "io.github.vineethkrishnan/shopify-mcp",
   "main": "build/index.js",
   "types": "build/index.d.ts",

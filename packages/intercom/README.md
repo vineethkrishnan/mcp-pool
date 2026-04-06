@@ -3,7 +3,7 @@
 [![MCP](https://img.shields.io/badge/MCP-1.0.0-blue)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive interface to the Intercom API. **Supports both static access tokens and OAuth2 authentication.**
+A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive, read-only interface to the Intercom API. **Supports both static access tokens and OAuth2 authentication.**
 
 ## Overview
 
@@ -19,7 +19,8 @@ A Model Context Protocol (MCP) server that provides AI assistants (Claude, Curso
 - **Static Token Support:** Use an Intercom access token for simple setups.
 - **Modular Architecture:** Built with clean layered design for high maintainability.
 - **Type-Safe:** Fully implemented in TypeScript with Zod schema validation.
-- **Comprehensive Coverage:** Full access to Conversations and Contacts.
+- **Comprehensive Coverage:** Read-only access to Conversations and Contacts.
+- **Security-First:** Focused on read-only operations to ensure safety in AI-driven workflows.
 
 ## Installation
 

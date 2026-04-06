@@ -6,7 +6,7 @@ description: Complete reference for all 6 Datadog MCP tools with parameters and 
 
 # Tools Reference
 
-Tools provide both read and write access to Datadog.
+All tools are **read-only**. They retrieve data from Datadog but never create, update, or delete anything.
 
 ## Monitors
 

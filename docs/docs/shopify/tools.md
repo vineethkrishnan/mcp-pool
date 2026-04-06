@@ -6,7 +6,7 @@ description: Complete reference for all 7 Shopify MCP tools with parameters and 
 
 # Tools Reference
 
-Tools provide both read and write access to Shopify.
+All tools are **read-only**. They retrieve data from Shopify but never create, update, or delete anything.
 
 ## Orders
 

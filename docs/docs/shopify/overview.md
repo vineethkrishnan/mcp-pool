@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Shopify MCP Server — give AI assistants access to your Shopify store data.
+description: Shopify MCP Server — give AI assistants read-only access to your Shopify store data.
 ---
 
 # Shopify MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive access to the Shopify Admin API.
+A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Shopify Admin API.
 
 ## What can it do?
 
@@ -22,10 +22,10 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **7 tools** across 4 categories (Orders, Products, Customers, Shop)
+- **7 read-only tools** across 4 categories (Orders, Products, Customers, Shop)
 - **LLM-optimized responses** — internal Shopify metadata is stripped, money amounts are formatted with currency symbols, and product variants are simplified to essential fields
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — scoped API key support via Shopify custom app tokens
+- **Security-first** — read-only by design, supports Shopify custom app tokens with scoped permissions
 
 ## Supported Resources
 

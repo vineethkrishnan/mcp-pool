@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.vineethkrishnan/pagerduty-mcp",
-  "description": "An MCP server for PagerDuty API, enabling AI assistants to query incidents, services, and on-call schedules.",
+  "description": "A read-only MCP server for PagerDuty API, enabling AI assistants to query incidents, services, and on-call schedules.",
   "repository": {
     "url": "https://github.com/vineethkrishnan/mcp-pool",
     "source": "github",

@@ -88,6 +88,7 @@ After:  "created_at": "2023-01-01T00:00:00.000Z"
 
 ## Security Model
 
+- **Read-only by design** — no write operations are exposed
 - **Pinned API version** — all requests use `Intercom-Version: 2.11` to prevent breaking changes
 - **No data persistence** — the server is stateless and does not store any Intercom data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened

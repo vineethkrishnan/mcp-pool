@@ -3,7 +3,7 @@
 [![MCP](https://img.shields.io/badge/MCP-1.0.0-blue)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive interface to Google Workspace APIs — Gmail, Calendar, Drive, and Sheets. **Supports static tokens, service accounts, and OAuth2 authentication.**
+A Model Context Protocol (MCP) server that provides AI assistants (Claude, Cursor, etc.) with a comprehensive, read-only interface to Google Workspace APIs — Gmail, Calendar, Drive, and Sheets. **Supports static tokens, service accounts, and OAuth2 authentication.**
 
 ## Overview
 
@@ -20,7 +20,8 @@ A Model Context Protocol (MCP) server that provides AI assistants (Claude, Curso
 - **Multi-Service:** Single server covers Gmail, Calendar, Drive, and Sheets.
 - **Modular Architecture:** Built with clean layered design for high maintainability.
 - **Type-Safe:** Fully implemented in TypeScript with Zod schema validation.
-- **Comprehensive Coverage:** Full access across all four Google APIs.
+- **Comprehensive Coverage:** Read-only access across all four Google APIs.
+- **Security-First:** Focused on read-only operations to ensure safety in AI-driven workflows.
 
 ## Installation
 
