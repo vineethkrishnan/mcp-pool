@@ -10,6 +10,7 @@ import {
 import { z } from "zod";
 import { PagerDutyService } from "./services/pagerduty.service";
 import { IncidentTools, IncidentToolSchemas } from "./tools/incident.tools";
+import { IncidentWriteTools, IncidentWriteToolSchemas } from "./tools/incident.write-tools";
 import { ServiceTools, ServiceToolSchemas } from "./tools/service.tools";
 import { OncallTools, OncallToolSchemas } from "./tools/oncall.tools";
 
@@ -29,6 +30,7 @@ const pagerDutyService = new PagerDutyService({
 // Initialize tool classes
 const tools = {
   incidents: new IncidentTools(pagerDutyService),
+  incidentWrites: new IncidentWriteTools(pagerDutyService),
   services: new ServiceTools(pagerDutyService),
   oncalls: new OncallTools(pagerDutyService),
 };
@@ -36,6 +38,7 @@ const tools = {
 // Combine all schemas
 const AllToolSchemas = {
   ...IncidentToolSchemas,
+  ...IncidentWriteToolSchemas,
   ...ServiceToolSchemas,
   ...OncallToolSchemas,
 } as const;
@@ -60,11 +63,17 @@ const server = new Server(
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+    tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+      const tool: Record<string, unknown> = {
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      };
+      if ("annotations" in config) {
+        tool.annotations = config.annotations;
+      }
+      return tool;
+    }),
   };
 });
 
@@ -81,6 +90,10 @@ const toolRegistry: Record<string, ToolHandler> = {};
 for (const name of Object.keys(IncidentToolSchemas)) {
   toolRegistry[name] = (args) =>
     (tools.incidents[name as keyof IncidentTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(IncidentWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.incidentWrites[name as keyof IncidentWriteTools] as ToolHandler)(args);
 }
 for (const name of Object.keys(ServiceToolSchemas)) {
   toolRegistry[name] = (args) => (tools.services[name as keyof ServiceTools] as ToolHandler)(args);

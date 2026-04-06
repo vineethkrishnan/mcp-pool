@@ -93,7 +93,6 @@ Order line items are similarly simplified to `product`, `variant`, `quantity`, `
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
 - **Custom app support** — we recommend using Shopify custom apps with minimal scopes (`read_orders`, `read_products`, `read_customers`)
 - **No data persistence** — the server is stateless and does not store any Shopify data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened

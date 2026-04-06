@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.vineethkrishnan/intercom-mcp",
-  "description": "A read-only MCP server for Intercom API, enabling AI assistants to query conversations, contacts, and support data.",
+  "description": "An MCP server for Intercom API, enabling AI assistants to query conversations, contacts, and support data.",
   "repository": {
     "url": "https://github.com/vineethkrishnan/mcp-pool",
     "source": "github",

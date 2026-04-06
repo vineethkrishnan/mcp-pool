@@ -7,7 +7,11 @@ export class CalendarService {
 
   constructor(private auth: GoogleAuthService) {}
 
-  private async request<T>(path: string, params?: Record<string, string | number>): Promise<T> {
+  private async request<T>(
+    path: string,
+    params?: Record<string, string | number>,
+    options?: { method?: string; body?: unknown },
+  ): Promise<T> {
     const token = await this.auth.getAccessToken();
     const url = new URL(`${this.baseUrl}${path}`);
 
@@ -19,12 +23,19 @@ export class CalendarService {
       }
     }
 
-    const response = await fetch(url.toString(), {
+    const fetchOptions: RequestInit = {
+      method: options?.method ?? "GET",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-    });
+    };
+
+    if (options?.body !== undefined) {
+      fetchOptions.body = JSON.stringify(options.body);
+    }
+
+    const response = await fetch(url.toString(), fetchOptions);
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => "");
@@ -32,7 +43,7 @@ export class CalendarService {
         case 401:
           throw new Error("Calendar authentication failed. Your access token may be expired.");
         case 403:
-          throw new Error("Calendar access denied. Token may lack the calendar.readonly scope.");
+          throw new Error("Calendar access denied. Token may lack the required calendar scope.");
         case 404:
           throw new Error("Calendar resource not found. Check the calendar or event ID.");
         case 429:
@@ -42,6 +53,11 @@ export class CalendarService {
             `Calendar API error (${response.status}): ${errorBody || response.statusText}`,
           );
       }
+    }
+
+    // Handle 204 No Content (e.g., DELETE responses)
+    if (response.status === 204) {
+      return undefined as T;
     }
 
     return response.json() as Promise<T>;
@@ -97,5 +113,75 @@ export class CalendarService {
     );
 
     return simplifyCalendarEvent(event);
+  }
+
+  async createEvent(
+    calendarId: string,
+    summary: string,
+    start: string,
+    end: string,
+    description?: string,
+    location?: string,
+    attendees?: string[],
+  ): Promise<unknown> {
+    const encodedCalendarId = encodeURIComponent(calendarId);
+
+    const body: Record<string, unknown> = {
+      summary,
+      start: { dateTime: start },
+      end: { dateTime: end },
+    };
+    if (description) body.description = description;
+    if (location) body.location = location;
+    if (attendees && attendees.length > 0) {
+      body.attendees = attendees.map((email) => ({ email }));
+    }
+
+    const event = await this.request<CalendarEvent>(
+      `/calendars/${encodedCalendarId}/events`,
+      undefined,
+      { method: "POST", body },
+    );
+
+    return simplifyCalendarEvent(event);
+  }
+
+  async updateEvent(
+    calendarId: string,
+    eventId: string,
+    summary?: string,
+    start?: string,
+    end?: string,
+    description?: string,
+    location?: string,
+  ): Promise<unknown> {
+    const encodedCalendarId = encodeURIComponent(calendarId);
+    const encodedEventId = encodeURIComponent(eventId);
+
+    const body: Record<string, unknown> = {};
+    if (summary !== undefined) body.summary = summary;
+    if (start !== undefined) body.start = { dateTime: start };
+    if (end !== undefined) body.end = { dateTime: end };
+    if (description !== undefined) body.description = description;
+    if (location !== undefined) body.location = location;
+
+    const event = await this.request<CalendarEvent>(
+      `/calendars/${encodedCalendarId}/events/${encodedEventId}`,
+      undefined,
+      { method: "PUT", body },
+    );
+
+    return simplifyCalendarEvent(event);
+  }
+
+  async deleteEvent(calendarId: string, eventId: string): Promise<void> {
+    const encodedCalendarId = encodeURIComponent(calendarId);
+    const encodedEventId = encodeURIComponent(eventId);
+
+    await this.request<void>(
+      `/calendars/${encodedCalendarId}/events/${encodedEventId}`,
+      undefined,
+      { method: "DELETE" },
+    );
   }
 }

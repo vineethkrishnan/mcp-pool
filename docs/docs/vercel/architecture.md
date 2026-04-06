@@ -72,7 +72,6 @@ Build logs receive special treatment for LLM consumption:
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
 - **Token-based auth** — uses Vercel API tokens with configurable scope
 - **No data persistence** — the server is stateless and does not store any Vercel data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened

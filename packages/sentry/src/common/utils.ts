@@ -171,10 +171,13 @@ export function transformSentryResponse(data: unknown): unknown {
 /**
  * Transforms Sentry data and wraps it in the MCP tool response format.
  */
-export function formatMcpResponse(data: unknown): McpToolResponse {
+export function formatMcpResponse(data: unknown, actionMessage?: string): McpToolResponse {
   const transformed = transformSentryResponse(data);
+  const result = actionMessage
+    ? { _action: actionMessage, ...(transformed as object) }
+    : transformed;
   return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
+    content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
   };
 }
 

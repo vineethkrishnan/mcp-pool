@@ -7,7 +7,7 @@
 
 [Documentation](https://mcp-pool.vineethnk.in) | [npm](https://www.npmjs.com/~vineethnkrishnan) | [GitHub](https://github.com/vineethkrishnan/mcp-pool)
 
-A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct, read-only access to popular SaaS APIs — no dashboard switching required.
+A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct access to popular SaaS APIs — no dashboard switching required.
 
 MCP Pool bridges the gap between AI chat interfaces and the business tools teams rely on daily. Ask questions in natural language, get real answers backed by live data.
 

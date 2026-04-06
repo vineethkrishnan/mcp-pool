@@ -194,4 +194,89 @@ export class LinearService {
     const data = await this.query<{ teams: unknown }>(graphqlQuery, { first: limit });
     return data.teams;
   }
+
+  // ===========================================================================
+  // Mutations
+  // ===========================================================================
+
+  async createIssue(
+    teamId: string,
+    title: string,
+    description?: string,
+    assigneeId?: string,
+    priority?: number,
+    stateId?: string,
+  ): Promise<unknown> {
+    const input: Record<string, unknown> = { teamId, title };
+    if (description) input.description = description;
+    if (assigneeId) input.assigneeId = assigneeId;
+    if (priority !== undefined) input.priority = priority;
+    if (stateId) input.stateId = stateId;
+
+    const data = await this.query<{ issueCreate: unknown }>(
+      `mutation($input: IssueCreateInput!) {
+        issueCreate(input: $input) {
+          success
+          issue { id identifier title state { name } assignee { name } priority }
+        }
+      }`,
+      { input },
+    );
+    return data.issueCreate;
+  }
+
+  async updateIssueStatus(issueId: string, stateId: string): Promise<unknown> {
+    const data = await this.query<{ issueUpdate: unknown }>(
+      `mutation($id: String!, $input: IssueUpdateInput!) {
+        issueUpdate(id: $id, input: $input) {
+          success
+          issue { id identifier title state { name } }
+        }
+      }`,
+      { id: issueId, input: { stateId } },
+    );
+    return data.issueUpdate;
+  }
+
+  async assignIssue(issueId: string, assigneeId: string): Promise<unknown> {
+    const data = await this.query<{ issueUpdate: unknown }>(
+      `mutation($id: String!, $input: IssueUpdateInput!) {
+        issueUpdate(id: $id, input: $input) {
+          success
+          issue { id identifier title assignee { name } }
+        }
+      }`,
+      { id: issueId, input: { assigneeId } },
+    );
+    return data.issueUpdate;
+  }
+
+  async addIssueComment(issueId: string, body: string): Promise<unknown> {
+    const data = await this.query<{ commentCreate: unknown }>(
+      `mutation($input: CommentCreateInput!) {
+        commentCreate(input: $input) {
+          success
+          comment { id body createdAt user { name } }
+        }
+      }`,
+      { input: { issueId, body } },
+    );
+    return data.commentCreate;
+  }
+
+  async createProject(teamIds: string[], name: string, description?: string): Promise<unknown> {
+    const input: Record<string, unknown> = { teamIds, name };
+    if (description) input.description = description;
+
+    const data = await this.query<{ projectCreate: unknown }>(
+      `mutation($input: ProjectCreateInput!) {
+        projectCreate(input: $input) {
+          success
+          project { id name state }
+        }
+      }`,
+      { input },
+    );
+    return data.projectCreate;
+  }
 }

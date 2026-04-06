@@ -122,7 +122,6 @@ This keeps responses within LLM context limits while preserving the statistical 
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
 - **Dual-key authentication** — both API key and Application key are required
 - **Site-scoped** — keys only work against the region where they were created
 - **No data persistence** — the server is stateless and does not store any Datadog data

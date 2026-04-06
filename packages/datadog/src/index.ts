@@ -10,6 +10,7 @@ import {
 import { z } from "zod";
 import { DatadogService } from "./services/datadog.service";
 import { MonitorTools, MonitorToolSchemas } from "./tools/monitor.tools";
+import { MonitorWriteTools, MonitorWriteToolSchemas } from "./tools/monitor.write-tools";
 import { MetricTools, MetricToolSchemas } from "./tools/metric.tools";
 import { EventTools, EventToolSchemas } from "./tools/event.tools";
 
@@ -53,6 +54,7 @@ const datadogService = new DatadogService({
 // Initialize tool classes
 const tools = {
   monitors: new MonitorTools(datadogService),
+  monitorWrites: new MonitorWriteTools(datadogService),
   metrics: new MetricTools(datadogService),
   events: new EventTools(datadogService),
 };
@@ -60,6 +62,7 @@ const tools = {
 // Combine all schemas
 const AllToolSchemas = {
   ...MonitorToolSchemas,
+  ...MonitorWriteToolSchemas,
   ...MetricToolSchemas,
   ...EventToolSchemas,
 } as const;
@@ -84,11 +87,17 @@ const server = new Server(
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+    tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+      const tool: Record<string, unknown> = {
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      };
+      if ("annotations" in config) {
+        tool.annotations = config.annotations;
+      }
+      return tool;
+    }),
   };
 });
 
@@ -104,6 +113,10 @@ const toolRegistry: Record<string, ToolHandler> = {};
 
 for (const name of Object.keys(MonitorToolSchemas)) {
   toolRegistry[name] = (args) => (tools.monitors[name as keyof MonitorTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(MonitorWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.monitorWrites[name as keyof MonitorWriteTools] as ToolHandler)(args);
 }
 for (const name of Object.keys(MetricToolSchemas)) {
   toolRegistry[name] = (args) => (tools.metrics[name as keyof MetricTools] as ToolHandler)(args);

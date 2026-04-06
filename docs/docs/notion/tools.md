@@ -6,7 +6,7 @@ description: Complete reference for all 6 Notion MCP tools with parameters and e
 
 # Tools Reference
 
-All tools are **read-only**. They retrieve data from Notion but never create, update, or delete anything.
+Tools provide both read and write access to Notion.
 
 ## Search
 

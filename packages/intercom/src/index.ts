@@ -13,6 +13,10 @@ import { createAuthProvider } from "@vineethnkrishnan/oauth-core";
 import { AUTH_CONFIG } from "./auth-config";
 import { IntercomService } from "./services/intercom.service";
 import { ConversationTools, ConversationToolSchemas } from "./tools/conversation.tools";
+import {
+  ConversationWriteTools,
+  ConversationWriteToolSchemas,
+} from "./tools/conversation.write-tools";
 import { ContactTools, ContactToolSchemas } from "./tools/contact.tools";
 
 // Route CLI subcommands before starting MCP server
@@ -27,11 +31,13 @@ if (process.argv[2] === "auth") {
 
   const tools = {
     conversations: new ConversationTools(intercomService),
+    conversationWrites: new ConversationWriteTools(intercomService),
     contacts: new ContactTools(intercomService),
   };
 
   const AllToolSchemas = {
     ...ConversationToolSchemas,
+    ...ConversationWriteToolSchemas,
     ...ContactToolSchemas,
   } as const;
 
@@ -42,11 +48,19 @@ if (process.argv[2] === "auth") {
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-        name,
-        description: config.description,
-        inputSchema: z.toJSONSchema(config.schema),
-      })),
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+        const tool: Record<string, unknown> = {
+          name,
+          description: config.description,
+          inputSchema: z.toJSONSchema(config.schema),
+        };
+
+        if ("annotations" in config) {
+          tool.annotations = config.annotations;
+        }
+
+        return tool;
+      }),
     };
   });
 
@@ -59,6 +73,12 @@ if (process.argv[2] === "auth") {
   for (const name of Object.keys(ConversationToolSchemas)) {
     toolRegistry[name] = (args) =>
       (tools.conversations[name as keyof typeof tools.conversations] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(ConversationWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.conversationWrites[name as keyof typeof tools.conversationWrites] as ToolHandler)(
+        args,
+      );
   }
   for (const name of Object.keys(ContactToolSchemas)) {
     toolRegistry[name] = (args) =>

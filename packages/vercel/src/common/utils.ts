@@ -62,11 +62,14 @@ export function transformVercelResponse(data: unknown): unknown {
 
 /**
  * Transforms Vercel data and wraps it in the MCP tool response format.
+ * When actionMessage is provided, it is prepended as a summary line for write operations.
  */
-export function formatMcpResponse(data: unknown): McpToolResponse {
+export function formatMcpResponse(data: unknown, actionMessage?: string): McpToolResponse {
   const transformed = transformVercelResponse(data);
+  const json = JSON.stringify(transformed, null, 2);
+  const text = actionMessage ? `${actionMessage}\n\n${json}` : json;
   return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
+    content: [{ type: "text", text }],
   };
 }
 

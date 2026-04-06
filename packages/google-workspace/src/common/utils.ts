@@ -147,12 +147,19 @@ export function transformGoogleResponse(data: unknown): unknown {
 
 /**
  * Transform data and wrap in MCP tool response format.
+ * Optionally prepend an action message (e.g., confirmation of a write operation).
  */
-export function formatMcpResponse(data: unknown): McpToolResponse {
+export function formatMcpResponse(data: unknown, actionMessage?: string): McpToolResponse {
   const transformed = transformGoogleResponse(data);
-  return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
-  };
+  const parts: Array<{ type: string; text: string }> = [];
+
+  if (actionMessage) {
+    parts.push({ type: "text", text: actionMessage });
+  }
+
+  parts.push({ type: "text", text: JSON.stringify(transformed, null, 2) });
+
+  return { content: parts };
 }
 
 /**

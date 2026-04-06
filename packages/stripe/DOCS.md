@@ -109,7 +109,7 @@ The server is structured to be robust and scalable:
 - **`src/index.ts`**: The entry point that manages the JSON-RPC stdio lifecycle.
 
 ### Data Privacy & Safety
-- **Read-Only**: This server is designed for read-only access. Write operations (Phase 3) are intentionally excluded for security.
+- **Scoped Access**: We recommend using **Stripe Restricted Keys** with only the permissions your workflow requires.
 - **Restricted Keys**: We strongly recommend using **Stripe Restricted Keys** with limited read permissions for this server.
 
 ---

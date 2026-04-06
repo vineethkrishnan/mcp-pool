@@ -97,7 +97,7 @@ The HTTP client resolves the Sentry API base URL at startup from the `SENTRY_BAS
 
 ## Data Privacy & Safety
 
-- **Read-Only**: This server is designed exclusively for read-only access. No mutations (resolving issues, deleting data, updating assignments) are performed.
+- **Scoped Access**: We recommend using API tokens with minimal required scopes to limit the server's capabilities to what your workflow needs.
 - **Token Scoping**: We strongly recommend using Sentry auth tokens with the minimum required scopes (`org:read`, `project:read`, `event:read`) for this server.
 - **No Data Storage**: The server does not cache, store, or log any Sentry data. All responses are streamed directly to the MCP client.
 

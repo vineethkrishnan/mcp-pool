@@ -11,6 +11,7 @@ import { z } from "zod";
 import { VercelService } from "./services/vercel.service";
 import { ProjectTools, ProjectToolSchemas } from "./tools/project.tools";
 import { DeploymentTools, DeploymentToolSchemas } from "./tools/deployment.tools";
+import { DeploymentWriteTools, DeploymentWriteToolSchemas } from "./tools/deployment.write-tools";
 
 // Validate required config
 const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
@@ -29,12 +30,14 @@ const vercelService = new VercelService({
 const tools = {
   projects: new ProjectTools(vercelService),
   deployments: new DeploymentTools(vercelService),
+  deploymentWrites: new DeploymentWriteTools(vercelService),
 };
 
 // Combine all schemas
 const AllToolSchemas = {
   ...ProjectToolSchemas,
   ...DeploymentToolSchemas,
+  ...DeploymentWriteToolSchemas,
 } as const;
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -57,11 +60,17 @@ const server = new Server(
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+    tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+      const tool: Record<string, unknown> = {
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      };
+      if ("annotations" in config) {
+        tool.annotations = config.annotations;
+      }
+      return tool;
+    }),
   };
 });
 
@@ -81,6 +90,10 @@ for (const name of Object.keys(ProjectToolSchemas)) {
 for (const name of Object.keys(DeploymentToolSchemas)) {
   toolRegistry[name] = (args) =>
     (tools.deployments[name as keyof DeploymentTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(DeploymentWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.deploymentWrites[name as keyof DeploymentWriteTools] as ToolHandler)(args);
 }
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {

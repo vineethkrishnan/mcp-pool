@@ -13,6 +13,7 @@ import { createAuthProvider } from "@vineethnkrishnan/oauth-core";
 import { AUTH_CONFIG } from "./auth-config";
 import { LinearService } from "./services/linear.service";
 import { IssueTools, IssueToolSchemas } from "./tools/issue.tools";
+import { IssueWriteTools, IssueWriteToolSchemas } from "./tools/issue.write-tools";
 import { ProjectTools, ProjectToolSchemas } from "./tools/project.tools";
 import { TeamTools, TeamToolSchemas } from "./tools/team.tools";
 
@@ -28,12 +29,14 @@ if (process.argv[2] === "auth") {
 
   const tools = {
     issues: new IssueTools(linearService),
+    issueWrites: new IssueWriteTools(linearService),
     projects: new ProjectTools(linearService),
     teams: new TeamTools(linearService),
   };
 
   const AllToolSchemas = {
     ...IssueToolSchemas,
+    ...IssueWriteToolSchemas,
     ...ProjectToolSchemas,
     ...TeamToolSchemas,
   } as const;
@@ -45,11 +48,17 @@ if (process.argv[2] === "auth") {
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-        name,
-        description: config.description,
-        inputSchema: z.toJSONSchema(config.schema),
-      })),
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+        const tool: Record<string, unknown> = {
+          name,
+          description: config.description,
+          inputSchema: z.toJSONSchema(config.schema),
+        };
+        if ("annotations" in config) {
+          tool.annotations = config.annotations;
+        }
+        return tool;
+      }),
     };
   });
 
@@ -62,6 +71,10 @@ if (process.argv[2] === "auth") {
   for (const name of Object.keys(IssueToolSchemas)) {
     toolRegistry[name] = (args) =>
       (tools.issues[name as keyof typeof tools.issues] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(IssueWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.issueWrites[name as keyof typeof tools.issueWrites] as ToolHandler)(args);
   }
   for (const name of Object.keys(ProjectToolSchemas)) {
     toolRegistry[name] = (args) =>

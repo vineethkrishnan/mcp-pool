@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Sentry MCP Server — give AI assistants read-only access to your Sentry issues, events, and stack traces. Supports self-hosted instances.
+description: Sentry MCP Server — give AI assistants access to your Sentry issues, events, and stack traces. Supports self-hosted instances.
 ---
 
 # Sentry MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Sentry API. Works with both Sentry SaaS and **self-hosted** instances.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the Sentry API. Works with both Sentry SaaS and **self-hosted** instances.
 
 ## What can it do?
 
@@ -21,12 +21,12 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **8 read-only tools** across 4 categories (Organizations, Projects, Issues, Events)
+- **8 tools** across 4 categories (Organizations, Projects, Issues, Events)
 - **Self-hosted support** — point to any Sentry instance via `SENTRY_BASE_URL`
 - **LLM-optimized responses** — internal fields are stripped, stack frames and breadcrumbs are truncated to save tokens
 - **No SDK dependency** — lightweight `fetch`-based HTTP client
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design, supports scoped auth tokens
+- **Security-first** — supports scoped auth tokens with minimal permissions
 
 ## Supported Resources
 

@@ -6,7 +6,7 @@ description: Complete reference for all 6 PagerDuty MCP tools with parameters an
 
 # Tools Reference
 
-All tools are **read-only**. They retrieve data from PagerDuty but never create, update, or delete anything.
+Tools provide both read and write access to PagerDuty.
 
 ## Incidents
 

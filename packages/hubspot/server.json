@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.vineethkrishnan/hubspot-mcp",
-  "description": "A read-only MCP server for HubSpot CRM API, enabling AI assistants to query contacts, deals, and companies.",
+  "description": "An MCP server for HubSpot CRM API, enabling AI assistants to query contacts, deals, and companies.",
   "repository": {
     "url": "https://github.com/vineethkrishnan/mcp-pool",
     "source": "github",

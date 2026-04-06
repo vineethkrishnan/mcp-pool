@@ -55,6 +55,50 @@ export class ShopifyService {
     return response.json() as Promise<T>;
   }
 
+  private async mutateRequest<T>(
+    method: "POST" | "PUT" | "PATCH",
+    path: string,
+    body?: Record<string, unknown>,
+  ): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
+    const url = `${this.baseUrl}${path}`;
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "X-Shopify-Access-Token": token,
+        "Content-Type": "application/json",
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      switch (response.status) {
+        case 401:
+          throw new Error("Authentication failed. Check your SHOPIFY_ACCESS_TOKEN.");
+        case 403:
+          throw new Error(
+            "Access denied. Token may lack required scopes (write_orders, write_products).",
+          );
+        case 404:
+          throw new Error("Not found. Check the ID and ensure you have access.");
+        case 422:
+          throw new Error(`Validation error: ${errorBody}`);
+        case 429: {
+          const retryAfter = response.headers.get("Retry-After") ?? "unknown";
+          throw new Error(`Rate limited by Shopify. Retry after ${retryAfter} seconds.`);
+        }
+        default:
+          throw new Error(
+            `Shopify API error (${response.status}): ${errorBody || response.statusText}`,
+          );
+      }
+    }
+
+    return response.json() as Promise<T>;
+  }
+
   // Orders
   async listOrders(status?: string, limit: number = 50): Promise<unknown[]> {
     const params: Record<string, string | number> = { limit };
@@ -88,6 +132,74 @@ export class ShopifyService {
   async getCustomer(customerId: string): Promise<unknown> {
     const data = await this.request<{ customer: unknown }>(`/customers/${customerId}.json`);
     return data.customer;
+  }
+
+  async updateOrderTags(orderId: string, tags: string): Promise<unknown> {
+    const data = await this.mutateRequest<{ order: unknown }>("PUT", `/orders/${orderId}.json`, {
+      order: { id: orderId, tags },
+    });
+    return data.order;
+  }
+
+  async cancelOrder(orderId: string, reason?: string): Promise<unknown> {
+    const body: Record<string, unknown> = {};
+    if (reason) body.reason = reason;
+    const data = await this.mutateRequest<{ order: unknown }>(
+      "POST",
+      `/orders/${orderId}/cancel.json`,
+      body,
+    );
+    return data.order;
+  }
+
+  // Products (write)
+  async createProduct(
+    title: string,
+    bodyHtml?: string,
+    vendor?: string,
+    productType?: string,
+    tags?: string,
+  ): Promise<unknown> {
+    const product: Record<string, unknown> = { title };
+    if (bodyHtml) product.body_html = bodyHtml;
+    if (vendor) product.vendor = vendor;
+    if (productType) product.product_type = productType;
+    if (tags) product.tags = tags;
+    const data = await this.mutateRequest<{ product: unknown }>("POST", "/products.json", {
+      product,
+    });
+    return data.product;
+  }
+
+  async updateProduct(
+    productId: string,
+    title?: string,
+    bodyHtml?: string,
+    tags?: string,
+  ): Promise<unknown> {
+    const product: Record<string, unknown> = {};
+    if (title) product.title = title;
+    if (bodyHtml) product.body_html = bodyHtml;
+    if (tags) product.tags = tags;
+    const data = await this.mutateRequest<{ product: unknown }>(
+      "PUT",
+      `/products/${productId}.json`,
+      { product },
+    );
+    return data.product;
+  }
+
+  // Inventory
+  async updateInventory(
+    inventoryItemId: string,
+    locationId: string,
+    available: number,
+  ): Promise<unknown> {
+    return this.mutateRequest<unknown>("POST", "/inventory_levels/set.json", {
+      inventory_item_id: inventoryItemId,
+      location_id: locationId,
+      available,
+    });
   }
 
   // Shop

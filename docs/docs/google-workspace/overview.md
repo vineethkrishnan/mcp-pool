@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Google Workspace MCP Server — give AI assistants read-only access to Gmail, Calendar, Drive, and Sheets.
+description: Google Workspace MCP Server — give AI assistants access to Gmail, Calendar, Drive, and Sheets.
 ---
 
 # Google Workspace MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to Google Workspace APIs across four services: Gmail, Calendar, Drive, and Sheets.
+A Model Context Protocol server that provides AI assistants with comprehensive access to Google Workspace APIs across four services: Gmail, Calendar, Drive, and Sheets.
 
 ## What can it do?
 
@@ -23,11 +23,11 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **12 read-only tools** across 4 services (Gmail, Calendar, Drive, Sheets)
+- **12 tools** across 4 services (Gmail, Calendar, Drive, Sheets)
 - **Multi-service architecture** — a single MCP server covers all major Workspace APIs through a unified auth layer
 - **LLM-optimized responses** — Gmail bodies are decoded from base64url, Calendar events are simplified, Drive files are flattened, and Google metadata (`kind`, `etag`) is stripped
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design
+- **Security-first** — scoped API key support
 
 ## Supported Resources
 

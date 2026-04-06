@@ -13,6 +13,7 @@ import { OrganizationTools, OrganizationToolSchemas } from "./tools/organization
 import { ProjectTools, ProjectToolSchemas } from "./tools/project.tools";
 import { IssueTools, IssueToolSchemas } from "./tools/issue.tools";
 import { EventTools, EventToolSchemas } from "./tools/event.tools";
+import { IssueWriteTools, IssueWriteToolSchemas } from "./tools/issue.write-tools";
 
 // Validate required config
 const SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN;
@@ -34,6 +35,7 @@ const tools = {
   projects: new ProjectTools(sentryService),
   issues: new IssueTools(sentryService),
   events: new EventTools(sentryService),
+  issueWrites: new IssueWriteTools(sentryService),
 };
 
 // Combine all schemas
@@ -42,6 +44,7 @@ const AllToolSchemas = {
   ...ProjectToolSchemas,
   ...IssueToolSchemas,
   ...EventToolSchemas,
+  ...IssueWriteToolSchemas,
 } as const;
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -64,11 +67,17 @@ const server = new Server(
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+    tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+      const tool: Record<string, unknown> = {
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      };
+      if ("annotations" in config) {
+        tool.annotations = config.annotations;
+      }
+      return tool;
+    }),
   };
 });
 
@@ -94,6 +103,10 @@ for (const name of Object.keys(IssueToolSchemas)) {
 }
 for (const name of Object.keys(EventToolSchemas)) {
   toolRegistry[name] = (args) => (tools.events[name as keyof EventTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(IssueWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.issueWrites[name as keyof IssueWriteTools] as ToolHandler)(args);
 }
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {

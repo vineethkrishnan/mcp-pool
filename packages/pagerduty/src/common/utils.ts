@@ -138,10 +138,17 @@ export function transformPagerDutyResponse(data: unknown, resourceType?: string)
 /**
  * Transforms PagerDuty data and wraps it in the MCP tool response format.
  */
-export function formatMcpResponse(data: unknown, resourceType?: string): McpToolResponse {
+export function formatMcpResponse(
+  data: unknown,
+  actionMessage?: string,
+  resourceType?: string,
+): McpToolResponse {
   const transformed = transformPagerDutyResponse(data, resourceType);
+  const result = actionMessage
+    ? { _action: actionMessage, ...(transformed as object) }
+    : transformed;
   return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
+    content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
   };
 }
 

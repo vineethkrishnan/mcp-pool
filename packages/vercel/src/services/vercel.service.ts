@@ -60,6 +60,47 @@ export class VercelService {
     return response.json() as Promise<T>;
   }
 
+  private async mutateRequest<T>(
+    method: "POST" | "PUT" | "PATCH",
+    path: string,
+    body?: Record<string, unknown>,
+  ): Promise<T> {
+    const url = this.buildUrl(path);
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        "Content-Type": "application/json",
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      switch (response.status) {
+        case 401:
+          throw new Error("Authentication failed. Check your VERCEL_TOKEN.");
+        case 403:
+          throw new Error(
+            "Access denied. Token may lack required scopes, or you may not have access to this team.",
+          );
+        case 404:
+          throw new Error("Not found. Check the ID and ensure you have access.");
+        case 429: {
+          const retryAfter = response.headers.get("Retry-After") ?? "unknown";
+          throw new Error(`Rate limited by Vercel. Retry after ${retryAfter} seconds.`);
+        }
+        default:
+          throw new Error(
+            `Vercel API error (${response.status}): ${errorBody || response.statusText}`,
+          );
+      }
+    }
+
+    return response.json() as Promise<T>;
+  }
+
   // ===========================================================================
   // Projects
   // ===========================================================================
@@ -90,5 +131,24 @@ export class VercelService {
 
   async getDeploymentBuildLogs(deploymentId: string): Promise<unknown> {
     return this.request<unknown>(`/v2/deployments/${deploymentId}/events`);
+  }
+
+  async createDeployment(
+    name: string,
+    gitSource: { type: string; ref: string; repoId: string },
+  ): Promise<unknown> {
+    return this.mutateRequest<unknown>("POST", "/v13/deployments", { name, gitSource });
+  }
+
+  async cancelDeployment(deploymentId: string): Promise<unknown> {
+    return this.mutateRequest<unknown>("PATCH", `/v13/deployments/${deploymentId}/cancel`, {});
+  }
+
+  async promoteDeployment(projectId: string, deploymentId: string): Promise<unknown> {
+    return this.mutateRequest<unknown>(
+      "POST",
+      `/v10/projects/${projectId}/promote/${deploymentId}`,
+      {},
+    );
   }
 }

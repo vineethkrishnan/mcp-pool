@@ -16,7 +16,9 @@ import { CalendarService } from "./services/calendar.service";
 import { DriveService } from "./services/drive.service";
 import { SheetsService } from "./services/sheets.service";
 import { GmailTools, GmailToolSchemas } from "./tools/gmail.tools";
+import { GmailWriteTools, GmailWriteToolSchemas } from "./tools/gmail.write-tools";
 import { CalendarTools, CalendarToolSchemas } from "./tools/calendar.tools";
+import { CalendarWriteTools, CalendarWriteToolSchemas } from "./tools/calendar.write-tools";
 import { DriveTools, DriveToolSchemas } from "./tools/drive.tools";
 import { SheetsTools, SheetsToolSchemas } from "./tools/sheets.tools";
 
@@ -27,8 +29,9 @@ if (process.argv[2] === "auth") {
     authUrl: "https://accounts.google.com/o/oauth2/v2/auth",
     tokenUrl: "https://oauth2.googleapis.com/token",
     scopes: [
-      "https://www.googleapis.com/auth/gmail.readonly",
-      "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.compose",
+      "https://www.googleapis.com/auth/calendar",
       "https://www.googleapis.com/auth/drive.readonly",
       "https://www.googleapis.com/auth/spreadsheets.readonly",
     ],
@@ -90,7 +93,9 @@ if (process.argv[2] === "auth") {
   // Initialize tool classes
   const tools = {
     gmail: new GmailTools(gmailService),
+    gmailWrite: new GmailWriteTools(gmailService),
     calendar: new CalendarTools(calendarService),
+    calendarWrite: new CalendarWriteTools(calendarService),
     drive: new DriveTools(driveService),
     sheets: new SheetsTools(sheetsService),
   };
@@ -98,7 +103,9 @@ if (process.argv[2] === "auth") {
   // Combine all schemas
   const AllToolSchemas = {
     ...GmailToolSchemas,
+    ...GmailWriteToolSchemas,
     ...CalendarToolSchemas,
+    ...CalendarWriteToolSchemas,
     ...DriveToolSchemas,
     ...SheetsToolSchemas,
   } as const;
@@ -123,11 +130,19 @@ if (process.argv[2] === "auth") {
    */
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-        name,
-        description: config.description,
-        inputSchema: z.toJSONSchema(config.schema),
-      })),
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+        const tool: Record<string, unknown> = {
+          name,
+          description: config.description,
+          inputSchema: z.toJSONSchema(config.schema),
+        };
+
+        if ("annotations" in config) {
+          tool.annotations = config.annotations;
+        }
+
+        return tool;
+      }),
     };
   });
 
@@ -145,9 +160,17 @@ if (process.argv[2] === "auth") {
     toolRegistry[name] = (args) =>
       (tools.gmail[name as keyof typeof tools.gmail] as ToolHandler)(args);
   }
+  for (const name of Object.keys(GmailWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.gmailWrite[name as keyof typeof tools.gmailWrite] as ToolHandler)(args);
+  }
   for (const name of Object.keys(CalendarToolSchemas)) {
     toolRegistry[name] = (args) =>
       (tools.calendar[name as keyof typeof tools.calendar] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(CalendarWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.calendarWrite[name as keyof typeof tools.calendarWrite] as ToolHandler)(args);
   }
   for (const name of Object.keys(DriveToolSchemas)) {
     toolRegistry[name] = (args) =>

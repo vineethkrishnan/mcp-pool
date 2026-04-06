@@ -93,11 +93,15 @@ export function transformHubSpotResponse(data: unknown): unknown {
 
 /**
  * Transforms HubSpot data and wraps it in the MCP tool response format.
+ * Optionally prepends an action message (e.g., "Contact created successfully.")
+ * before the JSON payload.
  */
-export function formatMcpResponse(data: unknown): McpToolResponse {
+export function formatMcpResponse(data: unknown, actionMessage?: string): McpToolResponse {
   const transformed = transformHubSpotResponse(data);
+  const json = JSON.stringify(transformed, null, 2);
+  const text = actionMessage ? `${actionMessage}\n\n${json}` : json;
   return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
+    content: [{ type: "text", text }],
   };
 }
 
