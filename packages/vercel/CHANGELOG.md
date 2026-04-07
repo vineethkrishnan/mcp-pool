@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/vineethkrishnan/mcp-pool/compare/vercel-mcp-v0.1.3...vercel-mcp-v0.1.4) (2026-04-07)
+
+
+### Features
+
+* add glama integration, dockerfile, and tool annotations ([1a2cf2a](https://github.com/vineethkrishnan/mcp-pool/commit/1a2cf2a8eb58e4e3134f04ff082188fca0acd48e))
+
 ## [0.1.3](https://github.com/vineethkrishnan/mcp-pool/compare/vercel-mcp-v0.1.2...vercel-mcp-v0.1.3) (2026-04-07)
 
 
