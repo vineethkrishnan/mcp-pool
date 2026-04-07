@@ -1,0 +1,58 @@
+{
+  "name": "@vineethnkrishnan/evernote-mcp",
+  "version": "0.1.0",
+  "description": "An MCP server for the Evernote API, enabling AI assistants to manage notes, notebooks, tags, and search across your Evernote account.",
+  "mcpName": "io.github.vineethkrishnan/evernote-mcp",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "bin": {
+    "evernote-mcp": "build/index.js"
+  },
+  "files": [
+    "build/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "test": "jest --coverage"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "evernote",
+    "ai",
+    "model-context-protocol",
+    "notes",
+    "notebooks",
+    "productivity"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vineethkrishnan/mcp-pool.git",
+    "directory": "packages/evernote"
+  },
+  "homepage": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/evernote#readme",
+  "bugs": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool/issues"
+  },
+  "author": "Vineeth Krishnan",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "evernote": "^2.0.5",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^5.7.0"
+  }
+}

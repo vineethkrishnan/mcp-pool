@@ -27,6 +27,7 @@ The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standa
 | [Intercom MCP](/docs/intercom/overview) | Conversations, contacts, support | `@vineethnkrishnan/intercom-mcp` |
 | [Shopify MCP](/docs/shopify/overview) | Orders, products, customers | `@vineethnkrishnan/shopify-mcp` |
 | [Google Workspace MCP](/docs/google-workspace/overview) | Gmail, Calendar, Drive, Sheets | `@vineethnkrishnan/google-workspace-mcp` |
+| [Evernote MCP](/docs/evernote/overview) | Notes, notebooks, tags, search | `@vineethnkrishnan/evernote-mcp` |
 
 ## Why MCP Pool?
 

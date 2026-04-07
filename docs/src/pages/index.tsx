@@ -28,11 +28,11 @@ function HomepageHeader() {
         </div>
         <div className={styles.stats}>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>11</span>
+            <span className={styles.statNumber}>12</span>
             <span className={styles.statLabel}>MCP Servers</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>130+</span>
+            <span className={styles.statNumber}>140+</span>
             <span className={styles.statLabel}>Tools</span>
           </div>
           <div className={styles.stat}>
