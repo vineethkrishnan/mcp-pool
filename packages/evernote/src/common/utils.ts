@@ -10,7 +10,8 @@ import { McpToolResponse } from "./types";
 export function enmlToPlainText(enml: string): string {
   if (!enml) return "";
 
-  return enml
+  // Phase 1: Convert semantic ENML/HTML tags to text markers
+  let text = enml
     .replace(/<\?xml[^>]*\?>/g, "")
     .replace(/<!DOCTYPE[^>]*>/g, "")
     .replace(/<en-note[^>]*>/g, "")
@@ -28,15 +29,27 @@ export function enmlToPlainText(enml: string): string {
     .replace(/<h2[^>]*>/gi, "## ")
     .replace(/<h3[^>]*>/gi, "### ")
     .replace(/<\/h[1-3]>/gi, "\n")
-    .replace(/<hr\s*\/?>/gi, "\n---\n")
-    .replace(/<[^>]+>/g, "")
+    .replace(/<hr\s*\/?>/gi, "\n---\n");
+
+  // Phase 2: Strip all remaining HTML/XML tags (loop to handle nested/malformed tags)
+  let previous: string;
+  do {
+    previous = text;
+    text = text.replace(/<[^>]+>/g, "");
+  } while (text !== previous);
+
+  // Phase 3: Decode HTML entities (order matters — &amp; must be last
+  // to avoid double-unescaping sequences like &amp;lt; → &lt; → <)
+  text = text
     .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
+
+  return text;
 }
 
 /**
