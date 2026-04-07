@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 5 Vercel MCP tools with parameters and example prompts.
+description: Complete reference for all 8 Vercel MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Vercel.
+Vercel MCP provides **8 tools** — 5 read tools and 3 write tools.
 
 ## Projects
 
@@ -39,3 +39,24 @@ Track deployment status and diagnose build failures.
 - *"Show me all deployments from the last 24 hours."*
 - *"Get the build logs for deployment `dpl_abc123` — why did it fail?"*
 - *"Which git commit triggered deployment `dpl_xyz789`?"*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools create, cancel, and promote deployments in your Vercel account. Use with care.
+:::
+
+### Deployment Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_deployment` | `name: string`, `git_source: { type: string, ref: string, repo_id: string }` | Creates a new deployment from a git source. Specify the branch/tag ref and repository ID. |
+| `cancel_deployment` | `deployment_id: string` | Cancels a deployment that is currently building or queued. |
+| `promote_deployment` | `project_id: string`, `deployment_id: string` | Promotes a preview deployment to production. |
+
+**Example prompts:**
+- *"Deploy the `main` branch of my project."*
+- *"Cancel deployment `dpl_building123` — it has the wrong config."*
+- *"Promote deployment `dpl_preview456` to production."*

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 6 Notion MCP tools with parameters and example prompts.
+description: Complete reference for all 10 Notion MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Notion.
+Notion MCP provides **10 tools** — 6 read tools and 4 write tools.
 
 ## Search
 
@@ -66,3 +66,26 @@ List workspace members.
 **Example prompts:**
 - *"Who are all the users in our Notion workspace?"*
 - *"List the members and bots in our workspace."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools create and modify content in your Notion workspace. Use with care.
+:::
+
+### Page Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_page` | `parent_database_id?: string`, `parent_page_id?: string`, `properties: string`, `children?: string` | Creates a new page in a database or as a child of another page. Properties and children are JSON strings using Notion's block format. |
+| `update_page_properties` | `page_id: string`, `properties: string` | Updates the properties of an existing page. Properties is a JSON string. |
+| `append_blocks` | `block_id: string`, `children: string` | Appends content blocks to a page or block. Children is a JSON string of Notion block objects. |
+| `archive_page` | `page_id: string` | Archives (soft-deletes) a page. The page can be restored from Notion's trash. |
+
+**Example prompts:**
+- *"Create a new page titled 'Meeting Notes' in database `db_abc123`."*
+- *"Update the status property of page `page_xyz` to 'Done'."*
+- *"Add a paragraph block to page `page_abc` with the text 'Action items from today's meeting'."*
+- *"Archive page `page_old456` — it's no longer needed."*

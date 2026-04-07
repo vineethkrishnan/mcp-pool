@@ -5,34 +5,38 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  icon: string;
+  iconStyle: string;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Ready to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    icon: '\u26A1',
+    iconStyle: styles.featureIconPurple,
     description: (
       <>
         Install via <code>npx</code>, set one environment variable, and your AI
-        assistant can query live data. No complex setup required.
+        assistant can query and act on live data. No complex setup required.
       </>
     ),
   },
   {
-    title: 'Read-Only by Default',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Read & Write Support',
+    icon: '\u2194',
+    iconStyle: styles.featureIconGreen,
     description: (
       <>
-        All MCP servers are read-only by design. Safe for AI-driven workflows —
-        no accidental mutations, refunds, or deletions.
+        130+ tools across 11 servers. Read data, create records, update
+        statuses, and manage resources — all through natural language.
       </>
     ),
   },
   {
     title: 'Multi-IDE Support',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    icon: '\u{1F4BB}',
+    iconStyle: styles.featureIconBlue,
     description: (
       <>
         Works with Claude Desktop, VS Code, Cursor, Windsurf, JetBrains, and
@@ -42,15 +46,15 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, icon, iconStyle, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+      <div className={styles.featureCard}>
+        <div className={clsx(styles.featureIcon, iconStyle)}>
+          {icon}
+        </div>
+        <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
+        <p className={styles.featureDescription}>{description}</p>
       </div>
     </div>
   );

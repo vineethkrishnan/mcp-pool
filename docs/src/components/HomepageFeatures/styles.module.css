@@ -1,11 +1,86 @@
 .features {
   display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  align-items: stretch;
+  padding: 4rem 0;
   width: 100%;
+  background-color: var(--ifm-background-color);
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.featureCard {
+  background: var(--ifm-card-background-color);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  box-shadow: var(--md-elevation-1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+[data-theme='dark'] .featureCard {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.featureCard:hover {
+  box-shadow: var(--md-elevation-3);
+  transform: translateY(-4px);
+}
+
+.featureIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.featureIconPurple {
+  background: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+}
+
+[data-theme='dark'] .featureIconPurple {
+  background: rgba(129, 140, 248, 0.15);
+  color: #818cf8;
+}
+
+.featureIconGreen {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+[data-theme='dark'] .featureIconGreen {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+}
+
+.featureIconBlue {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
+
+[data-theme='dark'] .featureIconBlue {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+}
+
+.featureTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.featureDescription {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ifm-color-content-secondary);
+  margin: 0;
 }

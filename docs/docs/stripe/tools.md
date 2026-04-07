@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 23 Stripe MCP tools with parameters and example prompts.
+description: Complete reference for all 28 Stripe MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Stripe.
+Stripe MCP provides **28 tools** — 23 read tools and 5 write tools.
 
 ## Customers
 
@@ -123,3 +123,43 @@ View tax rate configurations.
 **Example prompts:**
 - *"What tax rates do we have configured?"*
 - *"Show me the details of tax rate `txr_abc123`."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools perform mutations on your Stripe account. Use with care.
+:::
+
+### Billing Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `update_subscription` | `subscription_id: string`, `cancel_at_period_end?: boolean`, `price_id?: string` | Updates a subscription — change the price or set it to cancel at period end. |
+| `create_invoice` | `customer_id: string`, `description?: string`, `auto_advance?: boolean` | Creates a new draft invoice for a customer. |
+| `finalize_invoice` | `invoice_id: string`, `auto_advance?: boolean` | Finalizes a draft invoice, making it ready for payment. |
+
+**Example prompts:**
+- *"Cancel subscription `sub_abc123` at the end of the current billing period."*
+- *"Create a draft invoice for customer `cus_xyz789`."*
+- *"Finalize invoice `in_draft456` so the customer can pay."*
+
+### Customer Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `update_customer_metadata` | `customer_id: string`, `metadata: Record<string, string>` | Updates the metadata key-value pairs on a customer record. |
+
+**Example prompts:**
+- *"Tag customer `cus_abc` with metadata `plan_tier: enterprise`."*
+
+### Refunds
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_refund` | `payment_intent_id: string`, `amount?: number`, `reason?: string` | Creates a full or partial refund for a payment intent. Amount is in cents. |
+
+**Example prompts:**
+- *"Refund payment `pi_abc123` in full."*
+- *"Issue a partial refund of $25.00 for payment `pi_xyz789`."*

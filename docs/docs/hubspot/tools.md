@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 7 HubSpot MCP tools with parameters and example prompts.
+description: Complete reference for all 12 HubSpot MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to HubSpot.
+HubSpot MCP provides **12 tools** — 7 read tools and 5 write tools.
 
 ## Contacts
 
@@ -78,3 +78,38 @@ All tools accept a `properties` parameter to request specific CRM properties. If
 
 **Example:**
 - *"List contacts with properties firstname, lastname, email, and jobtitle."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools create and modify CRM records in your HubSpot account. Use with care.
+:::
+
+### Contact Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_contact` | `properties: Record<string, string>` | Creates a new contact. Pass properties as key-value pairs (e.g., `firstname`, `lastname`, `email`). |
+| `update_contact` | `contact_id: string`, `properties: Record<string, string>` | Updates properties on an existing contact. |
+
+### Deal Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_deal` | `properties: Record<string, string>` | Creates a new deal. Pass properties as key-value pairs (e.g., `dealname`, `amount`, `dealstage`). |
+| `update_deal_stage` | `deal_id: string`, `dealstage: string`, `pipeline?: string` | Updates a deal's pipeline stage. Optionally specify the pipeline. |
+
+### Notes
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_note` | `content: string`, `contact_id?: string`, `deal_id?: string` | Creates a note and optionally associates it with a contact or deal. |
+
+**Example prompts:**
+- *"Create a contact for Jane Doe with email `jane@acme.com`."*
+- *"Update contact `12345`'s phone number to `+1-555-0100`."*
+- *"Create a deal called 'Enterprise License' worth $50,000 in the negotiation stage."*
+- *"Move deal `67890` to the 'Closed Won' stage."*
+- *"Add a note to contact `12345`: 'Discussed renewal timeline on call'."*
