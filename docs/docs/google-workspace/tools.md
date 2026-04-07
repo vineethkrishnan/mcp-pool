@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 12 Google Workspace MCP tools with parameters and example prompts.
+description: Complete reference for all 17 Google Workspace MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Google Workspace APIs.
+Google Workspace MCP provides **17 tools** — 12 read tools and 5 write tools.
 
 ## Gmail
 
@@ -96,3 +96,35 @@ Read spreadsheet data and metadata.
 - *"What sheets are in spreadsheet `xyz789`?"*
 - *"Show me the first 10 rows of the Sales sheet."*
 - *"Get the metadata for my budget spreadsheet."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools send emails, create/modify calendar events, and delete data. Use with care.
+:::
+
+### Gmail
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `send_email` | `to: string`, `subject: string`, `body: string`, `cc?: string`, `bcc?: string` | Sends an email from the authenticated account. |
+| `create_draft` | `to: string`, `subject: string`, `body: string` | Creates an email draft without sending it. |
+
+**Example prompts:**
+- *"Send an email to `jane@acme.com` with subject 'Meeting Follow-up'."*
+- *"Draft an email to `team@company.com` summarizing today's standup."*
+
+### Calendar
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_calendar_event` | `summary: string`, `start: string`, `end: string`, `calendar_id?: string`, `description?: string`, `location?: string`, `attendees?: string` | Creates a new calendar event. Times in RFC 3339 format. Attendees is a comma-separated email list. |
+| `update_calendar_event` | `event_id: string`, `calendar_id?: string`, `summary?: string`, `start?: string`, `end?: string`, `description?: string`, `location?: string` | Updates an existing calendar event. Only provided fields are changed. |
+| `delete_calendar_event` | `event_id: string`, `calendar_id?: string` | Permanently deletes a calendar event. |
+
+**Example prompts:**
+- *"Create a meeting called 'Sprint Planning' tomorrow from 2-3 PM."*
+- *"Move event `evt_abc123` to next Monday at 10 AM."*
+- *"Delete the cancelled event `evt_xyz789` from my calendar."*

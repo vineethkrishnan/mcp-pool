@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 6 Intercom MCP tools with parameters and example prompts.
+description: Complete reference for all 11 Intercom MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Intercom.
+Intercom MCP provides **11 tools** — 6 read tools and 5 write tools.
 
 ## Contacts
 
@@ -40,3 +40,28 @@ Browse, retrieve, and search Intercom conversations.
 - *"What did the customer say in conversation `12345`?"*
 - *"Search for conversations mentioning 'refund request'."*
 - *"Find all conversations about billing issues."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools send replies to customers and modify conversation state. Use with care.
+:::
+
+### Conversation Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `reply_to_conversation` | `conversation_id: string`, `body: string`, `admin_id: string` | Sends an admin reply to a conversation. The reply is visible to the customer. |
+| `close_conversation` | `conversation_id: string`, `admin_id: string` | Closes a conversation. |
+| `snooze_conversation` | `conversation_id: string`, `admin_id: string`, `snoozed_until: number` | Snoozes a conversation until a specified time (UNIX epoch seconds). |
+| `assign_conversation` | `conversation_id: string`, `admin_id: string`, `assignee_id: string`, `assignee_type?: string` | Assigns a conversation to an admin or team. Defaults to `"admin"` type. |
+| `add_note` | `conversation_id: string`, `admin_id: string`, `body: string` | Adds an internal note to a conversation (not visible to the customer). |
+
+**Example prompts:**
+- *"Reply to conversation `12345` saying 'Your refund has been processed'."*
+- *"Close conversation `67890`."*
+- *"Snooze conversation `11111` until tomorrow at 9 AM."*
+- *"Assign conversation `22222` to admin `admin_abc`."*
+- *"Add an internal note to conversation `33333`: 'Escalated to engineering'."*

@@ -3,15 +3,13 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: "MCP Pool Documentation",
-  tagline: "A comprehensive collection of Model Context Protocol (MCP) servers.",
+  title: "MCP Pool",
+  tagline: "A comprehensive collection of Model Context Protocol (MCP) servers for AI assistants.",
   favicon: "img/favicon.ico",
 
-  // Set the production url of your site here
   url: "https://mcp-pool.vineethnk.in",
   baseUrl: "/",
 
-  // GitHub pages deployment config.
   organizationName: "vineethkrishnan",
   projectName: "mcp-pool",
 
@@ -23,6 +21,21 @@ const config: Config = {
     locales: ["en"],
   },
 
+  themes: [
+    [
+      "@easyops-cn/docusaurus-search-local",
+      {
+        hashed: true,
+        indexBlog: false,
+        docsRouteBasePath: "/docs",
+        highlightSearchTermsOnTargetPage: true,
+        searchResultLimits: 8,
+        searchBarShortcutHint: true,
+        searchBarPosition: "left",
+      },
+    ],
+  ],
+
   presets: [
     [
       "classic",
@@ -31,7 +44,7 @@ const config: Config = {
           sidebarPath: "./sidebars.ts",
           editUrl: "https://github.com/vineethkrishnan/mcp-pool/tree/main/docs/",
         },
-        blog: false, // Disable blog for a documentation-only site
+        blog: false,
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -41,6 +54,10 @@ const config: Config = {
 
   themeConfig: {
     image: "img/docusaurus-social-card.jpg",
+    colorMode: {
+      defaultMode: "light",
+      respectPrefersColorScheme: true,
+    },
     navbar: {
       title: "MCP Pool",
       logo: {
@@ -52,7 +69,11 @@ const config: Config = {
           type: "docSidebar",
           sidebarId: "tutorialSidebar",
           position: "left",
-          label: "Documentation",
+          label: "Docs",
+        },
+        {
+          type: "search",
+          position: "left",
         },
         {
           href: "https://github.com/vineethkrishnan/mcp-pool",
@@ -93,11 +114,12 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Vineeth Krishnan. Built with Docusaurus.`,
+      copyright: `Copyright \u00A9 ${new Date().getFullYear()} Vineeth Krishnan. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: ["bash", "json"],
     },
   } satisfies Preset.ThemeConfig,
 };

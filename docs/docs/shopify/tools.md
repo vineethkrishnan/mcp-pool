@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 7 Shopify MCP tools with parameters and example prompts.
+description: Complete reference for all 12 Shopify MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Shopify.
+Shopify MCP provides **12 tools** — 7 read tools and 5 write tools.
 
 ## Orders
 
@@ -70,3 +70,38 @@ View store configuration and metadata.
 - *"What plan is our Shopify store on?"*
 - *"What currency does our store use?"*
 - *"Show me our shop configuration details."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools modify orders, products, and inventory in your Shopify store. Use with care.
+:::
+
+### Order Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `update_order_tags` | `order_id: string`, `tags: string` | Updates the tags on an order. Tags is a comma-separated string. |
+| `cancel_order` | `order_id: string`, `reason?: string` | Cancels an open order. Optional reason: `customer`, `fraud`, `inventory`, `declined`, `other`. |
+
+### Product Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_product` | `title: string`, `body_html?: string`, `vendor?: string`, `product_type?: string`, `tags?: string` | Creates a new product in your store. |
+| `update_product` | `product_id: string`, `title?: string`, `body_html?: string`, `tags?: string` | Updates an existing product's details. Only provided fields are changed. |
+
+### Inventory
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `update_inventory` | `inventory_item_id: string`, `location_id: string`, `available: number` | Sets the available inventory quantity for an item at a specific location. |
+
+**Example prompts:**
+- *"Tag order `12345` with `vip, express-shipping`."*
+- *"Cancel order `67890` — the customer requested it."*
+- *"Create a product called 'Wireless Charger' with vendor 'TechCo'."*
+- *"Update product `789` to add the tag `on-sale`."*
+- *"Set inventory for item `inv_abc` at location `loc_123` to 50 units."*

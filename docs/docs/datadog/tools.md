@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 6 Datadog MCP tools with parameters and example prompts.
+description: Complete reference for all 9 Datadog MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Datadog.
+Datadog MCP provides **9 tools** — 6 read tools and 3 write tools.
 
 ## Monitors
 
@@ -61,3 +61,30 @@ Browse infrastructure and application events.
 - *"What events happened in our infrastructure in the last 24 hours?"*
 - *"Show me recent deployment events."*
 - *"Get the details of event 67890."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools modify monitor state and create downtimes in your Datadog account. Use with care.
+:::
+
+### Monitor Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `mute_monitor` | `monitor_id: string`, `end?: number`, `scope?: string` | Mutes a monitor. Optionally set an end time (UNIX epoch) and scope (e.g., `host:web-01`). |
+| `unmute_monitor` | `monitor_id: string`, `scope?: string` | Unmutes a previously muted monitor. Optionally scope to a specific tag. |
+
+### Downtime
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `create_downtime` | `scope: string`, `start?: number`, `end?: number`, `message?: string`, `monitor_id?: number` | Creates a scheduled downtime window. Scope defines affected resources (e.g., `env:staging`). Times are UNIX epoch seconds. |
+
+**Example prompts:**
+- *"Mute monitor 12345 for the next 2 hours."*
+- *"Unmute monitor 67890."*
+- *"Schedule a maintenance downtime for `env:staging` from midnight to 6 AM."*
+- *"Mute monitor 555 scoped to `host:web-01` during the deployment."*

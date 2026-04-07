@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 6 PagerDuty MCP tools with parameters and example prompts.
+description: Complete reference for all 10 PagerDuty MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to PagerDuty.
+PagerDuty MCP provides **10 tools** — 6 read tools and 4 write tools.
 
 ## Incidents
 
@@ -55,3 +55,26 @@ Check who is on-call and view schedule configurations.
 - *"Who is on-call for schedule PSCH123?"*
 - *"Show me the full rotation details for the primary on-call schedule."*
 - *"List all on-call entries and their escalation levels."*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools modify incident state in your PagerDuty account. Use with care.
+:::
+
+### Incident Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `acknowledge_incident` | `incident_id: string`, `from_email?: string` | Acknowledges a triggered incident. The `from_email` should match a PagerDuty user. |
+| `resolve_incident` | `incident_id: string`, `from_email?: string` | Resolves an incident. |
+| `reassign_incident` | `incident_id: string`, `user_ids: string[]`, `from_email?: string` | Reassigns an incident to one or more users. |
+| `add_incident_note` | `incident_id: string`, `content: string`, `from_email?: string` | Adds a note to an incident timeline for context and documentation. |
+
+**Example prompts:**
+- *"Acknowledge incident `PABC123`."*
+- *"Resolve incident `PXYZ789` — the fix has been deployed."*
+- *"Reassign incident `P111` to users `PUSER1` and `PUSER2`."*
+- *"Add a note to incident `PABC123`: 'Root cause was a misconfigured DNS record'."*

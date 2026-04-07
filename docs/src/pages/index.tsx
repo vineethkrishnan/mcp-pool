@@ -1,5 +1,4 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -11,18 +10,35 @@ import styles from './index.module.css';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={styles.heroBanner}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
+        <Heading as="h1">
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
+          <Link className={styles.heroButton} to="/docs/intro">
             Get Started
           </Link>
+          <Link
+            className={styles.heroButtonOutline}
+            href="https://github.com/vineethkrishnan/mcp-pool">
+            GitHub
+          </Link>
+        </div>
+        <div className={styles.stats}>
+          <div className={styles.stat}>
+            <span className={styles.statNumber}>11</span>
+            <span className={styles.statLabel}>MCP Servers</span>
+          </div>
+          <div className={styles.stat}>
+            <span className={styles.statNumber}>130+</span>
+            <span className={styles.statLabel}>Tools</span>
+          </div>
+          <div className={styles.stat}>
+            <span className={styles.statNumber}>6+</span>
+            <span className={styles.statLabel}>IDEs Supported</span>
+          </div>
         </div>
       </div>
     </header>

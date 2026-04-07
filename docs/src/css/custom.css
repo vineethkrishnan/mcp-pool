@@ -1,30 +1,441 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Material Design-inspired theme for MCP Pool Documentation.
+ * Overrides Infima defaults with Material Design 3 principles:
+ * clean surfaces, subtle elevation, rounded corners, and expressive typography.
  */
 
-/* You can override the default Infima variables here. */
+/* =========================================================================
+ * Design Tokens
+ * ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Primary palette — Indigo */
+  --ifm-color-primary: #4f46e5;
+  --ifm-color-primary-dark: #4338ca;
+  --ifm-color-primary-darker: #3730a3;
+  --ifm-color-primary-darkest: #312e81;
+  --ifm-color-primary-light: #6366f1;
+  --ifm-color-primary-lighter: #818cf8;
+  --ifm-color-primary-lightest: #a5b4fc;
+
+  /* Typography */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+  --ifm-heading-font-weight: 700;
+  --ifm-font-weight-semibold: 600;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.7;
+  --ifm-code-font-size: 90%;
+
+  /* Surfaces & Elevation */
+  --ifm-background-color: #fafafa;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-card-background-color: #ffffff;
+  --md-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --md-elevation-2: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --md-elevation-3: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05);
+
+  /* Shape */
+  --ifm-global-radius: 12px;
+  --md-radius-sm: 8px;
+  --md-radius-md: 12px;
+  --md-radius-lg: 16px;
+  --md-radius-xl: 24px;
+
+  /* Spacing */
+  --ifm-spacing-horizontal: 1.25rem;
+
+  /* Navbar */
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
+  --ifm-navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --ifm-navbar-height: 4rem;
+
+  /* Code blocks */
+  --docusaurus-highlighted-code-line-bg: rgba(79, 70, 229, 0.08);
+
+  /* Footer */
+  --ifm-footer-background-color: #1e1b4b;
+  --ifm-footer-color: #e0e7ff;
+  --ifm-footer-link-color: #c7d2fe;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6366f1;
+  --ifm-color-primary-darker: #4f46e5;
+  --ifm-color-primary-darkest: #4338ca;
+  --ifm-color-primary-light: #a5b4fc;
+  --ifm-color-primary-lighter: #c7d2fe;
+  --ifm-color-primary-lightest: #e0e7ff;
+
+  --ifm-background-color: #0f0f23;
+  --ifm-background-surface-color: #1a1a2e;
+  --ifm-card-background-color: #1a1a2e;
+  --md-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --md-elevation-2: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --md-elevation-3: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+
+  --ifm-navbar-background-color: rgba(15, 15, 35, 0.85);
+  --ifm-footer-background-color: #0a0a1a;
+  --ifm-footer-color: #c7d2fe;
+  --ifm-footer-link-color: #a5b4fc;
+
+  --docusaurus-highlighted-code-line-bg: rgba(129, 140, 248, 0.15);
+}
+
+/* =========================================================================
+ * Navbar
+ * ========================================================================= */
+
+.navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0 1.5rem;
+}
+
+[data-theme='dark'] .navbar {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.navbar__title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link {
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: var(--md-radius-sm);
+  padding: 0.4rem 0.75rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar__link:hover {
+  background-color: rgba(79, 70, 229, 0.06);
+}
+
+[data-theme='dark'] .navbar__link:hover {
+  background-color: rgba(129, 140, 248, 0.1);
+}
+
+/* =========================================================================
+ * Sidebar
+ * ========================================================================= */
+
+.menu__link {
+  border-radius: var(--md-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.45rem 0.75rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(79, 70, 229, 0.08);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(129, 140, 248, 0.12);
+}
+
+.menu__list-item-collapsible:hover {
+  background-color: rgba(79, 70, 229, 0.04);
+  border-radius: var(--md-radius-sm);
+}
+
+/* =========================================================================
+ * Content area
+ * ========================================================================= */
+
+.markdown h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.5rem;
+}
+
+.markdown h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(79, 70, 229, 0.12);
+}
+
+[data-theme='dark'] .markdown h2 {
+  border-bottom-color: rgba(129, 140, 248, 0.15);
+}
+
+.markdown h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2rem;
+}
+
+/* =========================================================================
+ * Tables
+ * ========================================================================= */
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--md-radius-md);
+  overflow: hidden;
+  box-shadow: var(--md-elevation-1);
+  width: 100%;
+}
+
+table thead tr {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+}
+
+[data-theme='dark'] table thead tr {
+  background: linear-gradient(135deg, #312e81 0%, #3730a3 100%);
+}
+
+table thead th {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1rem;
+  border: none;
+}
+
+table tbody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+[data-theme='dark'] table tbody td {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table tbody tr:hover {
+  background-color: rgba(79, 70, 229, 0.03);
+}
+
+[data-theme='dark'] table tbody tr:hover {
+  background-color: rgba(129, 140, 248, 0.05);
+}
+
+table tbody td code {
+  background-color: rgba(79, 70, 229, 0.08);
+  color: var(--ifm-color-primary);
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+[data-theme='dark'] table tbody td code {
+  background-color: rgba(129, 140, 248, 0.12);
+}
+
+/* =========================================================================
+ * Code blocks
+ * ========================================================================= */
+
+.prism-code {
+  border-radius: var(--md-radius-md) !important;
+  box-shadow: var(--md-elevation-1);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+code {
+  border-radius: 6px;
+  padding: 0.15rem 0.35rem;
+  font-weight: 500;
+}
+
+/* =========================================================================
+ * Admonitions (info/tip/caution/danger)
+ * ========================================================================= */
+
+.alert {
+  border-radius: var(--md-radius-md);
+  border-left-width: 4px;
+  box-shadow: var(--md-elevation-1);
+}
+
+/* =========================================================================
+ * TOC (table of contents)
+ * ========================================================================= */
+
+.table-of-contents__link {
+  font-size: 0.825rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.table-of-contents__link--active {
+  font-weight: 600;
+}
+
+/* =========================================================================
+ * Footer
+ * ========================================================================= */
+
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer__title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #e0e7ff;
+}
+
+.footer__link-item {
+  font-size: 0.875rem;
+  font-weight: 400;
+  transition: color 0.15s ease;
+}
+
+.footer__link-item:hover {
+  color: #ffffff;
+}
+
+/* =========================================================================
+ * Pagination
+ * ========================================================================= */
+
+.pagination-nav__link {
+  border-radius: var(--md-radius-md);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--md-elevation-1);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  padding: 1rem 1.25rem;
+}
+
+.pagination-nav__link:hover {
+  box-shadow: var(--md-elevation-2);
+  border-color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme='dark'] .pagination-nav__link {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================================
+ * Scrollbar
+ * ========================================================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================================
+ * Smooth transitions
+ * ========================================================================= */
+
+*, *::before, *::after {
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+a, button, .menu__link, .navbar__link, .pagination-nav__link {
+  transition-property: background-color, border-color, box-shadow, color, transform;
+}
+
+/* Disable transitions on theme toggle to avoid jarring flashes */
+html[data-theme-transitioning] * {
+  transition: none !important;
+}
+
+/* =========================================================================
+ * Search bar (docusaurus-search-local)
+ * ========================================================================= */
+
+/* Position next to Docs link */
+.navbar__items:not(.navbar__items--right) .navbar__search {
+  margin-left: 0.75rem;
+}
+
+/* Search icon color */
+.navbar__search .search-icon {
+  color: var(--ifm-color-primary-lighter) !important;
+  opacity: 0.8;
+}
+
+.navbar__search-input[type="search"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23818cf8' d='M6.5 0a6.5 6.5 0 0 1 5.25 10.33l3.96 3.96a.75.75 0 1 1-1.06 1.06l-3.96-3.96A6.5 6.5 0 1 1 6.5 0zm0 1.5a5 5 0 1 0 0 10 5 5 0 0 0 0-10z'/%3E%3C/svg%3E") !important;
+}
+
+.navbar__search-input {
+  border-radius: var(--md-radius-sm) !important;
+  font-size: 0.82rem !important;
+  font-family: var(--ifm-font-family-base) !important;
+  width: 200px !important;
+  padding: 0.35rem 0.75rem 0.35rem 2rem !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  transition: width 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.navbar__search-input:focus {
+  width: 280px !important;
+  border-color: var(--ifm-color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08) !important;
+  background-color: var(--ifm-background-surface-color) !important;
+}
+
+.navbar__search-input::placeholder {
+  color: var(--ifm-color-content-secondary);
+  opacity: 0.6;
+  font-size: 0.82rem;
+}
+
+[data-theme='dark'] .navbar__search-input {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+[data-theme='dark'] .navbar__search-input:focus {
+  border-color: var(--ifm-color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Search dropdown results */
+.search-result-match {
+  background: rgba(79, 70, 229, 0.12);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+[data-theme='dark'] .search-result-match {
+  background: rgba(129, 140, 248, 0.2);
 }

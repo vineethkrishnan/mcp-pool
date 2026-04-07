@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: Tools Reference
-description: Complete reference for all 8 Sentry MCP tools with parameters and example prompts.
+description: Complete reference for all 13 Sentry MCP tools with parameters and example prompts.
 ---
 
 # Tools Reference
 
-Tools provide both read and write access to Sentry.
+Sentry MCP provides **13 tools** — 8 read tools and 5 write tools.
 
 ## Organizations
 
@@ -71,3 +71,28 @@ Inspect individual error events, stack traces, and breadcrumbs.
 - *"What breadcrumbs led up to the latest crash in issue `PROJ-99`?"*
 - *"Show me the latest event for issue `1234567890` with its full context."*
 - *"What tags are associated with the most recent events in `web-app`?"*
+
+---
+
+## Write Operations
+
+:::caution
+Write tools modify issue state in your Sentry organization. Use with care.
+:::
+
+### Issue Management
+
+| Tool | Parameters | Description |
+|------|------------|-------------|
+| `resolve_issue` | `issue_id: string` | Resolves an issue, marking it as fixed. |
+| `unresolve_issue` | `issue_id: string` | Reopens a previously resolved issue. |
+| `ignore_issue` | `issue_id: string`, `ignore_duration?: number`, `ignore_count?: number`, `ignore_window?: number` | Ignores an issue. Optionally set duration (minutes), occurrence count, or time window thresholds. |
+| `assign_issue` | `issue_id: string`, `assignee: string` | Assigns an issue to a user by username or email. |
+| `merge_issues` | `issue_id: string`, `issue_ids: string[]` | Merges duplicate issues into a primary issue. |
+
+**Example prompts:**
+- *"Resolve issue `PROJ-42` — the fix has been deployed."*
+- *"Assign issue `1234567890` to `jane@acme.com`."*
+- *"Ignore issue `PROJ-99` for the next 24 hours."*
+- *"Merge issues `PROJ-10` and `PROJ-11` into `PROJ-9` — they're duplicates."*
+- *"Reopen issue `PROJ-50`, it's happening again."*
