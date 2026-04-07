@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/google-workspace-mcp",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "An MCP server for Google Workspace APIs (Gmail, Calendar, Drive, Sheets), enabling AI assistants to search emails, check calendars, find files, and read spreadsheets.",
   "mcpName": "io.github.vineethkrishnan/google-workspace-mcp",
   "main": "build/index.js",
