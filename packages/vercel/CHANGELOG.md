@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/vineethkrishnan/mcp-pool/compare/vercel-mcp-v0.1.2...vercel-mcp-v0.1.3) (2026-04-07)
+
+
+### Features
+
+* add MCP Registry metadata and update descriptions for read-write support ([#18](https://github.com/vineethkrishnan/mcp-pool/issues/18)) ([987762e](https://github.com/vineethkrishnan/mcp-pool/commit/987762e80b98ff0fd55794f0ac872b4f04d02c12))
+
 ## [0.1.2](https://github.com/vineethkrishnan/mcp-pool/compare/vercel-mcp-v0.1.1...vercel-mcp-v0.1.2) (2026-04-03)
 
 
