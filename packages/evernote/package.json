@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/evernote-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An MCP server for the Evernote API, enabling AI assistants to manage notes, notebooks, tags, and search across your Evernote account.",
   "mcpName": "io.github.vineethkrishnan/evernote-mcp",
   "main": "build/index.js",
