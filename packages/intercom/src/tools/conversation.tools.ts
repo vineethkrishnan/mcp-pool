@@ -19,6 +19,7 @@ export const ConversationToolSchemas = {
         .default(20)
         .describe("Number of conversations to return (default 20, max 150)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_conversation: {
     description:
@@ -26,6 +27,7 @@ export const ConversationToolSchemas = {
     schema: z.object({
       conversation_id: z.string().describe("The Intercom conversation ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_conversations: {
     description:
@@ -38,6 +40,7 @@ export const ConversationToolSchemas = {
         .default(20)
         .describe("Number of results to return (default 20)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

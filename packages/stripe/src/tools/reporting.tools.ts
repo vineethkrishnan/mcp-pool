@@ -8,12 +8,14 @@ export const CheckoutToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the session (e.g., 'cs_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_checkout_sessions: {
     description: "Lists recent Checkout sessions.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of sessions to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 
@@ -42,24 +44,28 @@ export const ReportingToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the payout (e.g., 'po_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_payouts: {
     description: "Lists recent payouts.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of payouts to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_dispute: {
     description: "Retrieves details of a specific dispute (chargeback).",
     schema: z.object({
       id: z.string().describe("The ID of the dispute (e.g., 'dp_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_disputes: {
     description: "Lists recent disputes.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of disputes to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 
@@ -94,12 +100,14 @@ export const TaxToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the tax rate (e.g., 'txr_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_tax_rates: {
     description: "Lists active tax rates.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of tax rates to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

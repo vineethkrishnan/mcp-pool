@@ -14,6 +14,7 @@ export const SearchToolSchemas = {
         .describe("Filter results to only pages or only databases."),
       limit: z.number().optional().default(10).describe("Max results (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

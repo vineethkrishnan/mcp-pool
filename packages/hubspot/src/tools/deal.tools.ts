@@ -21,6 +21,7 @@ export const DealToolSchemas = {
           "Cursor for pagination. Use the value from paging.next.after in previous response.",
         ),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_deal: {
     description:
@@ -38,6 +39,7 @@ export const DealToolSchemas = {
           "Associated object types to include (e.g., ['contacts', 'companies']). Returns linked object IDs.",
         ),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

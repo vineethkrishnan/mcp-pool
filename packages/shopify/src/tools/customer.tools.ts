@@ -9,6 +9,7 @@ export const CustomerToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(50).describe("Number of customers to return (max 250)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_customer: {
     description:
@@ -16,6 +17,7 @@ export const CustomerToolSchemas = {
     schema: z.object({
       customer_id: z.string().describe("The Shopify customer ID (numeric, e.g., '456')."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

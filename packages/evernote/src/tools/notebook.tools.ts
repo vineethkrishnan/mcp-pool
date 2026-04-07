@@ -7,6 +7,7 @@ export const NotebookToolSchemas = {
     description:
       "Lists all notebooks in the Evernote account. Returns notebook name, GUID, and whether it is the default notebook.",
     schema: z.object({}),
+    annotations: { readOnlyHint: true },
   },
   get_notebook: {
     description:
@@ -14,6 +15,7 @@ export const NotebookToolSchemas = {
     schema: z.object({
       notebook_guid: z.string().describe("The GUID of the notebook to retrieve."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

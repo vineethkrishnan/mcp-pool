@@ -14,6 +14,7 @@ export const ContactToolSchemas = {
         .default(50)
         .describe("Number of contacts to return (default 50)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_contact: {
     description:
@@ -21,6 +22,7 @@ export const ContactToolSchemas = {
     schema: z.object({
       contact_id: z.string().describe("The Intercom contact ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_contacts: {
     description:
@@ -33,6 +35,7 @@ export const ContactToolSchemas = {
         .default(50)
         .describe("Number of results to return (default 50)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

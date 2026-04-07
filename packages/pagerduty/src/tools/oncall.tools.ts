@@ -17,6 +17,7 @@ export const OncallToolSchemas = {
         .default(25)
         .describe("Number of on-call entries to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_schedule: {
     description:
@@ -24,6 +25,7 @@ export const OncallToolSchemas = {
     schema: z.object({
       schedule_id: z.string().describe("The PagerDuty schedule ID (e.g., 'PSCH123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

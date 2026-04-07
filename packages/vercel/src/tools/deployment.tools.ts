@@ -17,6 +17,7 @@ export const DeploymentToolSchemas = {
         .optional()
         .describe("Maximum number of deployments to return (default 20, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_deployment: {
     description:
@@ -24,6 +25,7 @@ export const DeploymentToolSchemas = {
     schema: z.object({
       deployment_id: z.string().describe("The deployment ID (e.g., 'dpl_abc123') or URL."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_deployment_build_logs: {
     description:
@@ -33,6 +35,7 @@ export const DeploymentToolSchemas = {
         .string()
         .describe("The deployment ID (e.g., 'dpl_abc123') to fetch build logs for."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

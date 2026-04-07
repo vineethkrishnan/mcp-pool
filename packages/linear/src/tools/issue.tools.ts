@@ -14,6 +14,7 @@ export const IssueToolSchemas = {
         .describe("Workflow state name to filter by (e.g., 'In Progress', 'Done')."),
       limit: z.number().optional().default(25).describe("Number of issues to return (max 50)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_issue: {
     description:
@@ -21,6 +22,7 @@ export const IssueToolSchemas = {
     schema: z.object({
       issue_id: z.string().describe("The issue ID (UUID) or identifier (e.g., 'ENG-123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_issues: {
     description:
@@ -29,6 +31,7 @@ export const IssueToolSchemas = {
       query: z.string().describe("Search query to find issues by title or description."),
       limit: z.number().optional().default(25).describe("Number of issues to return (max 50)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

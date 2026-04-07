@@ -19,6 +19,7 @@ export const DriveToolSchemas = {
         .default(10)
         .describe("Maximum number of files to return (default 10, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_file: {
     description:
@@ -26,6 +27,7 @@ export const DriveToolSchemas = {
     schema: z.object({
       file_id: z.string().describe("The Google Drive file ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_files: {
     description:
@@ -40,6 +42,7 @@ export const DriveToolSchemas = {
         .default(10)
         .describe("Maximum number of files to return (default 10, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

@@ -21,6 +21,7 @@ export const CompanyToolSchemas = {
           "Cursor for pagination. Use the value from paging.next.after in previous response.",
         ),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_company: {
     description:
@@ -38,6 +39,7 @@ export const CompanyToolSchemas = {
           "Associated object types to include (e.g., ['contacts', 'deals']). Returns linked object IDs.",
         ),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

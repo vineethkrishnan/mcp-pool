@@ -9,6 +9,7 @@ export const CustomerToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the customer to retrieve (e.g., 'cus_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_customers: {
     description:
@@ -16,6 +17,7 @@ export const CustomerToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of customers to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

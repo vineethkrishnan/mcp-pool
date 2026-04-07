@@ -7,6 +7,7 @@ export const ShopToolSchemas = {
     description:
       "Retrieves shop metadata including name, email, domain, plan, currency, timezone, and configured shipping zones.",
     schema: z.object({}),
+    annotations: { readOnlyHint: true },
   },
 };
 

@@ -13,6 +13,7 @@ export const OrderToolSchemas = {
         .describe("Filter by order status. Defaults to open."),
       limit: z.number().optional().default(50).describe("Number of orders to return (max 250)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_order: {
     description:
@@ -20,6 +21,7 @@ export const OrderToolSchemas = {
     schema: z.object({
       order_id: z.string().describe("The Shopify order ID (numeric, e.g., '12345')."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

@@ -8,24 +8,28 @@ export const ProductToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the product (e.g., 'prod_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_products: {
     description: "Lists active products. Useful for checking the product catalog.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of products to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_price: {
     description: "Retrieves details of a specific price object.",
     schema: z.object({
       id: z.string().describe("The ID of the price (e.g., 'price_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_prices: {
     description: "Lists prices. Useful for checking available pricing plans.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of prices to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

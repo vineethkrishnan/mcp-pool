@@ -59,6 +59,54 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+  publish-docker:
+    name: Publish to Docker Hub & GHCR
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build & Push Released Packages
+        run: |
+          for path in $(echo '${{ needs.release-please.outputs.paths_released }}' | jq -r '.[]'); do
+            pkg=$(basename "$path")
+
+            # Skip oauth-core — it's a shared library, not an MCP server
+            if [ "$pkg" = "oauth-core" ]; then
+              echo "Skipping oauth-core (not an MCP server)"
+              continue
+            fi
+
+            if [ -d "$path" ] && [ -f "$path/package.json" ]; then
+              version=$(jq -r '.version' "$path/package.json")
+              dockerhub="vineethnkrishnan/${pkg}-mcp"
+              ghcr="ghcr.io/${{ github.repository_owner }}/${pkg}-mcp"
+
+              echo "Building ${pkg}-mcp:$version → Docker Hub + GHCR"
+              docker buildx build \
+                --build-arg PACKAGE="$pkg" \
+                --tag "$dockerhub:$version" \
+                --tag "$dockerhub:latest" \
+                --tag "$ghcr:$version" \
+                --tag "$ghcr:latest" \
+                --push \
+                .
+            fi
+          done
+
   deploy-docs:
     name: Deploy Docs (Cloudflare Pages)
     needs: release-please

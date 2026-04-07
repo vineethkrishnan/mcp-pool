@@ -9,6 +9,7 @@ export const IssueToolSchemas = {
     schema: z.object({
       issue_id: z.string().describe("The Sentry issue ID (numeric, e.g., '12345')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_issues: {
     description:
@@ -26,6 +27,7 @@ export const IssueToolSchemas = {
         .describe("Sort order for results."),
       limit: z.number().optional().default(25).describe("Number of issues to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_issues: {
     description:
@@ -35,6 +37,7 @@ export const IssueToolSchemas = {
       org: z.string().optional().describe("Organization slug. Uses SENTRY_ORG if not specified."),
       limit: z.number().optional().default(25).describe("Number of issues to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

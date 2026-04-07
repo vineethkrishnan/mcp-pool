@@ -19,6 +19,7 @@ export const MonitorToolSchemas = {
         .default(25)
         .describe("Maximum number of monitors to return (default 25, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_monitor: {
     description:
@@ -26,6 +27,7 @@ export const MonitorToolSchemas = {
     schema: z.object({
       monitor_id: z.number().describe("The Datadog monitor ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_monitors: {
     description:
@@ -42,6 +44,7 @@ export const MonitorToolSchemas = {
         .default(25)
         .describe("Maximum number of results to return (default 25, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 
