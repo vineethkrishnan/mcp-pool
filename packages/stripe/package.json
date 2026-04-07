@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/stripe-mcp",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "An MCP server for Stripe API, enabling AI assistants to query financial data.",
   "mcpName": "io.github.vineethkrishnan/stripe-mcp",
   "main": "build/index.js",

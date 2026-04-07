@@ -1,6 +1,6 @@
 {
   "name": "@vineethnkrishnan/pagerduty-mcp",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "An MCP server for PagerDuty API, enabling AI assistants to query incidents, services, and on-call schedules.",
   "mcpName": "io.github.vineethkrishnan/pagerduty-mcp",
   "main": "build/index.js",

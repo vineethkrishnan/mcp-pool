@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.1.0...stripe-mcp-v1.2.0) (2026-04-07)
+
+
+### Features
+
+* add glama integration, dockerfile, and tool annotations ([1a2cf2a](https://github.com/vineethkrishnan/mcp-pool/commit/1a2cf2a8eb58e4e3134f04ff082188fca0acd48e))
+
 ## [1.1.0](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.0.7...stripe-mcp-v1.1.0) (2026-04-07)
 
 
