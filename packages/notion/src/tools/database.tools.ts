@@ -9,6 +9,7 @@ export const DatabaseToolSchemas = {
     schema: z.object({
       database_id: z.string().describe("The Notion database ID (UUID or 32-char hex)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   query_database: {
     description:
@@ -25,6 +26,7 @@ export const DatabaseToolSchemas = {
         .describe("Array of Notion sort objects."),
       limit: z.number().optional().default(25).describe("Max results (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

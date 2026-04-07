@@ -13,6 +13,7 @@ export const MetricToolSchemas = {
       from: z.number().describe("Start time as UNIX epoch seconds."),
       to: z.number().describe("End time as UNIX epoch seconds."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

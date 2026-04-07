@@ -11,6 +11,7 @@ export const EventToolSchemas = {
       project: z.string().describe("The project slug."),
       org: z.string().optional().describe("Organization slug. Uses SENTRY_ORG if not specified."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_issue_events: {
     description:
@@ -19,6 +20,7 @@ export const EventToolSchemas = {
       issue_id: z.string().describe("The Sentry issue ID."),
       limit: z.number().optional().default(25).describe("Number of events to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_latest_event: {
     description:
@@ -26,6 +28,7 @@ export const EventToolSchemas = {
     schema: z.object({
       issue_id: z.string().describe("The Sentry issue ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

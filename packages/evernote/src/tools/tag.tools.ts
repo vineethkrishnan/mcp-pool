@@ -6,6 +6,7 @@ export const TagToolSchemas = {
   list_tags: {
     description: "Lists all tags in the Evernote account. Returns tag name, GUID, and parent GUID.",
     schema: z.object({}),
+    annotations: { readOnlyHint: true },
   },
 };
 

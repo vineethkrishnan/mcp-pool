@@ -9,6 +9,7 @@ export const SheetsToolSchemas = {
     schema: z.object({
       spreadsheet_id: z.string().describe("The Google Sheets spreadsheet ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_sheet_values: {
     description:
@@ -17,6 +18,7 @@ export const SheetsToolSchemas = {
       spreadsheet_id: z.string().describe("The Google Sheets spreadsheet ID."),
       range: z.string().describe("A1 notation range (e.g., 'Sheet1!A1:D50', 'A1:Z100')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_sheets: {
     description:
@@ -24,6 +26,7 @@ export const SheetsToolSchemas = {
     schema: z.object({
       spreadsheet_id: z.string().describe("The Google Sheets spreadsheet ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

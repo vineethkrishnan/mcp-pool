@@ -15,6 +15,7 @@ export const IncidentToolSchemas = {
         ),
       limit: z.number().optional().default(25).describe("Number of incidents to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_incident: {
     description:
@@ -22,6 +23,7 @@ export const IncidentToolSchemas = {
     schema: z.object({
       incident_id: z.string().describe("The PagerDuty incident ID (e.g., 'PABC123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

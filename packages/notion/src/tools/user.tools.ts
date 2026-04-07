@@ -9,6 +9,7 @@ export const UserToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(25).describe("Max results (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

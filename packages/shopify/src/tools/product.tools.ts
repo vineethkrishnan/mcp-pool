@@ -9,6 +9,7 @@ export const ProductToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(50).describe("Number of products to return (max 250)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_product: {
     description:
@@ -16,6 +17,7 @@ export const ProductToolSchemas = {
     schema: z.object({
       product_id: z.string().describe("The Shopify product ID (numeric, e.g., '789')."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

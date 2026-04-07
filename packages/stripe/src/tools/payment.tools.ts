@@ -9,6 +9,7 @@ export const PaymentToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the PaymentIntent to retrieve (e.g., 'pi_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_payment_intents: {
     description:
@@ -20,11 +21,13 @@ export const PaymentToolSchemas = {
         .default(10)
         .describe("Number of transactions to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_balance: {
     description:
       "Retrieves the current Stripe balance, including available and pending funds for different currencies.",
     schema: z.object({}),
+    annotations: { readOnlyHint: true },
   },
 };
 

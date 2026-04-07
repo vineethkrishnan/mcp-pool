@@ -9,6 +9,7 @@ export const TeamToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(25).describe("Number of teams to return (max 50)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

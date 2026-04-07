@@ -9,6 +9,7 @@ export const BillingToolSchemas = {
     schema: z.object({
       id: z.string().describe("The ID of the subscription (e.g., 'sub_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_subscriptions: {
     description: "Lists recent subscriptions. Useful for summarizing active plans.",
@@ -19,30 +20,35 @@ export const BillingToolSchemas = {
         .default(10)
         .describe("Number of subscriptions to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_invoice: {
     description: "Retrieves a specific invoice, including line items and payment status.",
     schema: z.object({
       id: z.string().describe("The ID of the invoice (e.g., 'in_123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_invoices: {
     description: "Lists recent invoices. Useful for checking payment history for a customer.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of invoices to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_coupon: {
     description: "Retrieves details of a specific coupon or discount code.",
     schema: z.object({
       id: z.string().describe("The ID or name of the coupon."),
     }),
+    annotations: { readOnlyHint: true },
   },
   list_coupons: {
     description: "Lists active coupons and discounts.",
     schema: z.object({
       limit: z.number().optional().default(10).describe("Number of coupons to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

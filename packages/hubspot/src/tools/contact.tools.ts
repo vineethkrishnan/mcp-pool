@@ -21,6 +21,7 @@ export const ContactToolSchemas = {
           "Cursor for pagination. Use the value from paging.next.after in previous response.",
         ),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_contact: {
     description:
@@ -38,6 +39,7 @@ export const ContactToolSchemas = {
           "Associated object types to include (e.g., ['companies', 'deals']). Returns linked object IDs.",
         ),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_contacts: {
     description:
@@ -50,6 +52,7 @@ export const ContactToolSchemas = {
         .describe("Properties to include in results. Uses defaults if not specified."),
       limit: z.number().optional().default(10).describe("Number of results to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

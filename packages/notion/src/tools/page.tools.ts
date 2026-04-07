@@ -9,6 +9,7 @@ export const PageToolSchemas = {
     schema: z.object({
       page_id: z.string().describe("The Notion page ID (UUID or 32-char hex)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_page_content: {
     description:
@@ -21,6 +22,7 @@ export const PageToolSchemas = {
         .default(3)
         .describe("Maximum recursion depth for nested blocks (default: 3)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

@@ -7,6 +7,7 @@ export const CalendarToolSchemas = {
     description:
       "Lists all calendars the user has access to, including shared and subscribed calendars. Returns calendar ID, name, description, and access role.",
     schema: z.object({}),
+    annotations: { readOnlyHint: true },
   },
   list_events: {
     description:
@@ -28,6 +29,7 @@ export const CalendarToolSchemas = {
         .default(10)
         .describe("Maximum number of events to return (default 10, max 250)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_event: {
     description:
@@ -40,6 +42,7 @@ export const CalendarToolSchemas = {
         .describe("Calendar ID (defaults to 'primary')."),
       event_id: z.string().describe("The calendar event ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

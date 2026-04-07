@@ -9,6 +9,7 @@ export const ProjectToolSchemas = {
     schema: z.object({
       org: z.string().optional().describe("Organization slug. Uses SENTRY_ORG if not specified."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

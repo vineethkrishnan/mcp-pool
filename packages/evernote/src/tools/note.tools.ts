@@ -22,6 +22,7 @@ export const NoteToolSchemas = {
         .default(0)
         .describe("Number of notes to skip for pagination (default: 0)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_note: {
     description:
@@ -29,6 +30,7 @@ export const NoteToolSchemas = {
     schema: z.object({
       note_guid: z.string().describe("The GUID of the note to retrieve."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_notes: {
     description:
@@ -50,6 +52,7 @@ export const NoteToolSchemas = {
         .default(0)
         .describe("Number of results to skip for pagination (default: 0)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

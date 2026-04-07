@@ -7,6 +7,7 @@ export const OrganizationToolSchemas = {
     description:
       "Lists all Sentry organizations the current auth token has access to. Use this to discover available organizations before querying projects or issues.",
     schema: z.object({}),
+    annotations: { readOnlyHint: true },
   },
 };
 

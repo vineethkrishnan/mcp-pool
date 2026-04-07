@@ -17,6 +17,7 @@ export const GmailToolSchemas = {
         .default(10)
         .describe("Maximum number of messages to return (default 10, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_message: {
     description:
@@ -24,6 +25,7 @@ export const GmailToolSchemas = {
     schema: z.object({
       message_id: z.string().describe("The Gmail message ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
   search_messages: {
     description:
@@ -38,6 +40,7 @@ export const GmailToolSchemas = {
         .default(10)
         .describe("Maximum number of messages to return (default 10, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

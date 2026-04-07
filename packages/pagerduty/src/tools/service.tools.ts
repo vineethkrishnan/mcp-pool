@@ -9,6 +9,7 @@ export const ServiceToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(25).describe("Number of services to return (max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_service: {
     description:
@@ -16,6 +17,7 @@ export const ServiceToolSchemas = {
     schema: z.object({
       service_id: z.string().describe("The PagerDuty service ID (e.g., 'PSVC123')."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

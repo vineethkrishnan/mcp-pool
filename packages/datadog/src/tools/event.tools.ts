@@ -15,6 +15,7 @@ export const EventToolSchemas = {
         .default(25)
         .describe("Maximum number of events to return (default 25, max 100)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_event: {
     description:
@@ -22,6 +23,7 @@ export const EventToolSchemas = {
     schema: z.object({
       event_id: z.number().describe("The Datadog event ID."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 

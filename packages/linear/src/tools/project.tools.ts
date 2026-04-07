@@ -9,6 +9,7 @@ export const ProjectToolSchemas = {
     schema: z.object({
       limit: z.number().optional().default(25).describe("Number of projects to return (max 50)."),
     }),
+    annotations: { readOnlyHint: true },
   },
   get_project: {
     description:
@@ -16,6 +17,7 @@ export const ProjectToolSchemas = {
     schema: z.object({
       project_id: z.string().describe("The project ID (UUID)."),
     }),
+    annotations: { readOnlyHint: true },
   },
 };
 
