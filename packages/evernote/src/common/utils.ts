@@ -61,7 +61,7 @@ export function plainTextToEnml(text: string): string {
 /**
  * Formats a timestamp (milliseconds) to ISO string.
  */
-export function formatTimestamp(ms: number | undefined): string | undefined {
+function formatTimestamp(ms: number | undefined): string | undefined {
   if (!ms) return undefined;
   return new Date(ms).toISOString();
 }
@@ -117,16 +117,5 @@ export function formatMcpResponse(data: unknown, actionMessage?: string): McpToo
   const text = actionMessage ? `${actionMessage}\n\n${json}` : json;
   return {
     content: [{ type: "text", text }],
-  };
-}
-
-/**
- * Wraps an error in the MCP tool error response format.
- */
-export function formatMcpError(error: unknown): McpToolResponse {
-  const message = error instanceof Error ? error.message : String(error);
-  return {
-    content: [{ type: "text", text: `Error: ${message}` }],
-    isError: true,
   };
 }

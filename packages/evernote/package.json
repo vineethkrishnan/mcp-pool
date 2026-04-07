@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage --passWithNoTests"
   },
   "publishConfig": {
     "access": "public"
@@ -52,7 +52,6 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^25.5.2",
     "jest": "^30.3.0",
-    "ts-jest": "^29.4.9",
     "typescript": "^5.7.0"
   }
 }
