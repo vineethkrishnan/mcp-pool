@@ -1,0 +1,25 @@
+{
+  "mcpName": "io.github.vineethkrishnan/evernote-mcp",
+  "displayName": "Evernote MCP",
+  "description": "An MCP server for the Evernote API — manage notes, notebooks, tags, and search across your Evernote account.",
+  "vendor": {
+    "name": "Vineeth Krishnan",
+    "url": "https://github.com/vineethkrishnan"
+  },
+  "sourceUrl": "https://github.com/vineethkrishnan/mcp-pool/tree/main/packages/evernote",
+  "license": "MIT",
+  "runtime": "node",
+  "command": "npx -y @vineethnkrishnan/evernote-mcp",
+  "environmentVariables": [
+    {
+      "name": "EVERNOTE_TOKEN",
+      "description": "Evernote developer token or OAuth access token.",
+      "required": true
+    },
+    {
+      "name": "EVERNOTE_SANDBOX",
+      "description": "Set to 'true' to use the Evernote sandbox environment for testing.",
+      "required": false
+    }
+  ]
+}

@@ -28,7 +28,7 @@ const FeatureList: FeatureItem[] = [
     iconStyle: styles.featureIconGreen,
     description: (
       <>
-        130+ tools across 11 servers. Read data, create records, update
+        140+ tools across 12 servers. Read data, create records, update
         statuses, and manage resources — all through natural language.
       </>
     ),

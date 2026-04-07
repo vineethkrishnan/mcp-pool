@@ -7,6 +7,7 @@
     "packages/notion": { "project": ["src/**/*.ts"] },
     "packages/linear": { "project": ["src/**/*.ts"] },
     "packages/datadog": { "project": ["src/**/*.ts"] },
+    "packages/evernote": { "project": ["src/**/*.ts"] },
     "packages/vercel": { "project": ["src/**/*.ts"] },
     "packages/pagerduty": { "project": ["src/**/*.ts"] },
     "packages/hubspot": { "project": ["src/**/*.ts"] },

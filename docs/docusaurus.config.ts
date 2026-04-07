@@ -104,6 +104,7 @@ const config: Config = {
             { label: "HubSpot", to: "/docs/hubspot/overview" },
             { label: "Intercom", to: "/docs/intercom/overview" },
             { label: "Shopify", to: "/docs/shopify/overview" },
+            { label: "Evernote", to: "/docs/evernote/overview" },
           ],
         },
         {
