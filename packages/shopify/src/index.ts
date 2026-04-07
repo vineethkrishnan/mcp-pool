@@ -13,7 +13,9 @@ import { createAuthProvider } from "@vineethnkrishnan/oauth-core";
 import { AUTH_CONFIG } from "./auth-config";
 import { ShopifyService } from "./services/shopify.service";
 import { OrderTools, OrderToolSchemas } from "./tools/order.tools";
+import { OrderWriteTools, OrderWriteToolSchemas } from "./tools/order.write-tools";
 import { ProductTools, ProductToolSchemas } from "./tools/product.tools";
+import { ProductWriteTools, ProductWriteToolSchemas } from "./tools/product.write-tools";
 import { CustomerTools, CustomerToolSchemas } from "./tools/customer.tools";
 import { ShopTools, ShopToolSchemas } from "./tools/shop.tools";
 
@@ -38,7 +40,9 @@ if (process.argv[2] === "auth") {
   // Initialize tool classes
   const tools = {
     orders: new OrderTools(shopifyService),
+    orderWrites: new OrderWriteTools(shopifyService),
     products: new ProductTools(shopifyService),
+    productWrites: new ProductWriteTools(shopifyService),
     customers: new CustomerTools(shopifyService),
     shop: new ShopTools(shopifyService),
   };
@@ -46,7 +50,9 @@ if (process.argv[2] === "auth") {
   // Combine all schemas
   const AllToolSchemas = {
     ...OrderToolSchemas,
+    ...OrderWriteToolSchemas,
     ...ProductToolSchemas,
+    ...ProductWriteToolSchemas,
     ...CustomerToolSchemas,
     ...ShopToolSchemas,
   } as const;
@@ -58,11 +64,17 @@ if (process.argv[2] === "auth") {
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-        name,
-        description: config.description,
-        inputSchema: z.toJSONSchema(config.schema),
-      })),
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+        const tool: Record<string, unknown> = {
+          name,
+          description: config.description,
+          inputSchema: z.toJSONSchema(config.schema),
+        };
+        if ("annotations" in config) {
+          tool.annotations = config.annotations;
+        }
+        return tool;
+      }),
     };
   });
 
@@ -76,9 +88,17 @@ if (process.argv[2] === "auth") {
     toolRegistry[name] = (args) =>
       (tools.orders[name as keyof typeof tools.orders] as ToolHandler)(args);
   }
+  for (const name of Object.keys(OrderWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.orderWrites[name as keyof typeof tools.orderWrites] as ToolHandler)(args);
+  }
   for (const name of Object.keys(ProductToolSchemas)) {
     toolRegistry[name] = (args) =>
       (tools.products[name as keyof typeof tools.products] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(ProductWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.productWrites[name as keyof typeof tools.productWrites] as ToolHandler)(args);
   }
   for (const name of Object.keys(CustomerToolSchemas)) {
     toolRegistry[name] = (args) =>

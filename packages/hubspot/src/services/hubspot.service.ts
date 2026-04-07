@@ -94,6 +94,27 @@ export class HubSpotService {
     return response.json() as Promise<T>;
   }
 
+  private async patchRequest<T>(path: string, body: unknown): Promise<T> {
+    const token = await this.tokenProvider.getAccessToken();
+    const url = `${this.baseUrl}${path}`;
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      this.handleErrorResponse(response.status, response.statusText, errorBody, response.headers);
+    }
+
+    return response.json() as Promise<T>;
+  }
+
   private handleErrorResponse(
     status: number,
     statusText: string,
@@ -159,6 +180,14 @@ export class HubSpotService {
     return this.postRequest<unknown>("/crm/v3/objects/contacts/search", body);
   }
 
+  async createContact(properties: Record<string, string>): Promise<unknown> {
+    return this.postRequest<unknown>("/crm/v3/objects/contacts", { properties });
+  }
+
+  async updateContact(contactId: string, properties: Record<string, string>): Promise<unknown> {
+    return this.patchRequest<unknown>(`/crm/v3/objects/contacts/${contactId}`, { properties });
+  }
+
   // ===========================================================================
   // Deals
   // ===========================================================================
@@ -182,6 +211,55 @@ export class HubSpotService {
     if (associations) params.associations = associations;
 
     return this.request<unknown>(`/crm/v3/objects/deals/${dealId}`, params);
+  }
+
+  async createDeal(properties: Record<string, string>): Promise<unknown> {
+    return this.postRequest<unknown>("/crm/v3/objects/deals", { properties });
+  }
+
+  async updateDealStage(dealId: string, dealstage: string, pipeline?: string): Promise<unknown> {
+    const properties: Record<string, string> = { dealstage };
+    if (pipeline) properties.pipeline = pipeline;
+
+    return this.patchRequest<unknown>(`/crm/v3/objects/deals/${dealId}`, { properties });
+  }
+
+  // ===========================================================================
+  // Notes
+  // ===========================================================================
+
+  async createNote(
+    content: string,
+    associations?: { contactId?: string; dealId?: string },
+  ): Promise<unknown> {
+    const associationsArray: Array<{
+      to: { id: string };
+      types: Array<{ associationCategory: string; associationTypeId: number }>;
+    }> = [];
+
+    if (associations?.contactId) {
+      associationsArray.push({
+        to: { id: associations.contactId },
+        types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 202 }],
+      });
+    }
+
+    if (associations?.dealId) {
+      associationsArray.push({
+        to: { id: associations.dealId },
+        types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }],
+      });
+    }
+
+    const body: Record<string, unknown> = {
+      properties: { hs_note_body: content },
+    };
+
+    if (associationsArray.length > 0) {
+      body.associations = associationsArray;
+    }
+
+    return this.postRequest<unknown>("/crm/v3/objects/notes", body);
   }
 
   // ===========================================================================

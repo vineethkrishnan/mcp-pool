@@ -13,7 +13,9 @@ import { createAuthProvider } from "@vineethnkrishnan/oauth-core";
 import { AUTH_CONFIG } from "./auth-config";
 import { HubSpotService } from "./services/hubspot.service";
 import { ContactTools, ContactToolSchemas } from "./tools/contact.tools";
+import { ContactWriteTools, ContactWriteToolSchemas } from "./tools/contact.write-tools";
 import { DealTools, DealToolSchemas } from "./tools/deal.tools";
+import { DealWriteTools, DealWriteToolSchemas } from "./tools/deal.write-tools";
 import { CompanyTools, CompanyToolSchemas } from "./tools/company.tools";
 
 // Route CLI subcommands before starting MCP server
@@ -28,13 +30,17 @@ if (process.argv[2] === "auth") {
 
   const tools = {
     contacts: new ContactTools(hubspotService),
+    contactWrites: new ContactWriteTools(hubspotService),
     deals: new DealTools(hubspotService),
+    dealWrites: new DealWriteTools(hubspotService),
     companies: new CompanyTools(hubspotService),
   };
 
   const AllToolSchemas = {
     ...ContactToolSchemas,
+    ...ContactWriteToolSchemas,
     ...DealToolSchemas,
+    ...DealWriteToolSchemas,
     ...CompanyToolSchemas,
   } as const;
 
@@ -45,11 +51,17 @@ if (process.argv[2] === "auth") {
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-        name,
-        description: config.description,
-        inputSchema: z.toJSONSchema(config.schema),
-      })),
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+        const tool: Record<string, unknown> = {
+          name,
+          description: config.description,
+          inputSchema: z.toJSONSchema(config.schema),
+        };
+        if ("annotations" in config) {
+          tool.annotations = config.annotations;
+        }
+        return tool;
+      }),
     };
   });
 
@@ -63,9 +75,17 @@ if (process.argv[2] === "auth") {
     toolRegistry[name] = (args) =>
       (tools.contacts[name as keyof typeof tools.contacts] as ToolHandler)(args);
   }
+  for (const name of Object.keys(ContactWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.contactWrites[name as keyof typeof tools.contactWrites] as ToolHandler)(args);
+  }
   for (const name of Object.keys(DealToolSchemas)) {
     toolRegistry[name] = (args) =>
       (tools.deals[name as keyof typeof tools.deals] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(DealWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.dealWrites[name as keyof typeof tools.dealWrites] as ToolHandler)(args);
   }
   for (const name of Object.keys(CompanyToolSchemas)) {
     toolRegistry[name] = (args) =>

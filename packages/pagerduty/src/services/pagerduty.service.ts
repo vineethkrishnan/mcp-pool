@@ -62,6 +62,50 @@ export class PagerDutyService {
     return response.json() as Promise<T>;
   }
 
+  private async mutateRequest<T>(
+    method: string,
+    path: string,
+    body?: Record<string, unknown>,
+    extraHeaders?: Record<string, string>,
+  ): Promise<T> {
+    const url = `${this.baseUrl}${path}`;
+    const headers: Record<string, string> = {
+      Authorization: `Token token=${this.apiKey}`,
+      "Content-Type": "application/json",
+      ...extraHeaders,
+    };
+
+    const response = await fetch(url, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      switch (response.status) {
+        case 401:
+          throw new Error(
+            "Authentication failed. Check your PAGERDUTY_API_KEY. If using EU, verify PAGERDUTY_BASE_URL matches your account region.",
+          );
+        case 403:
+          throw new Error("Access denied. API key may lack required permissions.");
+        case 404:
+          throw new Error("Not found. Check the ID and ensure it exists.");
+        case 429: {
+          const retryAfter = response.headers.get("Ratelimit-Reset") ?? "unknown";
+          throw new Error(`Rate limited by PagerDuty. Retry after ${retryAfter} seconds.`);
+        }
+        default:
+          throw new Error(
+            `PagerDuty API error (${response.status}): ${errorBody || response.statusText}`,
+          );
+      }
+    }
+
+    return response.json() as Promise<T>;
+  }
+
   // ===========================================================================
   // Incidents
   // ===========================================================================
@@ -80,6 +124,62 @@ export class PagerDutyService {
   async getIncident(incidentId: string): Promise<unknown> {
     const response = await this.request<{ incident: unknown }>(`/incidents/${incidentId}`);
     return response.incident;
+  }
+
+  async acknowledgeIncident(incidentId: string, fromEmail: string): Promise<unknown> {
+    return this.mutateRequest<unknown>(
+      "PUT",
+      `/incidents`,
+      {
+        incidents: [{ id: incidentId, type: "incident_reference", status: "acknowledged" }],
+      },
+      { From: fromEmail },
+    );
+  }
+
+  async resolveIncident(incidentId: string, fromEmail: string): Promise<unknown> {
+    return this.mutateRequest<unknown>(
+      "PUT",
+      `/incidents`,
+      {
+        incidents: [{ id: incidentId, type: "incident_reference", status: "resolved" }],
+      },
+      { From: fromEmail },
+    );
+  }
+
+  async reassignIncident(
+    incidentId: string,
+    userIds: string[],
+    fromEmail: string,
+  ): Promise<unknown> {
+    return this.mutateRequest<unknown>(
+      "PUT",
+      `/incidents`,
+      {
+        incidents: [
+          {
+            id: incidentId,
+            type: "incident_reference",
+            assignments: userIds.map((id) => ({
+              assignee: { id, type: "user_reference" },
+            })),
+          },
+        ],
+      },
+      { From: fromEmail },
+    );
+  }
+
+  async addIncidentNote(incidentId: string, content: string, fromEmail: string): Promise<unknown> {
+    return this.mutateRequest<unknown>(
+      "POST",
+      `/incidents/${incidentId}/notes`,
+      {
+        note: { content },
+      },
+      { From: fromEmail },
+    );
   }
 
   // ===========================================================================

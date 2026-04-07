@@ -1,7 +1,8 @@
 {
   "name": "@vineethnkrishnan/linear-mcp",
   "version": "0.1.3",
-  "description": "A read-only MCP server for Linear API, enabling AI assistants to query issues, projects, and teams via GraphQL.",
+  "description": "An MCP server for Linear API, enabling AI assistants to query issues, projects, and teams via GraphQL.",
+  "mcpName": "io.github.vineethkrishnan/linear-mcp",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {

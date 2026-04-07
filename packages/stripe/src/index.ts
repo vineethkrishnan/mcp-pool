@@ -21,6 +21,9 @@ import {
   TaxTools,
   TaxToolSchemas,
 } from "./tools/reporting.tools";
+import { RefundWriteTools, RefundWriteToolSchemas } from "./tools/refund.write-tools";
+import { CustomerWriteTools, CustomerWriteToolSchemas } from "./tools/customer.write-tools";
+import { BillingWriteTools, BillingWriteToolSchemas } from "./tools/billing.write-tools";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 
@@ -40,9 +43,12 @@ const tools = {
   checkout: new CheckoutTools(stripeService),
   reporting: new ReportingTools(stripeService),
   tax: new TaxTools(stripeService),
+  refundWrite: new RefundWriteTools(stripeService),
+  customerWrite: new CustomerWriteTools(stripeService),
+  billingWrite: new BillingWriteTools(stripeService),
 };
 
-// Combine all schemas
+// Combine all schemas (read + write)
 const AllToolSchemas = {
   ...CustomerToolSchemas,
   ...PaymentToolSchemas,
@@ -51,6 +57,9 @@ const AllToolSchemas = {
   ...CheckoutToolSchemas,
   ...ReportingToolSchemas,
   ...TaxToolSchemas,
+  ...RefundWriteToolSchemas,
+  ...CustomerWriteToolSchemas,
+  ...BillingWriteToolSchemas,
 } as const;
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -70,14 +79,21 @@ const server = new Server(
 
 /**
  * Handler for listing available tools.
+ * Write tools include annotations to signal mutability and destructiveness.
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
-    tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-      name,
-      description: config.description,
-      inputSchema: z.toJSONSchema(config.schema),
-    })),
+    tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+      const tool: Record<string, unknown> = {
+        name,
+        description: config.description,
+        inputSchema: z.toJSONSchema(config.schema),
+      };
+      if ("annotations" in config) {
+        tool.annotations = config.annotations;
+      }
+      return tool;
+    }),
   };
 });
 
@@ -114,6 +130,18 @@ for (const name of Object.keys(ReportingToolSchemas)) {
 }
 for (const name of Object.keys(TaxToolSchemas)) {
   toolRegistry[name] = (args) => (tools.tax[name as keyof TaxTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(RefundWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.refundWrite[name as keyof RefundWriteTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(CustomerWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.customerWrite[name as keyof CustomerWriteTools] as ToolHandler)(args);
+}
+for (const name of Object.keys(BillingWriteToolSchemas)) {
+  toolRegistry[name] = (args) =>
+    (tools.billingWrite[name as keyof BillingWriteTools] as ToolHandler)(args);
 }
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {

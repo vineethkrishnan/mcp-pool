@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Datadog MCP Server — give AI assistants read-only access to your Datadog monitoring data.
+description: Datadog MCP Server — give AI assistants access to your Datadog monitoring data.
 ---
 
 # Datadog MCP Server
 
-A Model Context Protocol server that provides AI assistants with comprehensive, **read-only** access to the Datadog API.
+A Model Context Protocol server that provides AI assistants with comprehensive access to the Datadog API.
 
 ## What can it do?
 
@@ -21,11 +21,11 @@ Ask your AI assistant questions like:
 
 ## Features
 
-- **6 read-only tools** across 3 categories (Monitors, Metrics, Events)
+- **6 tools** across 3 categories (Monitors, Metrics, Events)
 - **Multi-site support** — works with all 6 Datadog regions (US1, US3, US5, EU, AP1, Gov)
 - **LLM-optimized responses** — internal metadata stripped, metric series downsampled with summary statistics
 - **Type-safe** — built with TypeScript and Zod schema validation
-- **Security-first** — read-only by design, uses Datadog API + Application key pair
+- **Security-first** — uses Datadog API + Application key pair with scoped permissions
 
 ## Supported Resources
 

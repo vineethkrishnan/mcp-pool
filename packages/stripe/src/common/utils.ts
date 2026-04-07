@@ -63,11 +63,15 @@ export function transformStripeResponse(data: unknown): unknown {
 
 /**
  * Transforms Stripe data and wraps it in the MCP tool response format.
+ * Optionally prepends an action message to provide context for write operations.
  */
-export function formatMcpResponse(data: unknown): McpToolResponse {
+export function formatMcpResponse(data: unknown, actionMessage?: string): McpToolResponse {
   const transformed = transformStripeResponse(data);
+  const parts: string[] = [];
+  if (actionMessage) parts.push(actionMessage);
+  parts.push(JSON.stringify(transformed, null, 2));
   return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
+    content: [{ type: "text", text: parts.join("\n\n") }],
   };
 }
 

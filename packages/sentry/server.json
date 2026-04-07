@@ -1,0 +1,44 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.vineethkrishnan/sentry-mcp",
+  "description": "An MCP server for Sentry API, enabling AI assistants to investigate errors and debug issues. Supports self-hosted instances.",
+  "repository": {
+    "url": "https://github.com/vineethkrishnan/mcp-pool",
+    "source": "github",
+    "subfolder": "packages/sentry"
+  },
+  "version": "0.1.4",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@vineethnkrishnan/sentry-mcp",
+      "version": "0.1.4",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "Sentry authentication token",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true,
+          "name": "SENTRY_AUTH_TOKEN"
+        },
+        {
+          "description": "Sentry API base URL (for self-hosted instances)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SENTRY_BASE_URL"
+        },
+        {
+          "description": "Default Sentry organization slug",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SENTRY_ORG"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 {
   "name": "@vineethnkrishnan/hubspot-mcp",
   "version": "0.1.3",
-  "description": "A read-only MCP server for HubSpot CRM API, enabling AI assistants to query contacts, deals, and companies.",
+  "description": "An MCP server for HubSpot CRM API, enabling AI assistants to query contacts, deals, and companies.",
+  "mcpName": "io.github.vineethkrishnan/hubspot-mcp",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {

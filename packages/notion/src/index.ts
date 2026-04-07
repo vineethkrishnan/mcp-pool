@@ -16,6 +16,7 @@ import { SearchTools, SearchToolSchemas } from "./tools/search.tools";
 import { PageTools, PageToolSchemas } from "./tools/page.tools";
 import { DatabaseTools, DatabaseToolSchemas } from "./tools/database.tools";
 import { UserTools, UserToolSchemas } from "./tools/user.tools";
+import { PageWriteTools, PageWriteToolSchemas } from "./tools/page.write-tools";
 
 // Route CLI subcommands before starting MCP server
 if (process.argv[2] === "auth") {
@@ -32,6 +33,7 @@ if (process.argv[2] === "auth") {
   const tools = {
     search: new SearchTools(notionService),
     pages: new PageTools(notionService),
+    pageWrite: new PageWriteTools(notionService),
     databases: new DatabaseTools(notionService),
     users: new UserTools(notionService),
   };
@@ -40,6 +42,7 @@ if (process.argv[2] === "auth") {
   const AllToolSchemas = {
     ...SearchToolSchemas,
     ...PageToolSchemas,
+    ...PageWriteToolSchemas,
     ...DatabaseToolSchemas,
     ...UserToolSchemas,
   } as const;
@@ -51,11 +54,17 @@ if (process.argv[2] === "auth") {
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
-      tools: Object.entries(AllToolSchemas).map(([name, config]) => ({
-        name,
-        description: config.description,
-        inputSchema: z.toJSONSchema(config.schema),
-      })),
+      tools: Object.entries(AllToolSchemas).map(([name, config]) => {
+        const tool: Record<string, unknown> = {
+          name,
+          description: config.description,
+          inputSchema: z.toJSONSchema(config.schema),
+        };
+        if ("annotations" in config) {
+          tool.annotations = config.annotations;
+        }
+        return tool;
+      }),
     };
   });
 
@@ -72,6 +81,10 @@ if (process.argv[2] === "auth") {
   for (const name of Object.keys(PageToolSchemas)) {
     toolRegistry[name] = (args) =>
       (tools.pages[name as keyof typeof tools.pages] as ToolHandler)(args);
+  }
+  for (const name of Object.keys(PageWriteToolSchemas)) {
+    toolRegistry[name] = (args) =>
+      (tools.pageWrite[name as keyof typeof tools.pageWrite] as ToolHandler)(args);
   }
   for (const name of Object.keys(DatabaseToolSchemas)) {
     toolRegistry[name] = (args) =>

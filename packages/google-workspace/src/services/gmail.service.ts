@@ -7,7 +7,11 @@ export class GmailService {
 
   constructor(private auth: GoogleAuthService) {}
 
-  private async request<T>(path: string, params?: Record<string, string | number>): Promise<T> {
+  private async request<T>(
+    path: string,
+    params?: Record<string, string | number>,
+    options?: { method?: string; body?: unknown },
+  ): Promise<T> {
     const token = await this.auth.getAccessToken();
     const url = new URL(`${this.baseUrl}${path}`);
 
@@ -19,12 +23,19 @@ export class GmailService {
       }
     }
 
-    const response = await fetch(url.toString(), {
+    const fetchOptions: RequestInit = {
+      method: options?.method ?? "GET",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-    });
+    };
+
+    if (options?.body !== undefined) {
+      fetchOptions.body = JSON.stringify(options.body);
+    }
+
+    const response = await fetch(url.toString(), fetchOptions);
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => "");
@@ -32,7 +43,7 @@ export class GmailService {
         case 401:
           throw new Error("Gmail authentication failed. Your access token may be expired.");
         case 403:
-          throw new Error("Gmail access denied. Token may lack the gmail.readonly scope.");
+          throw new Error("Gmail access denied. Token may lack the required Gmail scope.");
         case 404:
           throw new Error("Gmail resource not found. Check the message ID.");
         case 429:
@@ -99,5 +110,47 @@ export class GmailService {
 
   async searchMessages(query: string, maxResults: number = 10): Promise<unknown> {
     return this.listMessages(query, maxResults);
+  }
+
+  private buildRfc2822Message(
+    to: string,
+    subject: string,
+    body: string,
+    cc?: string,
+    bcc?: string,
+  ): string {
+    const headers = [`To: ${to}`];
+    if (cc) headers.push(`Cc: ${cc}`);
+    if (bcc) headers.push(`Bcc: ${bcc}`);
+    headers.push(`Subject: ${subject}`);
+    headers.push("Content-Type: text/plain; charset=utf-8");
+
+    return `${headers.join("\r\n")}\r\n\r\n${body}`;
+  }
+
+  async sendEmail(
+    to: string,
+    subject: string,
+    body: string,
+    cc?: string,
+    bcc?: string,
+  ): Promise<unknown> {
+    const message = this.buildRfc2822Message(to, subject, body, cc, bcc);
+    const raw = Buffer.from(message).toString("base64url");
+
+    return this.request<unknown>("/messages/send", undefined, {
+      method: "POST",
+      body: { raw },
+    });
+  }
+
+  async createDraft(to: string, subject: string, body: string): Promise<unknown> {
+    const message = this.buildRfc2822Message(to, subject, body);
+    const raw = Buffer.from(message).toString("base64url");
+
+    return this.request<unknown>("/drafts", undefined, {
+      method: "POST",
+      body: { message: { raw } },
+    });
   }
 }

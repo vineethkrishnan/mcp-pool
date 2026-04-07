@@ -6,7 +6,7 @@ description: MCP Pool — a curated collection of MCP servers for AI assistants.
 
 # MCP Pool
 
-A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct, read-only access to popular SaaS APIs.
+A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct access to popular SaaS APIs.
 
 ## What is MCP?
 
@@ -31,7 +31,6 @@ The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standa
 ## Why MCP Pool?
 
 - **Ready to use** — Install via `npx`, configure one environment variable, done.
-- **Read-only by default** — Safe for AI-driven workflows. No accidental mutations.
 - **LLM-optimized** — Responses are cleaned and transformed to minimize token usage.
 - **Multi-IDE support** — Works with Claude Desktop, VS Code, Cursor, Windsurf, JetBrains, and Claude Code CLI.
 

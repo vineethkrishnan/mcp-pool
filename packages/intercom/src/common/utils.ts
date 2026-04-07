@@ -167,12 +167,19 @@ export function transformIntercomResponse(data: unknown): unknown {
 
 /**
  * Transforms data and wraps it in the MCP tool response format.
+ * Optionally prepends an action message (e.g., confirmation of a write operation).
  */
-export function formatMcpResponse(data: unknown): McpToolResponse {
+export function formatMcpResponse(data: unknown, actionMessage?: string): McpToolResponse {
   const transformed = transformIntercomResponse(data);
-  return {
-    content: [{ type: "text", text: JSON.stringify(transformed, null, 2) }],
-  };
+  const content: McpToolResponse["content"] = [];
+
+  if (actionMessage) {
+    content.push({ type: "text", text: actionMessage });
+  }
+
+  content.push({ type: "text", text: JSON.stringify(transformed, null, 2) });
+
+  return { content };
 }
 
 /**

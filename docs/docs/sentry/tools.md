@@ -6,7 +6,7 @@ description: Complete reference for all 8 Sentry MCP tools with parameters and e
 
 # Tools Reference
 
-All tools are **read-only**. They retrieve data from Sentry but never create, update, or delete anything.
+Tools provide both read and write access to Sentry.
 
 ## Organizations
 

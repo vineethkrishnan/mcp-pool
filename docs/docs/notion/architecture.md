@@ -87,7 +87,6 @@ This reduces token usage and keeps responses focused on meaningful data.
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
 - **Integration-scoped access** — Notion integrations can only access pages and databases explicitly shared with them via the "Connect to" menu
 - **No data persistence** — the server is stateless and does not store any Notion data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened

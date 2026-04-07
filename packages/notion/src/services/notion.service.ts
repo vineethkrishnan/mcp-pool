@@ -12,7 +12,11 @@ export class NotionService {
     this.notionVersion = config.notionVersion;
   }
 
-  private async request<T>(method: "GET" | "POST", path: string, body?: unknown): Promise<T> {
+  private async request<T>(
+    method: "GET" | "POST" | "PATCH",
+    path: string,
+    body?: unknown,
+  ): Promise<T> {
     const token = await this.tokenProvider.getAccessToken();
     const url = `${this.baseUrl}${path}`;
 
@@ -25,7 +29,7 @@ export class NotionService {
       },
     };
 
-    if (body && method === "POST") {
+    if (body && (method === "POST" || method === "PATCH")) {
       options.body = JSON.stringify(body);
     }
 
@@ -108,6 +112,39 @@ export class NotionService {
 
     await fetchChildren(blockId, 0);
     return allBlocks;
+  }
+
+  // ===========================================================================
+  // Page write operations
+  // ===========================================================================
+
+  async createPage(
+    parent: { database_id?: string; page_id?: string },
+    properties: Record<string, unknown>,
+    children?: unknown[],
+  ): Promise<unknown> {
+    const body: Record<string, unknown> = { parent, properties };
+    if (children) body.children = children;
+    return this.request<unknown>("POST", "/pages", body);
+  }
+
+  async updatePageProperties(
+    pageId: string,
+    properties: Record<string, unknown>,
+  ): Promise<unknown> {
+    return this.request<unknown>("PATCH", `/pages/${pageId}`, { properties });
+  }
+
+  async archivePage(pageId: string): Promise<unknown> {
+    return this.request<unknown>("PATCH", `/pages/${pageId}`, { archived: true });
+  }
+
+  // ===========================================================================
+  // Block write operations
+  // ===========================================================================
+
+  async appendBlocks(blockId: string, children: unknown[]): Promise<unknown> {
+    return this.request<unknown>("PATCH", `/blocks/${blockId}/children`, { children });
   }
 
   // ===========================================================================

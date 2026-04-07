@@ -120,4 +120,51 @@ export class StripeService {
     const taxRates = await this.stripe.taxRates.list({ limit });
     return taxRates.data;
   }
+
+  // --- Refunds ---
+  async createRefund(paymentIntentId: string, amount?: number, reason?: string): Promise<unknown> {
+    const params: Stripe.RefundCreateParams = { payment_intent: paymentIntentId };
+    if (amount) params.amount = amount;
+    if (reason) params.reason = reason as Stripe.RefundCreateParams["reason"];
+    return this.stripe.refunds.create(params);
+  }
+
+  // --- Customer Mutations ---
+  async updateCustomerMetadata(
+    customerId: string,
+    metadata: Record<string, string>,
+  ): Promise<unknown> {
+    return this.stripe.customers.update(customerId, { metadata });
+  }
+
+  // --- Subscription Mutations ---
+  async updateSubscription(
+    subscriptionId: string,
+    cancelAtPeriodEnd?: boolean,
+    priceId?: string,
+  ): Promise<unknown> {
+    const params: Stripe.SubscriptionUpdateParams = {};
+    if (cancelAtPeriodEnd !== undefined) params.cancel_at_period_end = cancelAtPeriodEnd;
+    if (priceId) params.items = [{ price: priceId }];
+    return this.stripe.subscriptions.update(subscriptionId, params);
+  }
+
+  // --- Invoice Mutations ---
+  async createInvoice(
+    customerId: string,
+    description?: string,
+    autoAdvance?: boolean,
+  ): Promise<unknown> {
+    const params: Stripe.InvoiceCreateParams = { customer: customerId };
+    if (description) params.description = description;
+    if (autoAdvance !== undefined) params.auto_advance = autoAdvance;
+    return this.stripe.invoices.create(params);
+  }
+
+  async finalizeInvoice(invoiceId: string, autoAdvance?: boolean): Promise<unknown> {
+    return this.stripe.invoices.finalizeInvoice(
+      invoiceId,
+      autoAdvance !== undefined ? { auto_advance: autoAdvance } : undefined,
+    );
+  }
 }

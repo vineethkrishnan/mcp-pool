@@ -65,6 +65,46 @@ export class SentryService {
     return response.json() as Promise<T>;
   }
 
+  private async mutateRequest<T>(
+    method: string,
+    path: string,
+    body?: Record<string, unknown>,
+  ): Promise<T> {
+    const url = `${this.baseApiUrl}${path}`;
+    const response = await fetch(url, {
+      method,
+      headers: {
+        Authorization: `Bearer ${this.authToken}`,
+        "Content-Type": "application/json",
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      switch (response.status) {
+        case 401:
+          throw new Error("Authentication failed. Check your SENTRY_AUTH_TOKEN.");
+        case 403:
+          throw new Error(
+            "Access denied. Token may lack required scopes (org:read, project:read, event:read).",
+          );
+        case 404:
+          throw new Error("Not found. Check the ID and ensure you have access.");
+        case 429: {
+          const retryAfter = response.headers.get("Retry-After") ?? "unknown";
+          throw new Error(`Rate limited by Sentry. Retry after ${retryAfter} seconds.`);
+        }
+        default:
+          throw new Error(
+            `Sentry API error (${response.status}): ${errorBody || response.statusText}`,
+          );
+      }
+    }
+
+    return response.json() as Promise<T>;
+  }
+
   // Organizations
   async listOrganizations(): Promise<unknown[]> {
     return this.request<unknown[]>("/organizations/");
@@ -117,5 +157,42 @@ export class SentryService {
 
   async getLatestEvent(issueId: string): Promise<unknown> {
     return this.request<unknown>(`/issues/${issueId}/events/latest/`);
+  }
+
+  // Issue mutations
+  async resolveIssue(issueId: string): Promise<unknown> {
+    return this.mutateRequest<unknown>("PUT", `/issues/${issueId}/`, { status: "resolved" });
+  }
+
+  async unresolveIssue(issueId: string): Promise<unknown> {
+    return this.mutateRequest<unknown>("PUT", `/issues/${issueId}/`, { status: "unresolved" });
+  }
+
+  async ignoreIssue(
+    issueId: string,
+    ignoreDuration?: number,
+    ignoreCount?: number,
+    ignoreWindow?: number,
+  ): Promise<unknown> {
+    const body: Record<string, unknown> = { status: "ignored" };
+    if (ignoreDuration || ignoreCount || ignoreWindow) {
+      body.statusDetails = {};
+      if (ignoreDuration)
+        (body.statusDetails as Record<string, unknown>).ignoreDuration = ignoreDuration;
+      if (ignoreCount) (body.statusDetails as Record<string, unknown>).ignoreCount = ignoreCount;
+      if (ignoreWindow) (body.statusDetails as Record<string, unknown>).ignoreWindow = ignoreWindow;
+    }
+    return this.mutateRequest<unknown>("PUT", `/issues/${issueId}/`, body);
+  }
+
+  async assignIssue(issueId: string, assignee: string): Promise<unknown> {
+    return this.mutateRequest<unknown>("PUT", `/issues/${issueId}/`, { assignedTo: assignee });
+  }
+
+  async mergeIssues(issueId: string, issueIds: string[]): Promise<unknown> {
+    return this.mutateRequest<unknown>("PUT", `/issues/${issueId}/`, {
+      merge: 1,
+      id: issueIds,
+    });
   }
 }

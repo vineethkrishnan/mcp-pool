@@ -138,4 +138,65 @@ export class IntercomService {
       pagination: { per_page: limit },
     });
   }
+
+  // =========================================================================
+  // Conversation write operations
+  // =========================================================================
+
+  async replyToConversation(
+    conversationId: string,
+    body: string,
+    adminId: string,
+  ): Promise<unknown> {
+    return this.postRequest<unknown>(`/conversations/${conversationId}/reply`, {
+      message_type: "comment",
+      type: "admin",
+      admin_id: adminId,
+      body,
+    });
+  }
+
+  async closeConversation(conversationId: string, adminId: string): Promise<unknown> {
+    return this.postRequest<unknown>(`/conversations/${conversationId}/parts`, {
+      message_type: "close",
+      type: "admin",
+      admin_id: adminId,
+    });
+  }
+
+  async snoozeConversation(
+    conversationId: string,
+    adminId: string,
+    snoozedUntil: number,
+  ): Promise<unknown> {
+    return this.postRequest<unknown>(`/conversations/${conversationId}/parts`, {
+      message_type: "snoozed",
+      admin_id: adminId,
+      snoozed_until: snoozedUntil,
+    });
+  }
+
+  async assignConversation(
+    conversationId: string,
+    adminId: string,
+    assigneeId: string,
+    _assigneeType: string = "admin",
+  ): Promise<unknown> {
+    return this.postRequest<unknown>(`/conversations/${conversationId}/parts`, {
+      message_type: "assignment",
+      type: "admin",
+      admin_id: adminId,
+      assignee_id: assigneeId,
+      body: "",
+    });
+  }
+
+  async addNote(conversationId: string, adminId: string, body: string): Promise<unknown> {
+    return this.postRequest<unknown>(`/conversations/${conversationId}/reply`, {
+      message_type: "note",
+      type: "admin",
+      admin_id: adminId,
+      body,
+    });
+  }
 }

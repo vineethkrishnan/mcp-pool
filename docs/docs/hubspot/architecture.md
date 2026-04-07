@@ -91,7 +91,6 @@ This reduces token usage while preserving the essential linked object IDs that t
 
 ## Security Model
 
-- **Read-only by design** — no write operations are exposed
 - **Private app tokens** — uses HubSpot private app access tokens with granular scope control
 - **No data persistence** — the server is stateless and does not store any HubSpot data
 - **Stdio transport** — communication happens over stdin/stdout, no network ports opened
