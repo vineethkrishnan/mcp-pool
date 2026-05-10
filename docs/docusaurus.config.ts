@@ -7,7 +7,7 @@ const config: Config = {
   tagline: "A comprehensive collection of Model Context Protocol (MCP) servers for AI assistants.",
   favicon: "img/favicon.ico",
 
-  url: "https://mcp-pool.vineethnk.in",
+  url: "https://mcp-pool.vinelabs.de",
   baseUrl: "/",
 
   organizationName: "vineethkrishnan",

@@ -5,7 +5,7 @@
 [![Security](https://github.com/vineethkrishnan/mcp-pool/actions/workflows/security.yml/badge.svg)](https://github.com/vineethkrishnan/mcp-pool/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[Documentation](https://mcp-pool.vineethnk.in) | [npm](https://www.npmjs.com/~vineethnkrishnan) | [GitHub](https://github.com/vineethkrishnan/mcp-pool)
+[Documentation](https://mcp-pool.vinelabs.de) | [npm](https://www.npmjs.com/~vineethnkrishnan) | [GitHub](https://github.com/vineethkrishnan/mcp-pool)
 
 A curated collection of **Model Context Protocol (MCP) servers** that give AI assistants direct access to popular SaaS APIs — no dashboard switching required.
 
@@ -143,7 +143,7 @@ Enforced via commitlint + husky pre-commit hooks.
 
 ## Documentation
 
-Visit the [documentation site](https://mcp-pool.vineethnk.in) for detailed guides on each MCP server.
+Visit the [documentation site](https://mcp-pool.vinelabs.de) for detailed guides on each MCP server.
 
 ---
 
