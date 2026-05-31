@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.2.0...stripe-mcp-v1.2.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* **deps:** patch transitive vulnerabilities flagged by dependabot ([#33](https://github.com/vineethkrishnan/mcp-pool/issues/33)) ([fe335d0](https://github.com/vineethkrishnan/mcp-pool/commit/fe335d0d70c785964160bc059603f7498c5e5f48))
+
 ## [1.2.0](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.1.0...stripe-mcp-v1.2.0) (2026-04-07)
 
 

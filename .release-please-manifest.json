@@ -1,5 +1,5 @@
 {
-  "packages/stripe": "1.2.0",
+  "packages/stripe": "1.2.1",
   "packages/sentry": "0.1.6",
   "packages/notion": "0.1.5",
   "packages/linear": "0.1.5",
