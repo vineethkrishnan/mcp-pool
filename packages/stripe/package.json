@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "stripe": "^21.0.1",
+    "stripe": "^22.2.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -51,7 +51,7 @@
     "@types/node": "^25.8.0",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.9",
-    "typescript": "^5.7.0"
+    "typescript": "^6.0.3"
   },
   "overrides": {
     "qs": "^6.15.2",
