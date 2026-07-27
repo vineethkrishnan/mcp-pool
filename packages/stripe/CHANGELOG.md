@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.2.1...stripe-mcp-v1.2.2) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** bump stripe from 21.0.1 to 22.3.0 ([#42](https://github.com/vineethkrishnan/mcp-pool/issues/42)) ([e66f061](https://github.com/vineethkrishnan/mcp-pool/commit/e66f06124b7730f6aa0a5e8c41b405cb110012c0))
+
 ## [1.2.1](https://github.com/vineethkrishnan/mcp-pool/compare/stripe-mcp-v1.2.0...stripe-mcp-v1.2.1) (2026-05-31)
 
 
