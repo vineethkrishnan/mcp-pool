@@ -51,7 +51,7 @@
     "@types/node": "^26.1.0",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.9",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "overrides": {
     "qs": "^6.15.2",
