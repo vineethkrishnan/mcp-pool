@@ -27,16 +27,16 @@
   "author": "Vineeth Krishnan",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^21.2.0",
+    "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.6.0",
+    "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.0.0",
     "husky": "^9.0.0",
-    "lint-staged": "^17.0.8",
-    "prettier": "^3.8.3",
+    "lint-staged": "^17.4.1",
+    "prettier": "^3.9.6",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.3"
+    "typescript-eslint": "^8.69.0"
   },
   "lint-staged": {
     "*.ts": [
