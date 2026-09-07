@@ -46,8 +46,8 @@
   },
   "dependencies": {
     "@vineethnkrishnan/oauth-core": "*",
-    "@modelcontextprotocol/sdk": "^1.29.0",
-    "zod": "^4.4.3"
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
